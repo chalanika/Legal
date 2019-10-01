@@ -1,0 +1,26 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
+            <h1>Easy Case Log In</h1>
+            <form role="form" [formGroup]="loginForm">
+                <div class="form-content">
+                    <div class="form-group">
+                        <input formControlName="nic" type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="{{ 'NIC' | translate }}">
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <input formControlName="email" type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="{{ 'Email' | translate }}">
+                    </div> -->
+
+                    <div class="form-group">
+                        <input formControlName="password" type="password" class="form-control input-underline input-lg" id="" placeholder="{{ 'Password' | translate }}">
+                    </div>
+                </div>
+                <a class="btn rounded-btn" (click)="onLoggedin()">{{ 'Log in' | translate }}</a>
+                &nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a>
+            </form>
+        </div>
+    </div>
+</div>
