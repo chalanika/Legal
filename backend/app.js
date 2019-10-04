@@ -19,7 +19,8 @@ app.use(cors({
 
 var mongoose =require('mongoose');
 
-mongoose.connect('mongodb://localhost/easycase',{ useNewUrlParser: true });
+mongoose.connect('mongodb+srv://Project_Admin:6PX54p3MQO0BSIUV@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
+.catch((err)=>console.error(err));
 
 //passport
 var passport = require('passport');
@@ -74,4 +75,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.listen(3000, ()=>console.log("server start"));
 module.exports = app;
