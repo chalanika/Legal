@@ -5,13 +5,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LanguageTranslationModule } from './shared/modules/language-translation/language-translation.module';
 import {UserService} from './user.service';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { ReactiveFormsModule , FormsModule } from '@angular/forms';
 import { FileComponent } from './file/file.component';
 import {FileUploadModule} from 'ng2-file-upload';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
     imports: [
@@ -23,9 +24,11 @@ import {FileUploadModule} from 'ng2-file-upload';
         AppRoutingModule,
         FormsModule,
         FileUploadModule,
+        NgbModule,
         ReactiveFormsModule,
+        
     ],
-    declarations: [AppComponent, FileComponent],
+    declarations: [AppComponent, FileComponent, HomeComponent],
     providers: [AuthGuard , UserService],
     bootstrap: [AppComponent]
 })
