@@ -19,12 +19,13 @@ app.use(cors({
 
 var mongoose =require('mongoose');
 
-mongoose.connect('mongodb+srv://Project_Admin:6PX54p3MQO0BSIUV@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
-.catch((err)=>console.error(err));
+mongoose.connect('mongodb+srv://Project_Admin:eJkvKiet2yQClRBE@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true })
+  .then(()=>console.log("connect successfully"))
+  .catch((err)=>console.error(err));
 
 //passport
 var passport = require('passport');
-var session = require('express-session');
+var session = require('express-session');   
 const MongoStore = require('connect-mongo')(session);
 app.use(session({
   name:'myname.sid',
