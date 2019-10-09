@@ -25,7 +25,7 @@
             <i class="fa fa-fw fa-wrench"></i>&nbsp;
             <span>{{ 'Report' | translate }}</span>
         </a>
-        <a class="list-group-item" href="javascript:void(0)">
+        <a routerLink="/profile" class="list-group-item" href="javascript:void(0)">
             <i class="fa fa-th-list"></i>&nbsp;
             <span>{{ 'Profile' | translate }}</span>
         </a>
@@ -121,7 +121,7 @@
                 <li class="nested" [class.expand]="showMenu === 'profile'">
                     <ul class="submenu">
                         <li>
-                            <a href="javascript:void(0)">
+                            <a routerLink="/profile" href="javascript:void(0)" >
                                 <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
                             </a>
                         </li>

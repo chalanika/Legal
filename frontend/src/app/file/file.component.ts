@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserService } from 'src/app/user.service';
 import { FileSelectDirective, FileUploader} from 'ng2-file-upload';
 import { FileService } from '../file.service';
-import {saveAs} from 'file-saver';
+import { saveAs } from 'file-saver';
 
 const uri = 'http://localhost:3000/file/upload'; // in original app use 4200
 @Component({
@@ -67,7 +67,7 @@ export class FileComponent implements OnInit {
 
 
   ngOnInit() {
-    this.isActive = false;
+        this.isActive = false;
         this.collapsed = false;
         this.showMenu = '';
         this.pushRightClass = 'push-right';
