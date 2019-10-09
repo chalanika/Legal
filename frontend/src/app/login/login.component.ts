@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this._user.login(JSON.stringify(this.loginForm.value))
         .subscribe(
             data=>{console.log(data);this._router.navigate(['/dashboard']);} ,
-            error => console.error(error)
+            error => console.log(error)
         )
         localStorage.setItem('isLoggedin', 'true');
     }

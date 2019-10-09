@@ -24,10 +24,13 @@ async function addToDB(req, res) {
 
   try {
     doc = await user.save();
+    console.log(doc);
     return res.status(201).json(doc);
   }
   catch (err) {
+    console.log(err);
     return res.status(501).json(err);
+    
   }
 }
 
