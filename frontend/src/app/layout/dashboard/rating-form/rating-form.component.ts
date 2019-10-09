@@ -26,6 +26,7 @@ export class RatingFormComponent implements OnInit {
 
   closeResult: string;
   currentRate = 0;
+  
   @ViewChild('content') content
 
   constructor(private modalService: NgbModal) { }

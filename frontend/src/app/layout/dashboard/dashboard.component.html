@@ -63,4 +63,35 @@
 </div>
 
 <!-- rating form modal -->
-<app-rating-form></app-rating-form>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">rate for the lawyer</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- rating form -->
+  
+      <form  >
+        <ngb-rating [(rate)]="currentRate" max="5">
+          <ng-template let-fill="fill" let-index="index">
+            <span class="star" [class.filled]="fill === 100" [class.bad]="index <5">&#9733;</span>
+          </ng-template>
+        </ngb-rating>
+  
+        <div *ngIf="currentRate">
+          <label>Write a feedback</label>
+          <textarea class="form-control mt-2" rows="2"></textarea>
+        </div>
+  
+      </form>
+  
+    </div>
+  
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+  </ng-template>
