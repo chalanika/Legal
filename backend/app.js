@@ -5,8 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser'); //
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./routes/index');  // 1F4lkl1r891A3syQ
+var usersRouter = require('./routes/users'); // admin xFVgzsJmhA4hYTtK
 var fileRoutes = require('./routes/file');
 
 var cors= require('cors');
@@ -19,9 +19,17 @@ app.use(cors({
 
 var mongoose =require('mongoose');
 
+<<<<<<< HEAD
 mongoose.connect('mongodb+srv://Project_Admin:eJkvKiet2yQClRBE@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true })
   .then(()=>console.log("connect successfully"))
   .catch((err)=>console.error(err));
+=======
+mongoose.connect('mongodb+srv://Admin:NDNtwMqPTwBP9byG@legal-vyrsv.mongodb.net/LeagelretryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
+.catch((err)=>console.error(err));
+ 
+// mongoose.connect('mongodb://localhost/easycase',{ useNewUrlParser: true , useCreateIndex: true , useFindAndModify: false })
+// .then(() => console.log('DB connection successfull'));
+>>>>>>> 56fc032dcae3d310cfa911deb3fdc89d4d29dbfd
 
 //passport
 var passport = require('passport');
@@ -76,6 +84,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(3000, ()=>console.log("server started"));
+// app.listen(3000, ()=>console.log("server started"));
 
 module.exports = app;

@@ -12,6 +12,7 @@ import { AuthGuard } from './shared';
 import { ReactiveFormsModule , FormsModule } from '@angular/forms';
 import { FileComponent } from './file/file.component';
 import {FileUploadModule} from 'ng2-file-upload';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
     imports: [
@@ -27,7 +28,7 @@ import {FileUploadModule} from 'ng2-file-upload';
         ReactiveFormsModule,
         
     ],
-    declarations: [AppComponent, FileComponent],
+    declarations: [AppComponent, FileComponent, HomeComponent],
     providers: [AuthGuard , UserService],
     bootstrap: [AppComponent]
 })
