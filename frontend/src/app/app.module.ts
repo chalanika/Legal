@@ -13,6 +13,7 @@ import { ReactiveFormsModule , FormsModule } from '@angular/forms';
 import { FileComponent } from './file/file.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,7 @@ import { HomeComponent } from './home/home.component';
         ReactiveFormsModule,
         
     ],
-    declarations: [AppComponent, FileComponent, HomeComponent],
+    declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent],
     providers: [AuthGuard , UserService],
     bootstrap: [AppComponent]
 })

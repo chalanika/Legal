@@ -12,9 +12,10 @@ passport.use('local',new LocalStrategy({
             if (!user) {
                 return done(null, false, { message: 'Incorrect NIC...' });
             }
-            // if (!user.isValid(password)) {
-            //     return done(null, false, { message: 'Incorrect password...' });
-            // }
+            if (!user.isValid(password)) {
+                console.log('Incorrect Password');
+                return done(null, false, { message: 'Incorrect password...' });
+            }
             return done(null, user);
         });
     }
