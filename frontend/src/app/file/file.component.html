@@ -1,3 +1,5 @@
+<!-- header -->
+
 <nav class="navbar navbar-expand-lg fixed-top">
     <a class="navbar-brand" routerLink="/dashboard">Easy Case </a>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
@@ -175,8 +177,8 @@
             <i class="fa fa-fw fa-wrench"></i>&nbsp;
             <span>{{ 'Report' | translate }}</span>
         </a>
-        <a class="list-group-item" href="javascript:void(0)">
-            <i class="fa fa-th-list"></i>&nbsp;
+        <a routerLink="/profile" class="list-group-item" href="javascript:void(0)">
+            <i class="fa fa-fw fa-user"></i>&nbsp;
             <span>{{ 'Profile' | translate }}</span>
         </a>
         <a class="list-group-item" href="javascript:void(0)">

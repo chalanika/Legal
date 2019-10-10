@@ -1,13 +1,35 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
+var validator = require('validator');
 
 var schema = new Schema({
-    username: {type:String,require:true},
-    nic : {type:String,require:true},
-    email : {type:String,require:true},
-    password: {type:String,require:true},
-    creation_dt:{type:Date,require:true}
+    username: {
+        type:String,
+        require:true,
+        unique:[true,'This USER_NAME has already been taken']
+    },
+    nic : {
+        type:String,
+        require:true,
+        unique:[true,'This NIC has already been taken']
+    },
+    email : {
+        type:String,
+        require:true,
+        unique:[true,'This EMAIL has already taken'],
+        validate:[validator.isEmail,'Please provide a valid email']
+    },
+    photo: String,
+    password: {
+        type:String,
+        require:[true,'Please provide a password'],
+        minlength:8
+    },
+    creation_dt:{
+        type:Date,
+        require:true
+    }
 });
 
 schema.statics.hashPassword = function hashPassword(password){

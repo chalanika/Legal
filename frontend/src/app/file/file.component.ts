@@ -110,7 +110,12 @@ changeLang(language: string) {
 }
 
 onLoggedout() {
-    localStorage.removeItem('isLoggedin');
+    this._user.logout()
+        .subscribe(
+            data=>{console.log(data);this._router.navigate(['/login'])},
+            error=>console.log(error)
+        )
+        localStorage.removeItem('isLoggedin');
 }
 
 }

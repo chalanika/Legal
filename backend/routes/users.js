@@ -24,10 +24,13 @@ async function addToDB(req, res) {
 
   try {
     doc = await user.save();
+    console.log(user);                                       // User details will display on console
+    console.log('User registration successfull')             // To know user registration success or fail
     return res.status(201).json(doc);
   }
   catch (err) {
-    return res.status(501).json(err);
+    console.log(err);
+    return res.status(501).json(err.code);
   }
 }
 
@@ -38,6 +41,8 @@ router.post('/login',function(req,res,next){
     if (!user) { return res.status(501).json(info); }
     req.logIn(user, function(err) {
       if (err) { return res.status(501).json(err); }
+      console.log('Login Success...');
+      console.log(user);
       return res.status(200).json({message:'Login Success'});
     });
   })(req, res, next);
@@ -49,6 +54,7 @@ router.get('/user',isValidUser,function(req,res,next){
 
 router.get('/logout',isValidUser, function(req,res,next){
   req.logout();
+  console.log("Logout Success");
   return res.status(200).json({message:'Logout Success'});
 })
 
