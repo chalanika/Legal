@@ -6,29 +6,29 @@ var validator = require('validator');
 var schema = new Schema({
     username: {
         type:String,
-        require:true,
+        required:[true,'USER_NAME cannot be empty'],
         unique:[true,'This USER_NAME has already been taken']
     },
     nic : {
         type:String,
-        require:true,
+        require:[true,'NIC cannot be empty'],
         unique:[true,'This NIC has already been taken']
     },
     email : {
         type:String,
-        require:true,
+        required:[true,'EMAIL cannot be empty'],
         unique:[true,'This EMAIL has already taken'],
         validate:[validator.isEmail,'Please provide a valid email']
     },
     photo: String,
     password: {
         type:String,
-        require:[true,'Please provide a password'],
+        required:[true,'Please provide a password'],
         minlength:8
     },
     creation_dt:{
         type:Date,
-        require:true
+        required:true
     }
 });
 

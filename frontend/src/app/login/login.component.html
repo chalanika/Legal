@@ -1,12 +1,17 @@
+<div *ngIf="this.nicPoint === 1" class="alert alert-danger">Login error!</div>
 <div class="login-page" [@routerTransition]>
     <div class="row justify-content-md-center">
         <div class="col-md-4">
             <img src="assets/images/logo.png" width="150px" class="user-avatar" />
             <h1>Easy Case Log In</h1>
+            <div *ngIf="this.nicPoint === 1" class="alert alert-danger">username or password is incorrect!</div>
             <form role="form" [formGroup]="loginForm">
                 <div class="form-content">
                     <div class="form-group">
                         <input formControlName="nic" type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="{{ 'NIC' | translate }}">
+                        <div *ngIf="nic.touched && nic.invalid" class="alert alert-danger">
+                            <div *ngIf="nic.errors.required">NIC is required</div>
+                        </div>
                     </div>
 
                     <!-- <div class="form-group">
@@ -15,6 +20,9 @@
 
                     <div class="form-group">
                         <input formControlName="password" type="password" class="form-control input-underline input-lg" id="" placeholder="{{ 'Password' | translate }}">
+                        <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                            <div *ngIf="password.errors.required">PASSWORD is required</div>
+                        </div>
                     </div>
                 </div>
                 <a class="btn rounded-btn" (click)="onLoggedin()">{{ 'Log in' | translate }}</a>&nbsp;

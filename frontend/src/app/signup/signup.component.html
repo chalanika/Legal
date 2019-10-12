@@ -6,22 +6,44 @@
             <form role="form" [formGroup]="registerForm">
                 <div class="form-content">
                     <div class="form-group">
-                        <input formControlName="username" type="text" class="form-control input-underline input-lg" id="" placeholder="{{ 'User Name' | translate }}">
+                        <input formControlName="username" type="text" class="form-control input-underline input-lg" id="username" placeholder="{{ 'User Name' | translate }}">
+                        <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
+                            <div *ngIf="username.errors.required">Username is required</div>
+                            <div *ngIf="username.errors.minlength">Username should be minimun {{ username.errors.minlength.requiredLength }} characters</div>
+                        </div>
+                        <div *ngIf="this.userPoint === 1" class="alert alert-danger">The username "{{ this.registerForm.controls.username.value }}" is already in use</div>
                     </div>
 
                     <div class="form-group">
-                        <input formControlName="nic" type="text" class="form-control input-underline input-lg" id="" placeholder="{{ 'NIC' | translate }}">
+                        <input formControlName="nic" type="text" class="form-control input-underline input-lg" id="nic" placeholder="{{ 'NIC' | translate }}">
+                        <div *ngIf="nic.touched && nic.invalid" class="alert alert-danger">
+                                <div *ngIf="nic.errors.required">NIC is required</div>
+                                <div *ngIf="nic.errors.minlength">NIC should have atleast {{nic.errors.minlength.requiredLength}} digits</div>
+                        </div>
+                        <div *ngIf="this.nicPoint === 1 && nic.touched" class="alert alert-danger">This NIC "{{ this.registerForm.controls.nic.value }}" is already in use</div>
                     </div>
 
                     <div class="form-group">
-                        <input formControlName="email" type="text" class="form-control input-underline input-lg" id="" placeholder="{{ 'Email' | translate }}">
+                        <input formControlName="email" type="text" class="form-control input-underline input-lg" id="email" placeholder="{{ 'Email' | translate }}">
+                        <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+                                <div *ngIf="email.errors.required">Email is required</div>
+                                <div *ngIf="email.errors.email"> "{{ this.registerForm.controls.email.value }}" is not a valid email</div>
+                        </div>
+                        <div *ngIf="this.emailPoint === 1 && email.touched" class="alert alert-danger">The email "{{ this.registerForm.controls.email.value }}" is already in use</div>
                     </div>
 
                     <div class="form-group">
-                        <input formControlName="password" type="password" class="form-control input-underline input-lg" id="" placeholder="{{ 'Password' | translate }}">
+                        <input formControlName="password" type="password" class="form-control input-underline input-lg" id="password" placeholder="{{ 'Password' | translate }}">
+                        <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                                <div *ngIf="password.errors.required">password is required</div>
+                                <div *ngIf="password.errors.minlength">Enter atleast {{ password.errors.minlength.requiredLength }} characters</div>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <input formControlName="cpass" type="password" class="form-control input-underline input-lg" id="" placeholder="{{ 'Repeat Password' | translate }}">
+                        <input formControlName="cpass" type="password" class="form-control input-underline input-lg" id="cpass" placeholder="{{ 'Repeat Password' | translate }}">
+                        <div *ngIf="cpass.touched && cpass.invalid" class="alert alert-danger">
+                                <div *ngIf="cpass.errors.required">Repeat password is required</div>
+                        </div>
                     </div>
                 </div>
                 <a class="btn rounded-btn" (click)="register()">{{ 'Register' | translate }}</a>&nbsp;

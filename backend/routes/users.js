@@ -30,17 +30,29 @@ async function addToDB(req, res) {
   }
   catch (err) {
     console.log(err);
-    return res.status(501).json(err.code);
+    if(err.message[61] == 'u'){
+      console.log('*******ERROR : USERNAME Already taken*****')
+      return res.status(501).json(1111);
+    }
+    if(err.message[61] == 'n'){
+      console.log('*******ERROR : NIC Already taken*****')
+      return res.status(501).json(1112);
+    }
+    if(err.message[61] == 'e'){
+      console.log('*******ERROR : EMAIL Already taken*****')
+      return res.status(501).json(1113);
+    }
+    // return res.status(501).json(err.code);
   }
 }
 
 
 router.post('/login',function(req,res,next){
   passport.authenticate('local', function(err, user, info) {
-    if (err) { return res.status(501).json(err); }
-    if (!user) { return res.status(501).json(info); }
+    if (err) {console.log('1:',err); return res.status(501).json(err); }
+    if (!user) { return res.status(501).json(2112); }
     req.logIn(user, function(err) {
-      if (err) { return res.status(501).json(err); }
+      if (err) {console.log(err); return res.status(501).json(2113); }
       console.log('Login Success...');
       console.log(user);
       return res.status(200).json({message:'Login Success'});
