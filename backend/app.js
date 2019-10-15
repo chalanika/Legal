@@ -19,11 +19,11 @@ app.use(cors({
 
 var mongoose =require('mongoose');
 
-mongoose.connect('mongodb+srv://Admin:NDNtwMqPTwBP9byG@legal-vyrsv.mongodb.net/LeagelretryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
-.catch((err)=>console.error(err));
+// mongoose.connect('mongodb+srv://Admin:NDNtwMqPTwBP9byG@legal-vyrsv.mongodb.net/LeagelretryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
+// .catch((err)=>console.error(err));
  
-// mongoose.connect('mongodb://localhost/easycase',{ useNewUrlParser: true , useCreateIndex: true , useFindAndModify: false })
-// .then(() => console.log('DB connection successfull'));
+mongoose.connect('mongodb://localhost/easycase',{ useNewUrlParser: true , useCreateIndex: true , useFindAndModify: false })
+.then(() => console.log('DB connection successfull'));
 
 //passport
 var passport = require('passport');

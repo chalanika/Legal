@@ -16,13 +16,14 @@ export class SignupComponent implements OnInit {
     userPoint = 0;
     nicPoint = 0;
     emailPoint = 0;
+    passPoint = 0;
 
     registerForm: FormGroup = new FormGroup({
         username: new FormControl(null , [Validators.required , Validators.minLength(3)]),
         nic: new FormControl(null, [Validators.required , Validators.minLength(10)]),
         email: new FormControl(null , [Validators.email, Validators.required]),
         password: new FormControl(null , [Validators.required , Validators.minLength(8)]),
-        cpass: new FormControl(null , Validators.required)
+        cpass: new FormControl(null , [Validators.required])
     } );
 
     get username() {
@@ -58,8 +59,11 @@ export class SignupComponent implements OnInit {
         this.userPoint = 0;
         this.nicPoint = 0;
         this.emailPoint = 0;
+        this.passPoint = 0;
         if(!this.registerForm.valid || this.registerForm.controls.password.value != this.registerForm.controls.cpass.value){
+            this.passPoint = 1;
             console.log('Invalid Form');
+            this.asyncFunc();
             return;
         }
 
@@ -94,10 +98,11 @@ export class SignupComponent implements OnInit {
     }
 
     asyncFunc = (...args) => 
-            new Promise(r => setTimeout(r , 1000))
+            new Promise(r => setTimeout(r , 2500))
             .then(() => {
                 this.userPoint = 0;
                 this.nicPoint = 0;
                 this.emailPoint = 0;
+                this.passPoint = 0;
             });
 }
