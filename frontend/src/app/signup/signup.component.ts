@@ -17,6 +17,7 @@ export class SignupComponent implements OnInit {
     nicPoint = 0;
     emailPoint = 0;
     passPoint = 0;
+    trigger = 0;
 
     registerForm: FormGroup = new FormGroup({
         username: new FormControl(null , [Validators.required , Validators.minLength(3)]),
@@ -60,12 +61,27 @@ export class SignupComponent implements OnInit {
         this.nicPoint = 0;
         this.emailPoint = 0;
         this.passPoint = 0;
-        if(!this.registerForm.valid || this.registerForm.controls.password.value != this.registerForm.controls.cpass.value){
-            this.passPoint = 1;
-            console.log('Invalid Form');
+        this.trigger = 0;
+
+        if(this.registerForm.controls.password.value == null || this.registerForm.controls.cpass.value == null || this.registerForm.controls.email.value == null || this.registerForm.controls.nic.value == null || this.registerForm.controls.username.value == null){
+            this.trigger = 1;
+            console.log('All fields must fill!');
             this.asyncFunc();
             return;
         }
+        if(this.registerForm.controls.password.value != this.registerForm.controls.cpass.value){
+            this.passPoint = 1;
+            console.log('Password and repeat password does not match');
+            this.asyncFunc();
+            return;
+        }
+
+        if(!this.registerForm.valid){
+            this.trigger = 1;
+            console.log('All fields must fill!');
+            this.asyncFunc();
+            return;
+        }    
 
         this._userService.register(JSON.stringify(this.registerForm.value))
         .subscribe(
@@ -104,5 +120,6 @@ export class SignupComponent implements OnInit {
                 this.nicPoint = 0;
                 this.emailPoint = 0;
                 this.passPoint = 0;
+                this.trigger = 0;
             });
 }

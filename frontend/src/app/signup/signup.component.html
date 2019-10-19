@@ -3,6 +3,7 @@
         <div class="col-md-4">
             <img class="user-avatar" src="assets/images/logo.png" width="150px" />
             <h1>Easy Case Registration</h1>
+            <div *ngIf="this.trigger === 1" class="alert alert-danger">All fields are required!</div>
             <form role="form" [formGroup]="registerForm">
                 <div class="form-content">
                     <div class="form-group">
@@ -46,7 +47,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="this.passPoint === 1" class="alert alert-danger">Password and Repeat password is not matched</div>
+                <div *ngIf="this.passPoint === 1" class="alert alert-danger">Password and Repeat password does not matched</div>
                 <a class="btn rounded-btn" (click)="register()">{{ 'Register' | translate }}</a>&nbsp;
                 <a class="btn rounded-btn" [routerLink]="['/login']">{{ 'Log in' | translate }}</a>&nbsp;
                 <a class="btn rounded-btn" [routerLink]="['/home']">{{ 'Home' | translate }}</a>
