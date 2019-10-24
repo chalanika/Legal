@@ -2,39 +2,90 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var passport = require('passport');
+var multer = require('multer');
+// var upload = multer({dest: './uploads'});
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
 // });
 
-router.post('/register', function (req, res, next) {
-  addToDB(req, res);
+var storage = multer.diskStorage({
+  destination:function(req,file,cb){
+      cb(null, './uploads');
+  },
+  filename:function(req,file,cb){
+      cb(null, Date.now()+'.'+file.originalname); // `user-${req.user.nic}-${Date.now()}.${ext}`
+  }
 });
 
+const fileFilter = (req , file , cb) => {
+  if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+  cb(null, true);
+} else {
+  cb(null , false);
+}
+}
 
-async function addToDB(req, res) {
+var upload = multer({storage: storage , 
+  limits: {
+  fileSize: 1024 * 1024 * 5 
+},
+fileFilter: fileFilter 
+});
 
+// var upload = multer({
+//   storage: storage,
+//   limits: {
+//     fileSize: 1024 * 1024 * 5
+//   },
+//   fileFilter: (req, file, cb) => {
+//     if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+//       cb(null, true);
+//     } else {
+//       cb(null, false);
+//       return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+//     }
+//   }
+// });
+
+router.post('/register', upload.single('image') , function (req, res, next) {
+  console.log(req.file);
   var user = new User({
+    type: req.body.type,
     username: req.body.username,
     nic: req.body.nic,
     email: req.body.email,
+    detail: req.body.detail,
+    area: req.body.area,
+    address: req.body.address,
+    number: req.body.number,
     password: User.hashPassword(req.body.password),
+    // image: req.file.path,
     creation_dt: Date.now()
   });
 
   try {
-    doc = await user.save();
+    doc = user.save().then(result => {
+      console.log(result);
+      res.status(201).json({
+        message:"User registration successfully!",
+        userCreated: {
+          _id: result._id,
+          image: result.image
+        }
+      })
+    });
     console.log(user);                                       // User details will display on console
     console.log('User registration successfull')             // To know user registration success or fail
     return res.status(201).json(doc);
   }
   catch (err) {
-    console.log(err);
+    console.log(err.message);
     if(err.message[61] == 'u'){
       console.log('*******ERROR : USERNAME Already taken*****')
       return res.status(501).json(1111);
     }
-    if(err.message[61] == 'n'){
+    if(err.message[61] == 'n' && err.message[62] == 'i' && err.message[63] == 'c'){
       console.log('*******ERROR : NIC Already taken*****')
       return res.status(501).json(1112);
     }
@@ -44,7 +95,17 @@ async function addToDB(req, res) {
     }
     // return res.status(501).json(err.code);
   }
-}
+  // addToDB(req, res);
+});
+
+
+// async function addToDB(req, res) {
+
+
+
+  
+
+// }
 
 
 router.post('/login',function(req,res,next){

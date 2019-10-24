@@ -4,6 +4,10 @@ var bcrypt = require('bcrypt');
 var validator = require('validator');
 
 var schema = new Schema({
+    type : {
+        type:String,
+        required:[true,'User type cannot be empty'],
+    },
     username: {
         type:String,
         required:[true,'USER_NAME cannot be empty'],
@@ -20,7 +24,25 @@ var schema = new Schema({
         unique:[true,'This EMAIL has already taken'],
         validate:[validator.isEmail,'Please provide a valid email']
     },
-    photo: String,
+    area : {
+        type:String,
+        required:[true,'Area cannot be empty'],
+    },
+    address : {
+        type:String,
+        // required:[true,'Address cannot be empty'],
+        unique:[true,'This Address has already taken'],
+    },
+    number : {
+        type:String,
+        // required:[true,'Number cannot be empty'],
+        unique:[true,'This Number has already taken'],
+    },
+    detail : {
+        type:String,
+        required:[true,'Details cannot be empty'],
+    },
+    // image: String,
     password: {
         type:String,
         required:[true,'Please provide a password'],

@@ -1,13 +1,26 @@
+<div class="row">
 <div class="login-page" [@routerTransition]>
     <div class="row justify-content-md-center">
-        <div class="col-md-4">
+        <div>
             <img class="user-avatar" src="assets/images/logo.png" width="150px" />
             <h1>Easy Case Registration</h1>
             <div *ngIf="this.trigger === 1" class="alert alert-danger">All fields are required!</div>
+            <div *ngIf="this.invalid === 1" class="alert alert-danger">Invalid Form!</div>
             <form role="form" [formGroup]="registerForm">
-                <div class="form-content">
+                <div class="form-group;form-content">
                     <div class="form-group">
-                        <input formControlName="username" type="text" class="form-control input-underline input-lg" id="username" placeholder="{{ 'User Name' | translate }}">
+                        <label for="contry"><strong>User Type</strong></label>
+                        <select class="form-control;browser-default custom-select mb-4 box_border" #t (change)="callType(t.value)" id="type" formControlName="type">
+                          <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+                        </select>
+                        <div *ngIf="type.touched && type.invalid" class="alert alert-danger">
+                            <div *ngIf="type.errors.required">User type field is required</div>
+                        </div>
+                    </div>
+
+                <div class="form-row">
+                    <div class="form-group;col" style="padding: 5px;padding-bottom: 10px;">
+                        <input (keydown.space)="$event.preventDefault();" formControlName="username" type="text" class="form-control input-underline input-lg" id="username" placeholder="username">
                         <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
                             <div *ngIf="username.errors.required">Username is required</div>
                             <div *ngIf="username.errors.minlength">Username should be minimun {{ username.errors.minlength.requiredLength }} characters</div>
@@ -15,45 +28,79 @@
                         <div *ngIf="this.userPoint === 1" class="alert alert-danger">The username "{{ this.registerForm.controls.username.value }}" is already in use</div>
                     </div>
 
-                    <div class="form-group">
-                        <input formControlName="nic" type="text" class="form-control input-underline input-lg" id="nic" placeholder="{{ 'NIC' | translate }}">
+                    <div class="form-group;col" style="padding: 5px;padding-bottom: 10px;">
+                        <input formControlName="nic" type="text" class="form-control input-underline input-lg" id="nic" placeholder="NIC">
                         <div *ngIf="nic.touched && nic.invalid" class="alert alert-danger">
                                 <div *ngIf="nic.errors.required">NIC is required</div>
                                 <div *ngIf="nic.errors.minlength">NIC should have atleast {{nic.errors.minlength.requiredLength}} digits</div>
                         </div>
                         <div *ngIf="this.nicPoint === 1 && nic.touched" class="alert alert-danger">This NIC "{{ this.registerForm.controls.nic.value }}" is already in use</div>
                     </div>
-
+                </div>
                     <div class="form-group">
-                        <input formControlName="email" type="text" class="form-control input-underline input-lg" id="email" placeholder="{{ 'Email' | translate }}">
+                        <input formControlName="email" type="text" class="form-control input-underline input-lg" id="email" placeholder="Email">
                         <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
                                 <div *ngIf="email.errors.required">Email is required</div>
                                 <div *ngIf="email.errors.email"> "{{ this.registerForm.controls.email.value }}" is not a valid email</div>
                         </div>
                         <div *ngIf="this.emailPoint === 1 && email.touched" class="alert alert-danger">The email "{{ this.registerForm.controls.email.value }}" is already in use</div>
                     </div>
-
                     <div class="form-group">
-                        <input formControlName="password" type="password" class="form-control input-underline input-lg" id="password" placeholder="{{ 'Password' | translate }}">
+                        <input formControlName="address" type="text" class="form-control input-underline input-lg" id="address" placeholder="Contact Address">
+                    </div>
+                    <div class="form-group">
+                        <input formControlName="number" type="text" class="form-control input-underline input-lg" id="number" placeholder="Contact Number">
+                    </div>
+                    <div *ngIf="info==2">
+                    <div class="form-group">
+                        <label for="area"><strong>Expertise Area</strong></label>
+                        <select class="form-control;browser-default custom-select mb-4 box_border" id="area" formControlName="area">
+                          <option *ngFor="let area of areas" [value]="area.id">{{area.name}}</option>
+                        </select>
+                        <div *ngIf="area.touched && area.invalid" class="alert alert-danger">
+                            <div *ngIf="area.errors.required">Area field is required</div>
+                        </div>
+                    </div>
+                    </div>
+                    <div div *ngIf="info==2">
+                    <div class="form-group">
+                        <!-- <label for="detail">Describe You</label> -->
+                        <textarea class="form-control" name="detail" id="detail" formControlName="detail" rows="6" 
+                            placeholder="Say something about you"></textarea>
+                    </div>
+                    </div>
+                <div class="form-row">
+                    <div class="form-group;col" style="padding: 5px;">
+                        <input formControlName="password" type="password" class="form-control input-underline input-lg" id="password" placeholder="Password">
                         <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
                                 <div *ngIf="password.errors.required">password is required</div>
                                 <div *ngIf="password.errors.minlength">Enter atleast {{ password.errors.minlength.requiredLength }} characters</div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input formControlName="cpass" type="password" class="form-control input-underline input-lg" id="cpass" placeholder="{{ 'Repeat Password' | translate }}">
+                    <div class="form-group;col" style="padding: 5px;">
+                        <input formControlName="cpass" type="password" class="form-control input-underline input-lg" id="cpass" placeholder="Repeat Password">
                         <div *ngIf="cpass.touched && cpass.invalid" class="alert alert-danger">
                                 <div *ngIf="cpass.errors.required">Repeat password is required</div>
                         </div>
                     </div>
                 </div>
+                <!-- <div class="form-group">
+                    <input formControlName="image" type="file" class="file_upload" style="display: none" name="profilepic"
+                                        accept="image/*" #fileInput (change)="imageUpload($event)">
+                    /<img [src]="imageUrl" />
+                    <button class="btn btn-outline-primary my-4 btn-block box_border pick_btn" type="button"
+                                        (click)="fileInput.click()">Choose Profile Picture</button>
+                </div> -->
+                </div>
+                <br>
                 <div *ngIf="this.passPoint === 1" class="alert alert-danger">Password and Repeat password does not matched</div>
-                <a class="btn rounded-btn" (click)="register()">{{ 'Register' | translate }}</a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']">{{ 'Log in' | translate }}</a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/home']">{{ 'Home' | translate }}</a>
+                <a class="btn rounded-btn" (click)="register()">Register</a>&nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/login']">Log in</a>&nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/home']">Home</a>
                 <br>
                 <br>
             </form>
         </div>
     </div>
+</div>
 </div>

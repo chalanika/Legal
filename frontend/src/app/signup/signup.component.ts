@@ -13,20 +13,37 @@ import { Router} from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
+    imageUrl: any;
+
+    types = [{'id':1, 'name':'Admin'}, {'id':2, 'name': 'Lawyer'}, {'id':3, 'name': 'Client'}];
+    areas = [{'id':1, 'name':'Business'}, {'id':2, 'name': 'Criminal'}, {'id':3, 'name': 'Family'}];
+
     userPoint = 0;
     nicPoint = 0;
     emailPoint = 0;
     passPoint = 0;
     trigger = 0;
+    invalid = 0;
+    info = 0;
 
     registerForm: FormGroup = new FormGroup({
+        type: new FormControl(null , [Validators.required]),
         username: new FormControl(null , [Validators.required , Validators.minLength(3)]),
         nic: new FormControl(null, [Validators.required , Validators.minLength(10)]),
         email: new FormControl(null , [Validators.email, Validators.required]),
+        area: new FormControl(null , [Validators.required]),
+        address: new FormControl(null),
+        number: new FormControl(null),
+        phone: new FormControl(null),
+        detail: new FormControl(null , [Validators.required]),
         password: new FormControl(null , [Validators.required , Validators.minLength(8)]),
-        cpass: new FormControl(null , [Validators.required])
+        cpass: new FormControl(null , [Validators.required]),
+       // image: new FormControl(null)
     } );
 
+    get type() {
+        return this.registerForm.get('type');
+    }
     get username() {
         return this.registerForm.get('username');
     }
@@ -36,11 +53,26 @@ export class SignupComponent implements OnInit {
     get email() {
         return this.registerForm.get('email');
     }
+    get address() {
+        return this.registerForm.get('address');
+    }
+    get number() {
+        return this.registerForm.get('number');
+    }
+    get area() {
+        return this.registerForm.get('area');
+    }
+    get detail() {
+        return this.registerForm.get('detail');
+    }
     get password() {
         return this.registerForm.get('password');
     }
     get cpass() {
         return this.registerForm.get('cpass');
+    }
+    get image() {
+        return this.registerForm.get('image');
     }
     constructor(private _router:Router , private _userService:UserService ) {}
 
@@ -62,10 +94,11 @@ export class SignupComponent implements OnInit {
         this.emailPoint = 0;
         this.passPoint = 0;
         this.trigger = 0;
+        this.invalid = 0;
 
-        if(this.registerForm.controls.password.value == null || this.registerForm.controls.cpass.value == null || this.registerForm.controls.email.value == null || this.registerForm.controls.nic.value == null || this.registerForm.controls.username.value == null){
+        if(this.registerForm.controls.password.value == null || this.registerForm.controls.cpass.value == null || this.registerForm.controls.email.value == null || this.registerForm.controls.nic.value == null || this.registerForm.controls.username.value == null || this.registerForm.controls.type.value == null || this.registerForm.controls.area.value == null){
             this.trigger = 1;
-            console.log('All fields must fill!');
+            console.log('All fields are required!');
             this.asyncFunc();
             return;
         }
@@ -77,8 +110,8 @@ export class SignupComponent implements OnInit {
         }
 
         if(!this.registerForm.valid){
-            this.trigger = 1;
-            console.log('All fields must fill!');
+            this.invalid = 1;
+            console.log('Invalid Form!');
             this.asyncFunc();
             return;
         }    
@@ -111,6 +144,13 @@ export class SignupComponent implements OnInit {
             }
         )
         // console.log(JSON.stringify(this.registerForm.value));
+        // console.log(this.registerForm.controls.image.value);
+    }
+
+    callType(value){
+        console.log(value);
+        this.info = value;
+        return;
     }
 
     asyncFunc = (...args) => 
@@ -121,5 +161,16 @@ export class SignupComponent implements OnInit {
                 this.emailPoint = 0;
                 this.passPoint = 0;
                 this.trigger = 0;
+                this.invalid = 0;
             });
+            // imageUpload(e) {
+            //     const reader = new FileReader();
+            //     //get the selected file from event
+            //     let file = e.target.files[0];
+            //     reader.onloadend = () => {
+            //       //Assign the result to variable for setting the src of image element
+            //       this.imageUrl = reader.result;
+            //     }
+            //     reader.readAsDataURL(file);
+            //   }
 }
