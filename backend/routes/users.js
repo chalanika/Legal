@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 var passport = require('passport');
 var multer = require('multer');
+var fs = require('fs');
 // var upload = multer({dest: './uploads'});
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -11,10 +12,14 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
   destination:function(req,file,cb){
-      cb(null, './uploads');
+    var dir = `./public/images/${req.body.nic}/profile_photos`;
+    if(!fs.existsSync(dir)){
+      fs.mkdirSync(dir);
+    }
+      cb(null, dir);
   },
   filename:function(req,file,cb){
-      cb(null, Date.now()+'.'+file.originalname); // `user-${req.user.nic}-${Date.now()}.${ext}`
+      cb(null,Date.now()+'.'+file.originalname); // `user-${req.user.nic}-${Date.now()}.${ext}`
   }
 });
 
@@ -49,7 +54,11 @@ fileFilter: fileFilter
 // });
 
 router.post('/register', upload.single('image') , function (req, res, next) {
-  console.log(req.file);
+  addToDB(req, res);
+});
+
+
+async function addToDB(req, res) {
   var user = new User({
     type: req.body.type,
     username: req.body.username,
@@ -60,7 +69,7 @@ router.post('/register', upload.single('image') , function (req, res, next) {
     address: req.body.address,
     number: req.body.number,
     password: User.hashPassword(req.body.password),
-    // image: req.file.path,
+    image: req.file.path,
     creation_dt: Date.now()
   });
 
@@ -95,17 +104,7 @@ router.post('/register', upload.single('image') , function (req, res, next) {
     }
     // return res.status(501).json(err.code);
   }
-  // addToDB(req, res);
-});
-
-
-// async function addToDB(req, res) {
-
-
-
-  
-
-// }
+}
 
 
 router.post('/login',function(req,res,next){
@@ -122,6 +121,7 @@ router.post('/login',function(req,res,next){
 });
 
 router.get('/user',isValidUser,function(req,res,next){
+  console.log(req.user);
   return res.status(200).json(req.user);
 });
 

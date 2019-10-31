@@ -22,6 +22,8 @@ export class ProfileComponent implements OnInit {
     isActive: boolean;
     collapsed: boolean;
     showMenu: string;
+    BASE_URL = location.origin;
+    imageUrl =  'http://localhost:3000/images/avatar.jpg';
 
     profile = 1;
     notification = 0;
@@ -58,8 +60,23 @@ export class ProfileComponent implements OnInit {
     this.detail = data.detail;
     this.address = data.address;
     this.number = data.number;
-    this.area = data.area;
+    this.area = data.area;  
+    console.log(data.image);
+    var path = data.image.replace(/\\/g, '/');
+    path = path.replace(/public/g, '');
+    console.log(path);
+    if(data.image != null)
+    this.imageUrl = 'http://localhost:3000/' + path;  //' http://localhost:3000/images' + path;
+    console.log(this.imageUrl);
+    // console.log('/images/' + path);
+    // this.image = "/images/" + path;
 }
+
+linkImg(fileName) {
+      // base_URL returns localhost:3000 or the production URL
+      console.log(this.BASE_URL);
+      // return `${this.BASE_URL}/backend/uploads/avatar.jpg`;
+    }
 
   ngOnInit() {
         this.isActive = false;

@@ -588,7 +588,7 @@
                          </div>  
                          
                          <!-- delete_account -->
-                         <div class="alert alert-danger" *ngIf="delete===1">
+                         <div class="card" style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);" *ngIf="delete===1">
                                 Are you Sure you want to delete your account?
                                 <div class="bn-toolbar">
                                         <button type="button" id="btnSubmit" class="btn btn-secondary btn-sm" style="margin: 5px;">Yes</button>
@@ -605,8 +605,8 @@
                         <div class="content">
                             <div class="author">
                                 <a href="#">
-                                    <p style="font-size: 20px;color: black;"><img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..." style="padding:5px;padding-right:30px"><b>{{username}}</b></p>
-                                </a>
+                                    <p style="font-size: 20px;color: black;"><img class="avatar border-gray" src="{{this.imageUrl}}" alt="..." style="padding:5px;padding-right:30px;width: 180px;height: 120px;"><b>{{username}}</b></p>
+                                </a>                                                                                
                             </div>
                             <!-- <p class="description text-center"> "Lamborghini Mercy <br>
                                 Your chick she so thirsty <br>

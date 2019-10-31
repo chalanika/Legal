@@ -8,6 +8,7 @@ var bodyParser = require('body-parser'); //
 var indexRouter = require('./routes/index');  // 1F4lkl1r891A3syQ
 var usersRouter = require('./routes/users'); // admin xFVgzsJmhA4hYTtK
 var fileRoutes = require('./routes/file');
+// var imageRoutes = require();
 
 var cors= require('cors');
 var app = express();
@@ -16,6 +17,12 @@ app.use(cors({
   origin:['http://localhost:4200','http://127.0.0.1:4200'],
   credentials:true
 }));
+
+// var dir = path.join(__dirname, 'public');
+// app.use(express.static(dir));
+app.use(express.static('public'));
+// const { static } = require('express');
+// app.use('/images/', static('../uploads/'));
 
 var mongoose =require('mongoose');
 
@@ -77,6 +84,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// app.use(express.static('uploads')); not working
 
 // app.listen(3000, ()=>console.log("server started"));
 

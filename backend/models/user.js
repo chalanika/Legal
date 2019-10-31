@@ -42,7 +42,7 @@ var schema = new Schema({
         type:String,
         required:[true,'Details cannot be empty'],
     },
-    // image: String,
+    image: String,
     password: {
         type:String,
         required:[true,'Please provide a password'],

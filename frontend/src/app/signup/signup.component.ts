@@ -13,7 +13,7 @@ import { Router} from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-    imageUrl: any;
+    imageUrl: any = '../../assets/images/avatar.jpg';
 
     types = [{'id':1, 'name':'Admin'}, {'id':2, 'name': 'Lawyer'}, {'id':3, 'name': 'Client'}];
     areas = [{'id':1, 'name':'Business'}, {'id':2, 'name': 'Criminal'}, {'id':3, 'name': 'Family'}];
@@ -25,6 +25,7 @@ export class SignupComponent implements OnInit {
     trigger = 0;
     invalid = 0;
     info = 0;
+    imageFile = null;
 
     registerForm: FormGroup = new FormGroup({
         type: new FormControl(null , [Validators.required]),
@@ -38,7 +39,7 @@ export class SignupComponent implements OnInit {
         detail: new FormControl(null , [Validators.required]),
         password: new FormControl(null , [Validators.required , Validators.minLength(8)]),
         cpass: new FormControl(null , [Validators.required]),
-       // image: new FormControl(null)
+        image: new FormControl(null)
     } );
 
     get type() {
@@ -96,7 +97,7 @@ export class SignupComponent implements OnInit {
         this.trigger = 0;
         this.invalid = 0;
 
-        if(this.registerForm.controls.password.value == null || this.registerForm.controls.cpass.value == null || this.registerForm.controls.email.value == null || this.registerForm.controls.nic.value == null || this.registerForm.controls.username.value == null || this.registerForm.controls.type.value == null || this.registerForm.controls.area.value == null){
+        if(this.registerForm.controls.password.value == null || this.registerForm.controls.cpass.value == null || this.registerForm.controls.email.value == null || this.registerForm.controls.nic.value == null || this.registerForm.controls.username.value == null || this.registerForm.controls.type.value == null){
             this.trigger = 1;
             console.log('All fields are required!');
             this.asyncFunc();
@@ -109,14 +110,26 @@ export class SignupComponent implements OnInit {
             return;
         }
 
-        if(!this.registerForm.valid){
-            this.invalid = 1;
-            console.log('Invalid Form!');
-            this.asyncFunc();
-            return;
-        }    
+        // if(!this.registerForm.valid){
+        //     this.invalid = 1;
+        //     console.log('Invalid Form!');
+        //     this.asyncFunc();
+        //     return;
+        // }
 
-        this._userService.register(JSON.stringify(this.registerForm.value))
+        let data = new FormData();
+        data.append('type', this.registerForm.controls.type.value);
+        data.append('username', this.registerForm.controls.username.value);
+        data.append('nic', this.registerForm.controls.nic.value);
+        data.append('email', this.registerForm.controls.email.value);
+        data.append('detail', this.registerForm.controls.detail.value);
+        data.append('area', this.registerForm.controls.area.value);
+        data.append('password', this.registerForm.controls.password.value);
+        data.append('image', this.imageFile, this.imageFile['name']);
+
+        console.log(this.registerForm.controls.image.value)
+
+        this._userService.register(data)
         .subscribe(
             data=> {console.log(data); this._router.navigate(['/login']);},
             error=> {
@@ -173,4 +186,19 @@ export class SignupComponent implements OnInit {
             //     }
             //     reader.readAsDataURL(file);
             //   }
+
+            imageUpload(event:any) {
+                const reader = new FileReader();
+                // if(this.imageFile['name'] == null)
+                //     this.imageFile['name'] = 'avatar.jpg';
+                if (event.target.files && event.target.files[0]) {
+                    this.imageFile = event.target.files[0];
+                    console.log(this.imageFile);
+
+                    reader.onloadend = () => {
+                        this.imageUrl = reader.result;
+                      }
+                      reader.readAsDataURL(this.imageFile);
+                }
+              }
 }

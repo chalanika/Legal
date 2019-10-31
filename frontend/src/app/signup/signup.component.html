@@ -3,7 +3,7 @@
     <div class="row justify-content-md-center">
         <div>
             <img class="user-avatar" src="assets/images/logo.png" width="150px" />
-            <h1>Easy Case Registration</h1>
+            <h1>Legal Registration</h1>
             <div *ngIf="this.trigger === 1" class="alert alert-danger">All fields are required!</div>
             <div *ngIf="this.invalid === 1" class="alert alert-danger">Invalid Form!</div>
             <form role="form" [formGroup]="registerForm">
@@ -84,13 +84,12 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="form-group">
-                    <input formControlName="image" type="file" class="file_upload" style="display: none" name="profilepic"
-                                        accept="image/*" #fileInput (change)="imageUpload($event)">
-                    /<img [src]="imageUrl" />
-                    <button class="btn btn-outline-primary my-4 btn-block box_border pick_btn" type="button"
-                                        (click)="fileInput.click()">Choose Profile Picture</button>
-                </div> -->
+                <div class="form-group">
+                    <img style="width: 150px; height: 150px;" [src]="this.imageUrl" />
+                   <p><br><input formControlName="image" type="file" (change)="imageUpload($event)"></p>
+                    <!-- <button class="btn btn-outline-primary my-4 btn-block box_border pick_btn" type="button"
+                                        (click)="fileInput.click()">Choose Profile Picture</button> -->
+                </div>
                 </div>
                 <br>
                 <div *ngIf="this.passPoint === 1" class="alert alert-danger">Password and Repeat password does not matched</div>
