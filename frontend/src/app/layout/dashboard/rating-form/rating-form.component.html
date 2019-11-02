@@ -5,26 +5,27 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <!-- rating form -->
+  <form #rateForm="ngForm" (ngSubmit)="saveRate();modal.close('Save click')">
+    <div class="modal-body">
+      <!-- rating form -->
+      <div class="container">
 
-    <form  >
-      <ngb-rating [(rate)]="currentRate" max="5">
-        <ng-template let-fill="fill" let-index="index">
-          <span class="star" [class.filled]="fill === 100" [class.bad]="index <5">&#9733;</span>
-        </ng-template>
-      </ngb-rating>
+        <ngb-rating [(rate)]="rateModel.rate" max="5">
+          <ng-template let-fill="fill" let-index="index">
+            <span class="star" [class.filled]="fill === 100" [class.bad]="index <5">&#9733;</span>
+          </ng-template>
+        </ngb-rating>
 
-      <div *ngIf="currentRate">
-        <label>Write a feedback</label>
-        <textarea class="form-control mt-2" rows="2"></textarea>
+
+        <div *ngIf="rateModel.rate">
+          <label>Write a feedback</label>
+          <input type="text" class="form-control" name="feedbsack" [(ngModel)]="rateModel.feedback">
+        </div>
       </div>
+    </div>
 
-    </form>
-
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-  </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Save</button>
+    </div>
+  </form>
 </ng-template>

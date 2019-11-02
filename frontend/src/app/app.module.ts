@@ -14,6 +14,7 @@ import { FileComponent } from './file/file.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import {RateService} from 'src/app/core/services/rate.service';
 
 @NgModule({
     imports: [
@@ -30,7 +31,7 @@ import { ProfileComponent } from './profile/profile.component';
         
     ],
     declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent],
-    providers: [AuthGuard , UserService],
+    providers: [AuthGuard , UserService,RateService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

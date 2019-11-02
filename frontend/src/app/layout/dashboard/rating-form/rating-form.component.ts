@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {Rate} from 'src/app/core/models/Rate';
+import {RateService} from 'src/app/core/services/rate.service';         
+               
 
 @Component({
   selector: 'app-rating-form',
@@ -22,14 +25,16 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 `]
 
 })
-export class RatingFormComponent implements OnInit {
+export class RatingFormComponent implements OnInit {              
 
   closeResult: string;
   currentRate = 0;
-  
+  rateModel = new Rate(0," ");
+  id = "sfdctrfsyuji";
+
   @ViewChild('content') content
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private _rateService:RateService) { }
   ngOnInit() {
     this.open();
   }
@@ -53,4 +58,13 @@ export class RatingFormComponent implements OnInit {
     }
   }
 
+  saveRate(){
+    console.log(this.rateModel);
+    this._rateService.rate(this.id,this.rateModel).subscribe(
+      data=>console.log(data),
+      error => console.log(error)
+    )
+    
+  }
+  
 }
