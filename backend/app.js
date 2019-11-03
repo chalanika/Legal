@@ -62,6 +62,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/file', fileRoutes);
 
+//rating form
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

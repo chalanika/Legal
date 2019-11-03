@@ -59,5 +59,21 @@ function isValidUser(req,res,next){
   if(req.isAuthenticated()) next();
   else return res.status(401).json({message:'Unauthorized Request'});
 }
+/*update rate array*/
+router.put('/:id/rates', async (req,res)=>{
+  console.log(req.body);
+  const rate = {
+    rate:req.body.rate,
+    feedback:req.body.feedback
+  };
+  try{
+    const lawyer = await User.findById(req.params.id);
+    lawyer.rates.push(rate);
+    const saved = await lawyer.save();
+    res.json(saved);
+  }catch(error){
+    res.json({message:error});
+  }
+});
 
 module.exports = router;

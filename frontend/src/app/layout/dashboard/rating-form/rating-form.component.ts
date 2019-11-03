@@ -30,7 +30,7 @@ export class RatingFormComponent implements OnInit {
   closeResult: string;
   currentRate = 0;
   rateModel = new Rate(0," ");
-  id = "sfdctrfsyuji";
+  id = "5db5a209257a640a5cc844dc";
 
   @ViewChild('content') content
 

@@ -11,8 +11,8 @@
       <div class="container">
 
         <ngb-rating [(rate)]="rateModel.rate" max="5">
-          <ng-template let-fill="fill" let-index="index">
-            <span class="star" [class.filled]="fill === 100" [class.bad]="index <5">&#9733;</span>
+          <ng-template let-fill="fill" let-index="index" >
+            <span class="star" [class.filled]="fill === 100" [class.bad]="index<5" >&#9733;</span>
           </ng-template>
         </ngb-rating>
 

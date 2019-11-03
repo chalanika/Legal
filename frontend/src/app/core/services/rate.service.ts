@@ -7,11 +7,12 @@ import {HttpClient} from '@angular/common/http';
 })
 export class RateService {
 
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'http://localhost:3000/users';
 
   constructor(private http:HttpClient) { }
 
   rate(id:String,rate:Rate){
-    return this.http.put(this.baseUrl+'/'+id+'/rate',rate);
+    console.log(rate);
+    return this.http.put(this.baseUrl+'/'+id+'/rates',rate);
   }
 }
