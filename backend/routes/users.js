@@ -69,11 +69,22 @@ router.put('/:id/rates', async (req,res)=>{
   try{
     const lawyer = await User.findById(req.params.id);
     lawyer.rates.push(rate);
+
     const saved = await lawyer.save();
     res.json(saved);
   }catch(error){
     res.json({message:error});
   }
 });
+//show rates on lawyers profile
+router.get('/:id', async (req,res)=>{
+  try{
+    const lawyer = await User.findById(req.params.id);
+    console.log(lawyer.rates);
+    res.json(lawyer.rates);
+  }catch{
+    res.json({message:error});
+  }
+})
 
 module.exports = router;
