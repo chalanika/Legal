@@ -36,4 +36,20 @@ export class UserService {
     });
   }
 
+  resetPassword(body:any){
+    return this._http.post('http://127.0.0.1:3000/users/forgotPassword',body,{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+    });
+  }
+
+  // sendToken(){
+  //   return this._http.patch('http://127.0.0.1:3000/users/resetPassword/:token',{
+  //     observe:'body',
+  //     withCredentials:true,
+  //     headers:new HttpHeaders().append('Content-Type' , 'application/json')
+  //   });
+  // }
+
 }

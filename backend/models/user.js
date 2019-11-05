@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
 var validator = require('validator');
+var crypto = require('crypto');
 
 var schema = new Schema({
     type : {
@@ -26,7 +27,7 @@ var schema = new Schema({
     },
     area : {
         type:String,
-        required:[true,'Area cannot be empty'],
+        // required:[true,'Area cannot be empty'],
     },
     address : {
         type:String,
@@ -40,7 +41,7 @@ var schema = new Schema({
     },
     detail : {
         type:String,
-        required:[true,'Details cannot be empty'],
+        // required:[true,'Details cannot be empty'],
     },
     image: String,
     password: {
@@ -51,7 +52,9 @@ var schema = new Schema({
     creation_dt:{
         type:Date,
         required:true
-    }
+    },
+    passwordResetToken: String,
+    passwordResetExpires: Date
 });
 
 schema.statics.hashPassword = function hashPassword(password){
@@ -61,5 +64,13 @@ schema.statics.hashPassword = function hashPassword(password){
 schema.methods.isValid = function(hashedpassword){
     return bcrypt.compareSync(hashedpassword,this.password);
 }
+
+// schema.methods.createPasswordResetToken = function(){
+//     const resetToken = crypto.randomBytes(32).toString('hex');
+//     this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+//     console.log({resetToken} , this.passwordResetToken);
+//     // this.passwordResetExpires = Date.now() + 10*60*1000;
+//     return resetToken;
+// }
 
 module.exports = mongoose.model('User',schema);

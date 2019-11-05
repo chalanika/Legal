@@ -2,6 +2,9 @@ var express = require('express');
 var _router = express.Router();
 var multer = require('multer');
 var path = require('path');
+var fs = require('fs');       
+var encryptor = require('file-encryptor');
+var key = 'My Super Secret Key';
 var File = require('../models/user'); //To save the file to database
 
 var store = multer.diskStorage({

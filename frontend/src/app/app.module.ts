@@ -16,6 +16,7 @@ import {FileUploadModule} from 'ng2-file-upload';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ValidateService } from './validate.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
     imports: [
@@ -31,7 +32,7 @@ import { ValidateService } from './validate.service';
         ReactiveFormsModule,
         // RouterModule.forRoot(appRoutes),
     ],
-    declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent],
+    declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent],
     providers: [AuthGuard , UserService , ValidateService],
     bootstrap: [AppComponent]
 })

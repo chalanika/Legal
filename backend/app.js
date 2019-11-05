@@ -21,6 +21,9 @@ app.use(cors({
 // var dir = path.join(__dirname, 'public');
 // app.use(express.static(dir));
 app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 // const { static } = require('express');
 // app.use('/images/', static('../uploads/'));
 
@@ -84,6 +87,16 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+// ignore favicon
+function ignoreFavicon(req, res, next) {
+  if (req.originalUrl === '/favicon.ico') {
+    res.status(204).json({nope: true});
+  } else {
+    next();
+  }
+}
+
+app.use(ignoreFavicon);
 
 // app.use(express.static('uploads')); not working
 

@@ -124,6 +124,8 @@ export class SignupComponent implements OnInit {
         data.append('email', this.registerForm.controls.email.value);
         data.append('detail', this.registerForm.controls.detail.value);
         data.append('area', this.registerForm.controls.area.value);
+        data.append('address', this.registerForm.controls.address.value);
+        data.append('number', this.registerForm.controls.number.value);
         data.append('password', this.registerForm.controls.password.value);
         data.append('image', this.imageFile, this.imageFile['name']);
 
