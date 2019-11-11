@@ -32,12 +32,12 @@ var schema = new Schema({
     address : {
         type:String,
         // required:[true,'Address cannot be empty'],
-        unique:[true,'This Address has already taken'],
+        // unique:[true,'This Address has already taken'],
     },
     number : {
         type:String,
         // required:[true,'Number cannot be empty'],
-        unique:[true,'This Number has already taken'],
+        // unique:[true,'This Number has already taken'],
     },
     detail : {
         type:String,

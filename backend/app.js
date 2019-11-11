@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser'); //
+var compression = require('compression');
 
 var indexRouter = require('./routes/index');  // 1F4lkl1r891A3syQ
 var usersRouter = require('./routes/users'); // admin xFVgzsJmhA4hYTtK
@@ -67,6 +68,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(compression());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

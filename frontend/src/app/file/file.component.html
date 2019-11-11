@@ -317,7 +317,8 @@
                   <h4>Upload Section</h4>
                   <div id="fileSelector">
                       <input type="file" name="fileUplaod" id="fileUpload"
-                      multiple ng2FileSelect [uploader]="uploader">
+                      multiple ng2FileSelect [uploader]="uploader" style="display: none;" (change)="selectImage($event)" #fileInput>
+                      <button class="btn btn-outline-primary my-4 btn-block box_border pick_btn" type="button" (click)="fileInput.click()">Choose a file</button>
                   </div>
                   <div>
                       <div class="row uploadList" *ngFor="let item of uploader.queue">

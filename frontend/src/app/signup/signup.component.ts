@@ -13,7 +13,8 @@ import { Router} from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-    imageUrl: any = '../../assets/images/avatar.jpg';
+    images;
+    imageUrl: any = '../../assets/images/avatar2.jpg';
 
     types = [{'id':1, 'name':'Admin'}, {'id':2, 'name': 'Lawyer'}, {'id':3, 'name': 'Client'}];
     areas = [{'id':1, 'name':'Business'}, {'id':2, 'name': 'Criminal'}, {'id':3, 'name': 'Family'}];
@@ -35,7 +36,6 @@ export class SignupComponent implements OnInit {
         area: new FormControl(null , [Validators.required]),
         address: new FormControl(null),
         number: new FormControl(null),
-        phone: new FormControl(null),
         detail: new FormControl(null , [Validators.required]),
         password: new FormControl(null , [Validators.required , Validators.minLength(8)]),
         cpass: new FormControl(null , [Validators.required]),
@@ -129,7 +129,7 @@ export class SignupComponent implements OnInit {
         data.append('password', this.registerForm.controls.password.value);
         data.append('image', this.imageFile, this.imageFile['name']);
 
-        console.log(this.registerForm.controls.image.value)
+        console.log(this.registerForm.controls.image.value);
 
         this._userService.register(data)
         .subscribe(
@@ -168,6 +168,13 @@ export class SignupComponent implements OnInit {
         return;
     }
 
+    selectImage(event){
+        if(event.target.files.length>0){
+            const file = event.target.files[0];
+            this.images = file;
+        }
+    }
+
     asyncFunc = (...args) => 
             new Promise(r => setTimeout(r , 2500))
             .then(() => {
@@ -191,8 +198,6 @@ export class SignupComponent implements OnInit {
 
             imageUpload(event:any) {
                 const reader = new FileReader();
-                // if(this.imageFile['name'] == null)
-                //     this.imageFile['name'] = 'avatar.jpg';
                 if (event.target.files && event.target.files[0]) {
                     this.imageFile = event.target.files[0];
                     console.log(this.imageFile);
