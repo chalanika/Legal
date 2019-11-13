@@ -6,7 +6,7 @@ var fs = require('fs');
 var crypto = require('crypto');
 // const algorithm = 'aes-256-ctr';
 let key = 'MySuperSecretKey';
-// key = crypto.createHash('sha256').update(key).digest('base64').substr(0, 32);
+key = crypto.createHash('sha256').update(key).digest('base64').substr(0, 32);
 var File = require('../models/fileSchema');                                                     //To save the file to database
 var encryptor = require('file-encryptor');
 var options = { algorithm: 'aes256' };
@@ -46,11 +46,14 @@ _router.post('/upload', function(req,res,next){
         nodecipher.encrypt({
             input: input,
             output: input+'.dat',
-            password: 'passw0rd'
+            password: key
         }, function (err, opts) {
             if (err) throw err;
-        
-            console.log('It worked!');
+            console.log('Image successfully encrypted!');
+            fs.unlink(input,function(err){
+                if(err) return console.log(err);
+                console.log('file deleted successfully');
+           });
         });
         console.log(input);
         return res.json({originalname:originalname, uploadname:uploadname});
@@ -72,17 +75,21 @@ function addFileToDb(req,res){
 _router.post('/download', function(req,res,next){
     filepath = path.join(__dirname,`../uploads/files/${req.body.nic}/myFiles`) +'/'+ req.body.filename;
 input = path.resolve(filepath);
-console.log('Out',input);
 nodecipher.decrypt({
     input: input+'.dat',
     output: filepath,
-    password: 'passw0rd'
+    password: key
     
   }, function (err, opts) {
     if (err) throw err;
-    console.log('It worked!');
+    console.log('Image successfully decrypted!');
+    input = input+'.dat';
+    fs.unlink(input,function(err){
+        if(err) return console.log(err);
+        console.log('file deleted successfully');
+   });
+    res.sendFile(filepath);
   });
-    return res.sendFile(filepath);
 });
 
 module.exports = _router;
