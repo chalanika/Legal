@@ -3,8 +3,15 @@ var _router = express.Router();
 var multer = require('multer');
 var path = require('path');
 var fs = require('fs');
-var key = 'My Super Secret Key';
+var crypto = require('crypto');
+// const algorithm = 'aes-256-ctr';
+let key = 'MySuperSecretKey';
+// key = crypto.createHash('sha256').update(key).digest('base64').substr(0, 32);
 var File = require('../models/fileSchema');                                                     //To save the file to database
+var encryptor = require('file-encryptor');
+var options = { algorithm: 'aes256' };
+
+const nodecipher = require('node-cipher');
 
 var store = multer.diskStorage({
     destination:function(req,file,cb){
@@ -31,7 +38,22 @@ _router.post('/upload', function(req,res,next){
         }
         //do all database record saving activity
         addFileToDb(req,res);
-        return res.json({originalname:req.file.originalname, uploadname:req.file.filename});
+        originalname = req.file.originalname;
+        uploadname = req.file.filename
+        var input = req.file.path;
+        input = path.resolve(input);
+        console.log('Input',input);
+        nodecipher.encrypt({
+            input: input,
+            output: input+'.dat',
+            password: 'passw0rd'
+        }, function (err, opts) {
+            if (err) throw err;
+        
+            console.log('It worked!');
+        });
+        console.log(input);
+        return res.json({originalname:originalname, uploadname:uploadname});
     });
 });
 
@@ -49,7 +71,18 @@ function addFileToDb(req,res){
 
 _router.post('/download', function(req,res,next){
     filepath = path.join(__dirname,`../uploads/files/${req.body.nic}/myFiles`) +'/'+ req.body.filename;
-    res.sendFile(filepath);
+input = path.resolve(filepath);
+console.log('Out',input);
+nodecipher.decrypt({
+    input: input+'.dat',
+    output: filepath,
+    password: 'passw0rd'
+    
+  }, function (err, opts) {
+    if (err) throw err;
+    console.log('It worked!');
+  });
+    return res.sendFile(filepath);
 });
 
 module.exports = _router;
