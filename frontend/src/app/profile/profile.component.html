@@ -158,6 +158,10 @@
           <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
           <span>{{ 'Clients' | translate }}</span>
       </a>
+      <a routerLink="/lawyers" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
+        <span>{{ 'Lawyers' | translate }}</span>
+    </a>
       <a class="list-group-item" href="javascript:void(0)">
           <i class="fa fa-fw fa-table"></i>&nbsp;
           <span>{{ 'Appointments' | translate }}</span>
@@ -182,6 +186,14 @@
           <i class="fa fa-th-list"></i>&nbsp;
           <span>{{ 'Calander' | translate }}</span>
       </a>
+      <a [routerLink]="['/post']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+        <span>{{ 'Post' | translate }}</span>
+    </a>    
+    <a routerLink="/catgeory" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-fw fa-desktop"></i>&nbsp;
+        <span>{{ 'Category' | translate }}</span>
+    </a>                                                
       <div class="nested-menu">
           <a class="list-group-item" (click)="addExpandClass('pages')">
               <i class="fa fa-plus"></i>&nbsp;
