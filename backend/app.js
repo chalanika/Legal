@@ -31,12 +31,15 @@ app.use(express.urlencoded({ extended: true }));
 var mongoose =require('mongoose');
 
 
+// mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
 
-mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
+// .catch((err)=>console.error(err));
 
-.catch((err)=>console.error(err));
-
-
+// mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
+// .catch((err)=>console.error(err));
+ 
+mongoose.connect('mongodb://localhost/easycase',{ useNewUrlParser: true , useCreateIndex: true , useFindAndModify: false })
+.then(() => console.log('DB connection successfull'));
 
 //passport
 var passport = require('passport');

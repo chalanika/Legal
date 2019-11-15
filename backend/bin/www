@@ -14,11 +14,8 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-<<<<<<< HEAD
-=======
 console.log('back end is running on port:',port);
 
->>>>>>> db018e8809b6a7b7f2b30e9617a7bdd8a7d36040
 /**
  * Create HTTP server.
  */
