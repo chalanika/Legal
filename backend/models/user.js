@@ -10,14 +10,6 @@ const Rate = new Schema({
 });
 
 var schema = new Schema({
-<<<<<<< HEAD
-    username: {type:String,require:true},
-    nic : {type:String,require:true},
-    rates:{type:[Rate]},
-    email : {type:String,require:true},
-    password: {type:String,require:true},
-    creation_dt:{type:Date,require:true}
-=======
     type : {
         type:String,
         required:[true,'User type cannot be empty'],
@@ -68,7 +60,6 @@ var schema = new Schema({
     },
     passwordResetToken: String,
     passwordResetExpires: Date
->>>>>>> db018e8809b6a7b7f2b30e9617a7bdd8a7d36040
 });
 
 schema.statics.hashPassword = function hashPassword(password){

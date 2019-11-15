@@ -84,16 +84,6 @@ async function addToDB(req, res) {
   });
 
   try {
-<<<<<<< HEAD
-    doc = await user.save();
-    console.log(doc);
-    return res.status(201).json(doc);
-  }
-  catch (err) {
-    console.log(err);
-    return res.status(501).json(err);
-    
-=======
     doc = user.save().then(result => {
       console.log(result);
       res.status(201).json({
@@ -123,7 +113,6 @@ async function addToDB(req, res) {
       return res.status(501).json(1113);
     }
     // return res.status(501).json(err.code);
->>>>>>> db018e8809b6a7b7f2b30e9617a7bdd8a7d36040
   }
 }
 
