@@ -162,7 +162,7 @@
         <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
         <span>{{ 'Lawyers' | translate }}</span>
     </a>
-      <a class="list-group-item" href="javascript:void(0)">
+      <a [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
           <i class="fa fa-fw fa-table"></i>&nbsp;
           <span>{{ 'Appointments' | translate }}</span>
       </a>
@@ -170,7 +170,7 @@
           <i class="fa fa-fw fa-edit"></i>&nbsp;
           <span>{{ 'File' | translate }}</span>
       </a>
-      <a class="list-group-item" href="javascript:void(0)">
+      <a routerLink="/notifications" [routerLinkActive]="['router-link-active']" class="list-group-item">
           <i class="fa fa-fw fa-desktop"></i>&nbsp;
           <span>{{ 'Notifications' | translate }}</span>
       </a>
@@ -190,7 +190,7 @@
         <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
         <span>{{ 'Post' | translate }}</span>
     </a>    
-    <a routerLink="/catgeory" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">
         <i class="fa fa-fw fa-desktop"></i>&nbsp;
         <span>{{ 'Category' | translate }}</span>
     </a>                                                
