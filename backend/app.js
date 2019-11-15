@@ -4,10 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser'); //
+var compression = require('compression');
 
 var indexRouter = require('./routes/index');  // 1F4lkl1r891A3syQ
 var usersRouter = require('./routes/users'); // admin xFVgzsJmhA4hYTtK
 var fileRoutes = require('./routes/file');
+// var imageRoutes = require();
 
 var cors= require('cors');
 var app = express();
@@ -17,12 +19,23 @@ app.use(cors({
   credentials:true
 }));
 
+// var dir = path.join(__dirname, 'public');
+// app.use(express.static(dir));
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+// const { static } = require('express');
+// app.use('/images/', static('../uploads/'));
+
 var mongoose =require('mongoose');
+
 
 
 mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
 
 .catch((err)=>console.error(err));
+
 
 
 //passport
@@ -57,6 +70,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(compression());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -79,6 +93,18 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+// ignore favicon
+function ignoreFavicon(req, res, next) {
+  if (req.originalUrl === '/favicon.ico') {
+    res.status(204).json({nope: true});
+  } else {
+    next();
+  }
+}
+
+app.use(ignoreFavicon);
+
+// app.use(express.static('uploads')); not working
 
 // app.listen(3000, ()=>console.log("server started"));
 

@@ -5,8 +5,7 @@ import { AuthGuard } from './shared';
 import { FileComponent } from './file/file.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-// import { DashboardComponent } from './Admin/dashboard/dashboard.component';
-// import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const routes: Routes = [
     // { path: '', loadChildren: './signup/signup.module#SignupModule' },
@@ -19,8 +18,8 @@ const routes: Routes = [
     { path: 'not-found', loadChildren: './not-found/not-found.module#NotFoundModule' },
     { path: 'file',             component: FileComponent },
     { path: 'home',             component: HomeComponent },
-    { path: 'profile',           component: ProfileComponent },
-    // { path: 'admin', component :AdminLayoutComponent},
+    { path: 'forgotPassword',             component: ForgotPasswordComponent },
+    { path: 'profile',             component: ProfileComponent },
     { path: '**', redirectTo: 'not-found' }
 ];
 

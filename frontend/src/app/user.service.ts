@@ -9,11 +9,7 @@ export class UserService {
   constructor(private _http:HttpClient) { }
 
   register(body:any){
-    console.log(body);
-    return this._http.post('http://127.0.0.1:3000/users/register',body,{
-      observe:'body',
-      headers:new HttpHeaders().append('Content-Type' , 'application/json')
-    });
+    return this._http.post('http://127.0.0.1:3000/users/register',body);
   }
 
   login(body:any){
@@ -39,5 +35,21 @@ export class UserService {
       headers:new HttpHeaders().append('Content-Type' , 'application/json')
     });
   }
+
+  resetPassword(body:any){
+    return this._http.post('http://127.0.0.1:3000/users/forgotPassword',body,{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+    });
+  }
+
+  // sendToken(){
+  //   return this._http.patch('http://127.0.0.1:3000/users/resetPassword/:token',{
+  //     observe:'body',
+  //     withCredentials:true,
+  //     headers:new HttpHeaders().append('Content-Type' , 'application/json')
+  //   });
+  // }
 
 }

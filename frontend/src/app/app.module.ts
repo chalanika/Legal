@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LanguageTranslationModule } from './shared/modules/language-translation/language-translation.module';
+// import { RouterModule , Routes } from '@angular/router';
 import {UserService} from './user.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +18,8 @@ import { ProfileComponent } from './profile/profile.component';
 import {RateService} from 'src/app/core/services/rate.service';
 import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
+import { ValidateService } from './validate.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
     imports: [
@@ -30,10 +33,10 @@ import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.componen
         FileUploadModule,
         NgbModule,
         ReactiveFormsModule,
-        
+        // RouterModule.forRoot(appRoutes),
     ],
-    declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, DashboardComponent,AdminLayoutComponent],
-    providers: [AuthGuard , UserService,RateService],
+    declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent],
+    providers: [AuthGuard , UserService , ValidateService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

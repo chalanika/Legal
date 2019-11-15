@@ -12,11 +12,23 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
     
+    nicPoint = 0;
+    passPoint = 0;
+    logPoint = 0;
+
     loginForm: FormGroup = new FormGroup({
-        nic:new FormControl(null,[Validators.minLength(10), Validators.maxLength(10), Validators.required]),
+        nic:new FormControl(null,Validators.required),
         //email:new FormControl(null,[Validators.email,Validators.required]),
         password:new FormControl(null,Validators.required)
     });
+
+    get nic() {
+        return this.loginForm.get('nic');
+    }
+    get password() {
+        return this.loginForm.get('password');
+    }
+
     constructor(
       public _router: Router,private _user:UserService
     ) {}
@@ -24,6 +36,11 @@ export class LoginComponent implements OnInit {
     ngOnInit() {}
 
     onLoggedin() {
+
+        this.logPoint = 0;
+        this.nicPoint = 0;
+        this.passPoint = 0;
+
         if(!this.loginForm.valid){
             console.log('Invalid');
             return;
@@ -32,8 +49,29 @@ export class LoginComponent implements OnInit {
         this._user.login(JSON.stringify(this.loginForm.value))
         .subscribe(
             data=>{console.log(data);this._router.navigate(['/dashboard']);} ,
-            error => console.log(error)
+            error => {
+                if(error.error === 2112){
+                    this.nicPoint = 1;
+                    console.log('Username or password is incorrect!');
+                    this.asyncFunc();
+                    return;
+                }
+                if(error.error === 2113){
+                    this.logPoint = 1;
+                    console.log('Login Error!');
+                    this.asyncFunc();
+                    return;
+                }
+            }
         )
         localStorage.setItem('isLoggedin', 'true');
     }
+
+    asyncFunc = (...args) => 
+            new Promise(r => setTimeout(r , 4500))
+            .then(() => {
+                this.nicPoint = 0;
+                this.passPoint = 0;
+                this.logPoint = 0;
+            });
 }
