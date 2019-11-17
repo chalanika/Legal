@@ -10,6 +10,8 @@ var indexRouter = require('./routes/index');  // 1F4lkl1r891A3syQ
 var usersRouter = require('./routes/users'); // admin xFVgzsJmhA4hYTtK
 var fileRoutes = require('./routes/file');
 var categoryRouter = require('./routes/categories');
+var caseRouter = require('./routes/cases');
+
 // var imageRoutes = require();
 
 var cors= require('cors');
@@ -80,6 +82,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/file', fileRoutes);
 app.use('/category', categoryRouter);
+app.use('/case', caseRouter);
 
 //rating form
 

@@ -94,7 +94,7 @@ async function addToDB(req, res) {
         }
       })
     });
-    console.log(user);                                       // User details will display on console
+    // console.log(user);                                       // User details will display on console
     console.log('User registration successfull')             // To know user registration success or fail
     return res.status(201).json(doc);
   }
@@ -131,7 +131,7 @@ router.post('/login',function(req,res,next){
 });
 
 router.get('/user',isValidUser,function(req,res,next){
-  console.log(req.user);
+  // console.log(req.user);
   return res.status(200).json(req.user);
 });
 
@@ -205,13 +205,13 @@ router.post('/forgotPassword', function(req, res, next) {
 router.get('/resetPassword/:token' ,async function(req,res,next){
   // 1) Get user based on the token
 const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
-console.log(hashedToken);
+// console.log(hashedToken);
 const user = await User.findOne({passwordResetToken: hashedToken, passwordResetExpires: {$gt: Date.now()}});
   // 2)If token has not expired, and there is user, set the new password
 if(!user){
   return res.status(400).json({message:'Token is invalid or expired.......'}); 
 }
-console.log(user);
+// console.log(user);
 user.passwordResetToken = undefined;
 user.passwordResetExpires = undefined;
 user.save(function (err) {
@@ -219,10 +219,10 @@ user.save(function (err) {
       console.error('ERROR!');
   }
 });
-console.log(`${__dirname}`);
+// console.log(`${__dirname}`);
 var path = `${__dirname}`;
 path = path.replace(/\\/g, "/");
-console.log(path);
+// console.log(path);
 res.render('resetPassword', {email:user.email});
 })
 
@@ -267,14 +267,22 @@ router.put('/:id/rates', async (req,res)=>{
   }
 });
 //show rates on lawyers profile
-router.get('/:id', async (req,res)=>{
-  try{
-    const lawyer = await User.findById(req.params.id);
-    console.log(lawyer.rates);
-    res.json(lawyer.rates);
-  }catch{
-    res.json({message:error});
-  }
+// router.get('/:id', async (req,res)=>{
+//   try{
+//     const lawyer = await User.findById(req.params.id);
+//     console.log(lawyer.rates);
+//     res.json(lawyer.rates);
+//   }catch{
+//     res.json({message:error});
+//   }
+// })
+
+router.get('/lawyer/:id', async (req,res)=>{
+  
+  const lawyer = await User.findById(req.params.id);
+  res.json(lawyer);
 })
+
+
 
 module.exports = router;

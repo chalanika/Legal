@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders } from '@angular/common/http';
+import { Rate } from './core/models/Rate';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +52,17 @@ export class UserService {
   //     headers:new HttpHeaders().append('Content-Type' , 'application/json')
   //   });
   // }
+
+  //get lawyer details for rate form
+  getLawyer(id:String){
+    // console.log(id);
+    return this._http.get('http://127.0.0.1:3000/users/lawyer/'+id);
+  }
+
+  // send rating form to server
+  rate(id:String,rate:Rate){
+    console.log(rate);
+    return this._http.put('http://127.0.0.1:3000/users/'+id+'/rates',rate);
+  }
 
 }

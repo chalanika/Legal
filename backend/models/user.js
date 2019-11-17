@@ -30,6 +30,9 @@ var schema = new Schema({
         unique:[true,'This EMAIL has already taken'],
         validate:[validator.isEmail,'Please provide a valid email']
     },
+    rates:{
+        type:[Rate]
+    },
     area : {
         type:String,
         // required:[true,'Area cannot be empty'],

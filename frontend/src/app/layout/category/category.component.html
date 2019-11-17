@@ -31,8 +31,8 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
-      <form #categoryForm="ngForm" (ngSubmit)="categoryForm.reset()">
+    <form #categoryForm="ngForm" (ngSubmit)="categoryForm.reset()">
+      <div class="modal-body">
         <div class="form-group">
           <label for="categoryName">Category Name</label>
           <input type="text" class="form-control" [(ngModel)]="categoryModel.name" name="categoryName" id="categoryName"
@@ -41,15 +41,14 @@
           <textarea type="text" class="form-control" [(ngModel)]="categoryModel.description" name="categoryDescription"
             id="categoryDescription" placeholder="Enter Category Description"></textarea>
         </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button *ngIf="!isEdit" type="submit" class="btn btn-outline-dark"
-        (click)="onCategory(); categoryForm.reset(); modal.close('Save click')">Save</button>
-      <button *ngIf="isEdit" type="submit" class="btn btn-outline-dark"
-        (click)="isEdit=false; editCategory(category._id); categoryForm.reset(); modal.close('Save click')">Save</button>
-      <button *ngIf="isEdit" class="btn btn-outline-dark"
-        (click)="isEdit=false; categoryForm.reset(); modal.close('Save click')">Cancel</button>
-    </div>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="!isEdit" type="submit" class="btn btn-outline-dark"
+          (click)="onCategory(); categoryForm.reset(); modal.close('Save click')">Save</button>
+        <button *ngIf="isEdit" type="submit" class="btn btn-outline-dark"
+          (click)="editCategory(category._id); categoryForm.reset(); modal.close('Save click')">Save</button>
+        <button *ngIf="isEdit" class="btn btn-outline-dark"
+          (click)="isEdit=false; categoryForm.reset(); modal.close('Save click')">Cancel</button>
+      </div>
+    </form>
   </ng-template>
-  
