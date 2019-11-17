@@ -15,6 +15,7 @@ const routes: Routes = [
             { path: 'category', loadChildren: './category/category.module#CategoryModule' },
             // { path: 'report', loadChildren: './report/report.module#ReportModule' },
             { path: 'appointment', loadChildren: './appointment/appointment.module#AppointmentModule' },
+            { path: 'cases',loadChildren:'./cases-lawyer/cases-lawyer.module#CasesLawyerModule'},
             // { path: 'calender', loadChildren: './calender/calender.module#CalenderModule' },
             // { path: 'clients', loadChildren: './clients/clients.module#ClientsModule' },
             // { path: 'lawyers', loadChildren: './lawyers/lawyers.module#LawyersModule' },

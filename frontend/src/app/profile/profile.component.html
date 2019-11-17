@@ -193,7 +193,11 @@
     <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">
         <i class="fa fa-fw fa-desktop"></i>&nbsp;
         <span>{{ 'Category' | translate }}</span>
-    </a>                                                
+    </a>  
+    <a [routerLink]="['/cases']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <i class="fa fa-th-list"></i>&nbsp;
+        <span>{{ 'Cases' | translate }}</span>
+    </a>                                              
       <div class="nested-menu">
           <a class="list-group-item" (click)="addExpandClass('pages')">
               <i class="fa fa-plus"></i>&nbsp;
@@ -346,7 +350,8 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
+                            
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -404,6 +409,22 @@
                             </div>
                             <!-- <button type="submit" class="btn btn-info btn-fill pull-right">Settings</button> -->
                             <div class="clearfix"></div>
+
+                            <!-- display rating -->
+                            <ng-template #t let-fill="fill">
+                                <span class="star" [class.full]="fill === 100">
+                                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                                </span>
+                              </ng-template>
+                              
+                              <ngb-rating [(rate)]="averageRate" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+                              
+                              <hr>
+                              <pre>Rate: <b>{{averageRate}}</b></pre>
+                              <div *ngFor="let rate of rates">
+                                <div *ngIf="rate">{{rate.feedback}}</div>
+                              </div>
+
                         </form>
                     </div>
                 </div>

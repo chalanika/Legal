@@ -2,6 +2,8 @@ import { Component, OnInit , Output , EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { UserService } from 'src/app/user.service';
+import {Rate} from 'src/app/core/models/Rate';
+import {RateService} from 'src/app/core/services/rate.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,9 +33,14 @@ export class ProfileComponent implements OnInit {
     edit = 0;
     delete = 0;
 
+    rateModel = new Rate(0,"");
+    rates;
+    lid;
+    averageRate;
+
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
-  constructor(private translate: TranslateService, public router: Router , private _user:UserService , private _router:Router) {
+  constructor(private translate: TranslateService, public router: Router , private _user:UserService , private _router:Router,private _rateService:RateService) {
     this.router.events.subscribe(val => {
       if (
           val instanceof NavigationEnd &&
@@ -175,5 +182,25 @@ onPass(){
   this.delete = 0;
   return;
 }
+
+
+//get rate values
+// getRates(){
+//   let sum = 0
+//   this._rateService.getRate(this.lid).subscribe(
+//       res=>{
+//           this.rates = res;
+//           for (let i in this.rates){
+//               sum += this.rates[i].rate;
+//               console.log(this.rates[i].rate);
+//           }
+//           console.log(sum);
+
+//           this.averageRate=sum/this.rates.length;
+//           console.log(this.rates);
+//       },
+//       error=>console.log(error)
+//   )
+// }
 
 }

@@ -10,9 +10,13 @@ export class RateService {
   private baseUrl = 'http://localhost:3000/users';
 
   constructor(private http:HttpClient) { }
-
+  //send rating form to server
   rate(id:String,rate:Rate){
     console.log(rate);
     return this.http.put(this.baseUrl+'/'+id+'/rates',rate);
+  }
+  //check case files is closed
+  isFinished(cid:String){
+    return this.http.get(this.baseUrl+'/'+cid);
   }
 }
