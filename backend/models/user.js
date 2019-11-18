@@ -16,7 +16,7 @@ var schema = new Schema({
     },
     nic : {
         type:String,
-        require:[true,'NIC cannot be empty'],
+        required:[true,'NIC cannot be empty'],
         unique:[true,'This NIC has already been taken']
     },
     email : {

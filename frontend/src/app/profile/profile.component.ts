@@ -2,6 +2,7 @@ import { Component, OnInit , Output , EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { UserService } from 'src/app/user.service';
+import { FormGroup , FormControl , Validators  } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,7 @@ export class ProfileComponent implements OnInit {
     address;
     number;
     area;
+    type;
     pushRightClass: string;
     isActive: boolean;
     collapsed: boolean;
@@ -30,6 +32,46 @@ export class ProfileComponent implements OnInit {
     pass = 0;
     edit = 0;
     delete = 0;
+    all = 0;
+
+    updatePasswordForm: FormGroup = new FormGroup({
+      password: new FormControl(null , [Validators.required]),
+      newpassword: new FormControl(null , [Validators.required]),
+      conpassword: new FormControl(null , [Validators.required])
+  } );
+
+  updateMeForm: FormGroup = new FormGroup({
+    uname: new FormControl(!null , [Validators.required , Validators.minLength(3)]),
+    cnumber: new FormControl(null),
+    caddress: new FormControl(null),
+    updateArea: new FormControl(null)
+} );
+
+  get password() {
+    return this.updatePasswordForm.get('password');
+}
+  get newpassword() {
+  return this.updatePasswordForm.get('newpassword');
+}
+  get conpassword() {
+  return this.updatePasswordForm.get('conpassword');
+}
+
+get uname() {
+  return this.updateMeForm.get('uname');
+}
+
+get cnumber() {
+  return this.updateMeForm.get('cnumber');
+}
+
+get caddress() {
+  return this.updateMeForm.get('caddress');
+}
+
+get updateArea() {
+  return this.updateMeForm.get('updateArea');
+}
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -61,15 +103,13 @@ export class ProfileComponent implements OnInit {
     this.address = data.address;
     this.number = data.number;
     this.area = data.area;  
+    this.type = data.type;
     console.log(data.image);
     var path = data.image.replace(/\\/g, '/');
     path = path.replace(/public/g, '');
     console.log(path);
     if(data.image != null)
-    this.imageUrl = 'http://localhost:3000/' + path;  //' http://localhost:3000/images' + path;
-    console.log(this.imageUrl);
-    // console.log('/images/' + path);
-    // this.image = "/images/" + path;
+    this.imageUrl = 'http://localhost:3000/' + path;
 }
 
 linkImg(fileName) {
@@ -83,6 +123,53 @@ linkImg(fileName) {
         this.collapsed = false;
         this.showMenu = '';
         this.pushRightClass = 'push-right';
+  }
+
+  sendupdatePasswordRequest() {
+
+    if(this.updatePasswordForm.controls.password.value==null || this.updatePasswordForm.controls.newpassword.value==null || this.updatePasswordForm.controls.conpassword.value==null){
+      this.all = 1;
+      console.log('All fields are required!');
+      this.asyncFunc();
+      return;
+    }
+
+    this._user.updatePassword(JSON.stringify(this.updatePasswordForm.value))
+        .subscribe(
+            data => {console.log(data); this._router.navigate(['/dashboard']);},
+            error => {
+                console.error(error);
+                return;
+            }
+        );
+  }
+
+  updateMe(){
+
+    if(this.updateMeForm.controls.uname.value==true){
+      this.updateMeForm.controls['uname'].setValue(this.username);
+    }
+
+    if(this.updateMeForm.controls.cnumber.value==true){
+      this.updateMeForm.controls['cnumber'].setValue(this.number);
+    }
+
+    if(this.updateMeForm.controls.caddress.value==true){
+      this.updateMeForm.controls['caddress'].setValue(this.address);
+    }
+
+    if(this.updateMeForm.controls.updateArea.value==true){
+      this.updateMeForm.controls['updateArea'].setValue(this.area);
+    }
+
+    this._user.updateMe(JSON.stringify(this.updateMeForm.value))
+        .subscribe(
+            data => {console.log(data); this._router.navigate(['/dashboard']);},
+            error => {
+                console.error(error);
+                return;
+            }
+        );
   }
 
   isToggled(): boolean {
@@ -175,5 +262,11 @@ onPass(){
   this.delete = 0;
   return;
 }
+
+asyncFunc = (...args) => 
+            new Promise(r => setTimeout(r , 2500))
+            .then(() => {
+                this.all = 0;
+            });
 
 }

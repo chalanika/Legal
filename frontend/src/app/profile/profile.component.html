@@ -345,9 +345,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Contact Number</label>
-                                        <input *ngIf="this.number===null" type="text" class="form-control" placeholder="number" value="{{number}}" disabled>
-                                        <input *ngIf="!this.number===null" type="text" class="form-control" placeholder="number" disabled>
-                                    </div>
+                                        <input type="text" class="form-control" placeholder="number" value="{{this.number}}" disabled>
+                                   </div>
                                 </div>
                             </div>
 
@@ -355,8 +354,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Contact Address</label>
-                                        <input *ngIf="this.address===null" type="text" class="form-control" placeholder="Home Address" value="You havent enter your address" disabled>
-                                        <input *ngIf="this.address===!null" type="text" class="form-control" placeholder="Home Address" value="{{address}}">
+                                        <input type="text" class="form-control" placeholder="Home Address" value="{{address}}" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -364,29 +362,33 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Expertised Area</label>
-                                        <input type="text" class="form-control" placeholder="area" value="{{this.area}}" disabled>
+                                        <div *ngIf="this.type==Lawyer">
+                                            <label>Expertised Area</label>
+                                            <input type="text" class="form-control" placeholder="area" value="{{this.area}}" disabled>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <!-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Country</label>
-                                        <input type="text" class="form-control" placeholder="Country" value="Andrew">
+                                        <input type="text" class="form-control" placeholder="Country" value="Andrew" disabled>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
+                                </div> -->
+                                <!-- <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Postal Code</label>
-                                        <input type="number" class="form-control" placeholder="ZIP Code">
+                                        <input type="number" class="form-control" placeholder="ZIP Code" disabled>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>About Me</label>
-                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike" disabled>{{this.detail}}</textarea>
+                                        <div *ngIf="this.type==Lawyer">
+                                            <label>About Me</label>
+                                            <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike" disabled>{{this.detail}}</textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -457,7 +459,7 @@
                                         <h4 class="title"><strong>Edit Details</strong></h4>
                                     </div>    
                             <div class="content">
-                                        <form>
+                                        <form role="form" [formGroup]="updateMeForm">
                                             <div class="row">
                                                 <!-- <div class="col-md-5">
                                                     <div class="form-group">
@@ -468,13 +470,17 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <label>Username</label>
-                                                        <input type="text" class="form-control" value="{{username}}" >
+                                                        <input (keydown.space)="$event.preventDefault();" formControlName="uname" type="text" class="form-control input-underline input-lg" id="uname"  value="{{username}}">
+                                                            <div *ngIf="uname.touched && uname.invalid" class="alert alert-danger">
+                                                                <div *ngIf="uname.errors.required">Username is required</div>
+                                                                <div *ngIf="uname.errors.minlength">Username should be minimun {{ uname.errors.minlength.requiredLength }} characters long</div>
+                                                            </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1">Email address</label>
-                                                        <input type="email" class="form-control" value="{{email}}" >
+                                                        <label for="exampleInputEmail1">Nic</label>
+                                                        <input type="text" class="form-control" value="{{nic}}" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -482,14 +488,19 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Nic</label>
-                                                        <input type="text" class="form-control" value="{{nic}}" >
+                                                        <label>Email</label>
+                                                        <input type="email" class="form-control" value="{{email}}" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Last Name</label>
-                                                        <input type="text" class="form-control" placeholder="Last Name" value="Andrew">
+                                                        <label>Contact Number</label>
+                                                        <div *ngIf="this.number != 'null'">
+                                                            <input formControlName="cnumber" type="text" class="form-control" id="cnumber" placeholder="Contact Number" value="{{number}}">
+                                                        </div>
+                                                        <div *ngIf="this.number == 'null'">
+                                                            <input formControlName="cnumber" type="text" class="form-control" id="cnumber" placeholder="You haven't enter any number!">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -497,13 +508,18 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Address</label>
-                                                        <input type="text" class="form-control" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
+                                                        <label>Contact Address</label>
+                                                        <div *ngIf="this.address != 'null'">
+                                                            <input formControlName="caddress" type="text" class="form-control" placeholder="Home Address" value="{{address}}">
+                                                        </div>
+                                                        <div *ngIf="this.address == 'null'">
+                                                            <input formControlName="caddress" type="text" class="form-control" placeholder="You haven't enter any address!">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                 
-                                            <div class="row">
+                                            <!-- <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>City</label>
@@ -522,17 +538,23 @@
                                                         <input type="number" class="form-control" placeholder="ZIP Code">
                                                     </div>
                                                 </div>
-                                            </div>
-                
+                                            </div> -->
+                                            <div *ngIf="this.type == 'Lawyer'">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>About Me</label>
-                                                        <textarea rows="5" class="form-control" placeholder="Here can be your description" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
-                                                    </div>
+                                                        <div *ngIf="this.detail == 'null'">
+                                                            <textarea formControlName="updateArea"  rows="5" class="form-control" placeholder="You haven't filled this field!" value="details"></textarea>
+                                                        </div>
+                                                        <div *ngIf="this.detail != 'null'">
+                                                            <textarea formControlName="updateArea" rows="5" class="form-control" placeholder="Details!" value="{{detail}}"></textarea>
+                                                        </div>
+                                                   </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-info btn-fill pull-right">Save Changes</button>
+                                            </div> 
+                                            <button type="submit" class="btn btn-info btn-fill pull-right" (click)="updateMe()">Save Changes</button>
                                             <div class="clearfix"></div>
                                         </form>
                                     </div>
@@ -547,7 +569,7 @@
                                             <h4 class="title"><strong>Change Password</strong></h4>
                                         </div>    
                                 <div class="content">
-                                            <form>
+                                            <form role="form" [formGroup]="updatePasswordForm">
                                                 <div class="row">
                                                     <!-- <div class="col-md-5">
                                                         <div class="form-group">
@@ -557,8 +579,11 @@
                                                     </div> -->
                                                     <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label>Password</label>
-                                                                <input type="text" class="form-control" placeholder="password" >
+                                                                <label>Old Password</label>
+                                                                <input formControlName="password" type="password" class="form-control input-underline input-lg" id="password" placeholder="Password">
+                                                                    <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                                                                            <div *ngIf="password.errors.required">Password is required</div>
+                                                                    </div>
                                                             </div>
                                                     </div>
                                                 </div>
@@ -567,7 +592,10 @@
                                                         <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label>New Password</label>
-                                                                    <input type="text" class="form-control" placeholder="new password" >
+                                                                    <input formControlName="newpassword" type="password" class="form-control input-underline input-lg" id="newpassword" placeholder="New Password">
+                                                                    <div *ngIf="newpassword.touched && newpassword.invalid" class="alert alert-danger">
+                                                                            <div *ngIf="newpassword.errors.required">New Password is required</div>
+                                                                    </div>
                                                                 </div>
                                                         </div>
                                                 </div>
@@ -575,12 +603,18 @@
                                                 <div class="row">
                                                         <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label>Confirm Password</label>
-                                                                    <input type="text" class="form-control" placeholder="confirm password" >
+                                                                        <label>Confirm New Password</label>
+                                                                        <input formControlName="conpassword" type="password" class="form-control input-underline input-lg" id="conpassword" placeholder="Confirm Password">
+                                                                        <div *ngIf="conpassword.touched && conpassword.invalid" class="alert alert-danger">
+                                                                                <div *ngIf="conpassword.errors.required">Confirm New Password is required</div>
+                                                                        </div>
                                                                 </div>
                                                             </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-info btn-fill pull-right">Save Changes</button>
+                                                <div *ngIf="this.all == 1" class="alert alert-danger">
+                                                    All fields are required!
+                                                </div>
+                                                <button type="submit" class="btn btn-info btn-fill pull-right" (click)="sendupdatePasswordRequest()">Save Changes</button>
                                                 <div class="clearfix"></div>
                                             </form>
                                         </div>
@@ -604,7 +638,7 @@
                     <div class="card card-user" style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);background-color: white;">
                         <div class="content">
                             <div class="author">
-                                <a href="#">
+                                <a [routerLink]="['/profile']">
                                     <p style="font-size: 20px;color: black;"><img class="avatar border-gray" src="{{this.imageUrl}}" alt="..." style="padding:5px;padding-right:30px;width: 180px;height: 120px;"><b>{{username}}</b></p>
                                 </a>                                                                                
                             </div>

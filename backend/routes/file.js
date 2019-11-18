@@ -42,10 +42,9 @@ _router.post('/upload', function(req,res,next){
         uploadname = req.file.filename
         var input = req.file.path;
         input = path.resolve(input);
-        console.log('Input',input);
         nodecipher.encrypt({
             input: input,
-            output: input+'.dat',
+            output: input+'.enc',
             password: key
         }, function (err, opts) {
             if (err) throw err;
@@ -55,7 +54,6 @@ _router.post('/upload', function(req,res,next){
                 console.log('file deleted successfully');
            });
         });
-        console.log(input);
         return res.json({originalname:originalname, uploadname:uploadname});
     });
 });
@@ -76,19 +74,22 @@ _router.post('/download', function(req,res,next){
     filepath = path.join(__dirname,`../uploads/files/${req.body.nic}/myFiles`) +'/'+ req.body.filename;
 input = path.resolve(filepath);
 nodecipher.decrypt({
-    input: input+'.dat',
+    input: input+'.enc',
     output: filepath,
     password: key
     
   }, function (err, opts) {
     if (err) throw err;
     console.log('Image successfully decrypted!');
-    input = input+'.dat';
-    fs.unlink(input,function(err){
-        if(err) return console.log(err);
-        console.log('file deleted successfully');
-   });
-    res.sendFile(filepath);
+    res.sendFile(filepath , function(err){
+        if(err) console.log(err);
+        else {
+            fs.unlink(filepath,function(err){
+                if(err) return console.log(err);
+                console.log('file deleted successfully');
+           });
+        }
+    });
   });
 });
 

@@ -21,31 +21,32 @@ var urlencodedParser = bodyParser.urlencoded({ extended: true });
 // });
 
 var storage = multer.diskStorage({
-  destination:function(req,file,cb){
+  destination: function (req, file, cb) {
     var dir = `./public/images/${req.body.nic}/profile_photos`;
-    if(!fs.existsSync(dir)){
-      fs.mkdirSync(dir , { recursive: true });
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
     }
-      cb(null, dir);
+    cb(null, dir);
   },
-  filename:function(req,file,cb){
-      cb(null,Date.now()+'.'+file.originalname); // `user-${req.user.nic}-${Date.now()}.${ext}`
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '.' + file.originalname); // `user-${req.user.nic}-${Date.now()}.${ext}`
   }
 });
 
-const fileFilter = (req , file , cb) => {
+const fileFilter = (req, file, cb) => {
   if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
-  cb(null, true);
-} else {
-  cb(null , false);
-}
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
 }
 
-var upload = multer({storage: storage , 
+var upload = multer({
+  storage: storage,
   limits: {
-  fileSize: 1024 * 1024 * 5 
-},
-fileFilter: fileFilter 
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
 });
 
 // var upload = multer({
@@ -63,7 +64,7 @@ fileFilter: fileFilter
 //   }
 // });
 
-router.post('/register', upload.single('image') , function (req, res, next) {
+router.post('/register', upload.single('image'), function (req, res, next) {
   addToDB(req, res);
 });
 
@@ -84,170 +85,185 @@ async function addToDB(req, res) {
   });
 
   try {
-    doc = user.save().then(result => {
-      console.log(result);
-      res.status(201).json({
-        message:"User registration successfully!",
-        userCreated: {
-          _id: result._id,
-          image: result.image
-        }
-      })
+    doc = await user.save();
+    return res.status(200).json({
+      message: 'User Registration Successfull!',
+      result: doc
     });
-    console.log(user);                                       // User details will display on console
-    console.log('User registration successfull')             // To know user registration success or fail
-    return res.status(201).json(doc);
   }
   catch (err) {
     console.log(err.message);
-    if(err.message[61] == 'u'){
+    if (err.message[61] == 'u') {
       console.log('*******ERROR : USERNAME Already taken*****')
       return res.status(501).json(1111);
     }
-    if(err.message[61] == 'n' && err.message[62] == 'i' && err.message[63] == 'c'){
+    if (err.message[61] == 'n' && err.message[62] == 'i' && err.message[63] == 'c') {
       console.log('*******ERROR : NIC Already taken*****')
       return res.status(501).json(1112);
     }
-    if(err.message[61] == 'e'){
+    if (err.message[61] == 'e') {
       console.log('*******ERROR : EMAIL Already taken*****')
       return res.status(501).json(1113);
     }
-    // return res.status(501).json(err.code);
   }
 }
 
 
-router.post('/login',function(req,res,next){
-  passport.authenticate('local', function(err, user, info) {
-    if (err) {console.log('1:',err); return res.status(501).json(err); }
+router.post('/login', function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    if (err) { console.log('1:', err); return res.status(501).json(err); }
     if (!user) { return res.status(501).json(2112); }
-    req.logIn(user, function(err) {
-      if (err) {console.log(err); return res.status(501).json(2113); }
+    req.logIn(user, function (err) {
+      if (err) { console.log(err); return res.status(501).json(2113); }
       console.log('Login Success...');
       console.log(user);
-      return res.status(200).json({message:'Login Success'});
+      return res.status(200).json({ message: 'Login Success' });
     });
   })(req, res, next);
 });
 
-router.get('/user',isValidUser,function(req,res,next){
+router.get('/user', isValidUser, function (req, res, next) {
   console.log(req.user);
   return res.status(200).json(req.user);
 });
 
-router.get('/logout',isValidUser, function(req,res,next){
+router.get('/logout', isValidUser, function (req, res, next) {
   req.logout();
   console.log("Logout Success");
-  return res.status(200).json({message:'Logout Success'});
+  return res.status(200).json({ message: 'Logout Success' });
 })
 
-router.post('/forgotPassword', function(req, res, next) {
-      User.findOne({ email: req.body.email }, function(err, user) {
-        if (!user) {
-          return req.status(404).json({message:'Not a user!'});
-        }
-        const resetToken = crypto.randomBytes(32).toString('hex');
-        user.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
-        user.passwordResetExpires = Date.now() + 10*60*1000;
-        user.save(function (err) {
-          if(err) {
-              console.error('ERROR!');
-          }
-      });
-        console.log(process.env.EMAIL_HOST,process.env.EMAIL_PORT,process.env.EMAIL_USERNAME,process.env.EMAIL_PASSWORD)
-        const transporter = nodemailer.createTransport({
-          // host: 'smtp.mailtrap.io',
-          service: 'SendGrid',
-          secure: false, // use SSL // this need to be removed
-          // port: '587',
-          auth: {
-              user: 'apikey',
-              pass: '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'
-          },
-          tls: {
-            rejectUnauthorized: false // this need to be removed
-        }
-      });
-      const resetURL = `${req.protocol}://${req.get(
-        'host'
-      )}/users/resetPassword/${resetToken}`;
-      console.log(resetURL);
-      const message = `Forgot your password? Submit a PATCH request with your new password : ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
-      var mailOptions = {
-        from: 'Team Legal <legal@gmail.com>',
-        to: user.email,
-        subject: 'Your password reset token (valid for 10 min)',
-        text: message,
-        html: `Forgot your password? Submit a PATCH request with your new password : <a href="${resetURL}">Reset Link</a>.\nIf you didn't forget your password, please ignore this email!`,
-      };
-      console.log('Sending Email!');
-      let valid = true;
-      transporter.sendMail(mailOptions, function(err,res){
-        if(err){
-          console.error('error:' , err);
-          valid = false;
-        }else{
-          console.log('res:',res);
-        }
-      });
-      if(valid){
-        return res.status(200).send({
-            message: "Success"
-        });
-    }else{
-        return res.status(500).send({
-            message: "Failed"
-        });
+router.post('/forgotPassword', function (req, res, next) {
+  User.findOne({ email: req.body.email }, function (err, user) {
+    if (!user) {
+      return req.status(404).json({ message: 'Not a user!' });
     }
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    user.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    user.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+    user.save(function (err) {
+      if (err) {
+        console.error('ERROR!');
+      }
+    });
+    console.log(process.env.EMAIL_HOST, process.env.EMAIL_PORT, process.env.EMAIL_USERNAME, process.env.EMAIL_PASSWORD)
+    const transporter = nodemailer.createTransport({
+      // host: 'smtp.mailtrap.io',
+      service: 'SendGrid',
+      secure: false, // use SSL // this need to be removed
+      // port: '587',
+      auth: {
+        user: 'apikey',
+        pass: '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'
+      },
+      tls: {
+        rejectUnauthorized: false // this need to be removed
+      }
+    });
+    const resetURL = `${req.protocol}://${req.get(
+      'host'
+    )}/users/resetPassword/${resetToken}`;
+    console.log(resetURL);
+    const message = `Forgot your password? Submit a PATCH request with your new password : ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
+    var mailOptions = {
+      from: 'Team Legal <legal@gmail.com>',
+      to: user.email,
+      subject: 'Your password reset token (valid for 10 min)',
+      text: message,
+      html: `Forgot your password? Submit a PATCH request with your new password : <a href="${resetURL}">Reset Link</a>.\nIf you didn't forget your password, please ignore this email!`,
+    };
+    console.log('Sending Email!');
+    let valid = true;
+    transporter.sendMail(mailOptions, function (err, res) {
+      if (err) {
+        console.error('error:', err);
+        valid = false;
+      } else {
+        console.log('res:', res);
+      }
+    });
+    if (valid) {
+      return res.status(200).send({
+        message: "Success"
       });
+    } else {
+      return res.status(500).send({
+        message: "Failed"
+      });
+    }
+  });
 });
 
-router.get('/resetPassword/:token' ,async function(req,res,next){
+router.get('/resetPassword/:token', async function (req, res, next) {
   // 1) Get user based on the token
-const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
-console.log(hashedToken);
-const user = await User.findOne({passwordResetToken: hashedToken, passwordResetExpires: {$gt: Date.now()}});
+  const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+  console.log(hashedToken);
+  const user = await User.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } });
   // 2)If token has not expired, and there is user, set the new password
-if(!user){
-  return res.status(400).json({message:'Token is invalid or expired.......'}); 
-}
-console.log(user);
-user.passwordResetToken = undefined;
-user.passwordResetExpires = undefined;
-user.save(function (err) {
-  if(err) {
-      console.error('ERROR!');
+  if (!user) {
+    return res.status(400).json({ message: 'Token is invalid or expired.......' });
   }
-});
-console.log(`${__dirname}`);
-var path = `${__dirname}`;
-path = path.replace(/\\/g, "/");
-console.log(path);
-res.render('resetPassword', {email:user.email});
-})
-
-router.post('/updatePasswordViaEmail',urlencodedParser,function(req,res,next){
-    // console.log(req.body.email);
-    User.findOne({email: req.body.email} , function(err, user){
-      if (!user) {
-        return req.status(404).json({message:'Not a user!'});
-      }
-      if(req.body.password != req.body.confirmPassword){
-        return req.status(501).json({message:'Password and request password does not match!'});
-      }
-      user.password = User.hashPassword(req.body.password); // Validations and Encryptions need to set
-      user.save(function (err) {
-        if(err) {
-            console.error('ERROR!');
-        }
-    });
-    });
-    res.redirect('http://localhost:4200');
+  console.log(user);                          // To verify the user by developers
+  user.passwordResetToken = undefined;        // Erase the passwordResetToken Field
+  user.passwordResetExpires = undefined;      // Erase the passwordResetExpires Field
+  user.save(function (err) {
+    if (err) {
+      console.error('ERROR!');              // Make a send response
+    }
+  });
+  console.log(`${__dirname}`);
+  var path = `${__dirname}`;
+  path = path.replace(/\\/g, "/");            // Replace backward slashes with forward slashes
+  console.log(path);
+  res.render('resetPassword', { email: user.email }); // Render html page to reset password
 });
 
-function isValidUser(req,res,next){
-  if(req.isAuthenticated()) next();
-  else return res.status(401).json({message:'Unauthorized Request'});
+router.post('/updatePasswordViaEmail', urlencodedParser, function (req, res, next) {
+  User.findOne({ email: req.body.email }, function (err, user) {
+    if (!user) {
+      return res.status(404).json({ message: 'Not a user!' });
+    }
+    if (req.body.password != req.body.confirmPassword) {
+      return res.status(501).json({ message: 'Password and request password does not match!' });
+    }
+    user.password = User.hashPassword(req.body.password); // Validations and Encryptions need to set
+    user.save(function (err) {
+      if (err) {
+        console.error('ERROR!');
+      }
+    });
+  });
+  res.redirect('http://localhost:4200');
+});
+
+const filterobj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach(el => {
+    if (allowedFields.includes(el)) newObj[el] = obj[el];
+  });
+  return newObj;
+};
+
+router.patch('/updateMe', async function (req, res, next) {
+  if (req.body.password) {
+    return res.status(501).json({ message: 'This route is not for update password...!' });
+  }
+
+  const filteredbody = filterobj(req.body, 'name', 'email');
+  const updateUser = await User.findByIdAndUpdate(req.user._id, x, {
+    new: true,
+    runValidators: true
+  });
+
+});
+
+router.post('/updatePassword', function (req, res, next) {
+  console.log('/updatePassword');
+});
+
+function isValidUser(req, res, next) {
+  if (req.isAuthenticated()) next();
+  else return res.status(401).json({ message: 'Unauthorized Request' });
 }
 
 module.exports = router;
