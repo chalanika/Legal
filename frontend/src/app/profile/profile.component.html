@@ -186,10 +186,13 @@
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
             <span>{{ 'Post' | translate }}</span>
         </a>
-        <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-desktop"></i>&nbsp;
-            <span>{{ 'Category' | translate }}</span>
-        </a>
+        <div *ngIf="type==1">
+            <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-fw fa-desktop"></i>&nbsp;
+                <span>{{ 'Category' | translate }}</span>
+            </a>
+        </div>
+        
         <a [routerLink]="['/cases']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-th-list"></i>&nbsp;
             <span>{{ 'Cases' | translate }}</span>
@@ -346,7 +349,7 @@
                                             <input type="text" class="form-control" value="{{nic}}" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4" *ngIf="type==2">
                                         <!-- display rating -->
                                         <ng-template #t let-fill="fill">
                                             <span class="star" [class.full]="fill === 100">

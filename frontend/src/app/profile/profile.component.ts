@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
     address;
     number;
     area;
+    type;
     pushRightClass: string;
     isActive: boolean;
     collapsed: boolean;
@@ -35,7 +36,7 @@ export class ProfileComponent implements OnInit {
 
     rateModel = new Rate(0,"");
     rates;
-    lid = "5dce02aa4ecd9729d4574d02";
+    currentUserId= "5dce02aa4ecd9729d4574d02";
     averageRate;
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
@@ -67,7 +68,13 @@ export class ProfileComponent implements OnInit {
     this.detail = data.detail;
     this.address = data.address;
     this.number = data.number;
-    this.area = data.area;  
+    this.area = data.area;
+    this.type = data.type;  
+    this.currentUserId = data._id;
+    if(this.type==2){
+      this.getRates();
+    }
+    
     console.log(data.image);
     var path = data.image.replace(/\\/g, '/');
     path = path.replace(/public/g, '');
@@ -90,7 +97,8 @@ linkImg(fileName) {
         this.collapsed = false;
         this.showMenu = '';
         this.pushRightClass = 'push-right';
-        this.getRates();
+        
+
   }
 
   isToggled(): boolean {
@@ -189,7 +197,7 @@ onPass(){
 getRates(){
   let sum = 0
   console.log(1);
-  this._user.getRate(this.lid).subscribe(
+  this._user.getRate(this.currentUserId).subscribe(
       res=>{
           this.rates = res;
           for (let i in this.rates){

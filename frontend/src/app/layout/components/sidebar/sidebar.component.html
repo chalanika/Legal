@@ -70,7 +70,7 @@
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
             <span>{{ 'Post' | translate }}</span>
         </a>
-        <div *ngIf="this.type==1">
+        <div *ngIf="this.currentUserType==1">
         <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
             <span>{{ 'Category' | translate }}</span>

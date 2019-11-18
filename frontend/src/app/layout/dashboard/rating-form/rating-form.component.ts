@@ -32,8 +32,6 @@ export class RatingFormComponent implements OnInit {
   closeResult: string;
   currentRate = 0;
   rateModel = new Rate(0, " ");
-  id = "5db5a209257a640a5cc844dc";
-  clientId = "5dce03204ecd9729d4574d03";
   result;
   lawyer;
   currentUser;
@@ -48,16 +46,10 @@ export class RatingFormComponent implements OnInit {
     .subscribe(
         res=>{
           this.currentUser = res;
-          console.log('this is',res);
           this.currentUserId = this.currentUser._id;
-          console.log(this.currentUserId);
-          console.log(this.clientId);
           this.check();
         }
     )
-    
-    
-    // this.open();
   }
 
   //check case is closed
