@@ -122,8 +122,13 @@ router.post('/login', function (req, res, next) {
   })(req, res, next);
 });
 
+<<<<<<< HEAD
 router.get('/user', isValidUser, function (req, res, next) {
   console.log(req.user);
+=======
+router.get('/user',isValidUser,function(req,res,next){
+  // console.log(req.user);
+>>>>>>> bc140db392c7eec177014ce679bf6f6fea6b353a
   return res.status(200).json(req.user);
 });
 
@@ -265,5 +270,41 @@ function isValidUser(req, res, next) {
   if (req.isAuthenticated()) next();
   else return res.status(401).json({ message: 'Unauthorized Request' });
 }
+/*update rate array*/
+router.put('/:id/rates', async (req,res)=>{
+  console.log(req.body);
+  const rate = {
+    rate:req.body.rate,
+    feedback:req.body.feedback
+  };
+  try{
+    const lawyer = await User.findById(req.params.id);
+    lawyer.rates.push(rate);
+
+    const saved = await lawyer.save();
+    res.json(saved);
+  }catch(error){
+    res.json({message:error});
+  }
+});
+//show rates on lawyers profile
+router.get('/rate/:id', async (req,res)=>{
+  try{
+    const lawyer = await User.findById(req.params.id);
+    console.log("rate");
+    console.log(lawyer.rates);
+    res.json(lawyer.rates);
+  }catch{
+    res.json({message:error});
+  }
+})
+
+router.get('/lawyer/:id', async (req,res)=>{
+  
+  const lawyer = await User.findById(req.params.id);
+  res.json(lawyer);
+})
+
+
 
 module.exports = router;

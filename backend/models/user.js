@@ -4,6 +4,11 @@ var bcrypt = require('bcrypt');
 var validator = require('validator');
 var crypto = require('crypto');
 
+const Rate = new Schema({
+    rate : {type:Number},
+    feedback:{type:String}
+});
+
 var schema = new Schema({
     type : {
         type:String,
@@ -24,6 +29,9 @@ var schema = new Schema({
         required:[true,'EMAIL cannot be empty'],
         unique:[true,'This EMAIL has already taken'],
         validate:[validator.isEmail,'Please provide a valid email']
+    },
+    rates:{
+        type:[Rate]
     },
     area : {
         type:String,

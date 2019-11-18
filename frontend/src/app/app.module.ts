@@ -15,6 +15,9 @@ import { FileComponent } from './file/file.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import {RateService} from 'src/app/core/services/rate.service';
+import { DashboardComponent } from './Admin/dashboard/dashboard.component';
+import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
 import { ValidateService } from './validate.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 

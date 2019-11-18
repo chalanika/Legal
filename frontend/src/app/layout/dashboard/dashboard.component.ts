@@ -1,19 +1,18 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,ViewChild } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { UserService } from 'src/app/user.service';
 import { Router } from '@angular/router';
 
-
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss'],
+    styles: [],
     animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
-  
+   
     constructor( private _user:UserService , private _router:Router) {
         this.sliders.push(
             {
@@ -62,7 +61,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        
     }
 
     public closeAlert(alert: any) {
@@ -70,8 +69,6 @@ export class DashboardComponent implements OnInit {
         this.alerts.splice(index, 1);
     }
 
-
-/*create modal for rating*/
 
 
 

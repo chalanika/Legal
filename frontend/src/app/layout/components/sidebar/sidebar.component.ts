@@ -10,6 +10,7 @@ import { UserService } from 'src/app/user.service';
 })
 export class SidebarComponent implements OnInit {
     username:'';
+    currentUserType;
     isActive: boolean;
     collapsed: boolean;
     showMenu: string;
@@ -37,6 +38,7 @@ export class SidebarComponent implements OnInit {
 
     addName(data){
         this.username = data.username;
+        this.currentUserType = data.type;
     }
 
     ngOnInit() {

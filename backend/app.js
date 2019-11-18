@@ -9,6 +9,9 @@ var compression = require('compression');
 var indexRouter = require('./routes/index');  // 1F4lkl1r891A3syQ
 var usersRouter = require('./routes/users'); // admin xFVgzsJmhA4hYTtK
 var fileRoutes = require('./routes/file');
+var categoryRouter = require('./routes/categories');
+var caseRouter = require('./routes/cases');
+
 // var imageRoutes = require();
 
 var cors= require('cors');
@@ -30,6 +33,11 @@ app.use(express.urlencoded({ extended: true }));
 
 var mongoose =require('mongoose');
 
+
+// mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
+
+// .catch((err)=>console.error(err));
+
 // mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
 // .catch((err)=>console.error(err));
  
@@ -38,7 +46,7 @@ mongoose.connect('mongodb://localhost/easycase',{ useNewUrlParser: true , useCre
 
 //passport
 var passport = require('passport');
-var session = require('express-session');
+var session = require('express-session');   
 const MongoStore = require('connect-mongo')(session);
 app.use(session({
   name:'myname.sid',
@@ -73,6 +81,10 @@ app.use(compression());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/file', fileRoutes);
+app.use('/category', categoryRouter);
+app.use('/case', caseRouter);
+
+//rating form
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

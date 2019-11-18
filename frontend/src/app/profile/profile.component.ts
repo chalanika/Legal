@@ -2,7 +2,12 @@ import { Component, OnInit , Output , EventEmitter } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { UserService } from 'src/app/user.service';
+<<<<<<< HEAD
 import { FormGroup , FormControl , Validators  } from '@angular/forms';
+=======
+import {Rate} from 'src/app/core/models/Rate';
+import {RateService} from 'src/app/core/services/rate.service';
+>>>>>>> bc140db392c7eec177014ce679bf6f6fea6b353a
 
 @Component({
   selector: 'app-profile',
@@ -73,9 +78,14 @@ get updateArea() {
   return this.updateMeForm.get('updateArea');
 }
 
+    rateModel = new Rate(0,"");
+    rates;
+    currentUserId= "5dce02aa4ecd9729d4574d02";
+    averageRate;
+
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
-  constructor(private translate: TranslateService, public router: Router , private _user:UserService , private _router:Router) {
+  constructor(private translate: TranslateService, public router: Router , private _user:UserService , private _router:Router,private _rateService:RateService) {
     this.router.events.subscribe(val => {
       if (
           val instanceof NavigationEnd &&
@@ -102,8 +112,13 @@ get updateArea() {
     this.detail = data.detail;
     this.address = data.address;
     this.number = data.number;
-    this.area = data.area;  
-    this.type = data.type;
+    this.area = data.area;
+    this.type = data.type;  
+    this.currentUserId = data._id;
+    if(this.type==2){
+      this.getRates();
+    }
+    
     console.log(data.image);
     var path = data.image.replace(/\\/g, '/');
     path = path.replace(/public/g, '');
@@ -123,6 +138,8 @@ linkImg(fileName) {
         this.collapsed = false;
         this.showMenu = '';
         this.pushRightClass = 'push-right';
+        
+
   }
 
   sendupdatePasswordRequest() {
@@ -268,5 +285,25 @@ asyncFunc = (...args) =>
             .then(() => {
                 this.all = 0;
             });
+
+//get rate values
+getRates(){
+  let sum = 0
+  console.log(1);
+  this._user.getRate(this.currentUserId).subscribe(
+      res=>{
+          this.rates = res;
+          for (let i in this.rates){
+              sum += this.rates[i].rate;
+              console.log(this.rates[i].rate);
+          }
+          console.log(sum);
+
+          this.averageRate=sum/this.rates.length;
+          console.log(this.rates);
+      },
+      error=>console.log(error)
+  )
+}
 
 }

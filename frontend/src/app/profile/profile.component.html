@@ -8,7 +8,7 @@
     </button>
     <div class="collapse navbar-collapse">
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="{{ 'Search' | translate }}" >
+            <input class="form-control mr-sm-2" type="text" placeholder="{{ 'Search' | translate }}">
         </form>
         <ul class="navbar-nav ml-auto">
             <!-- <li class="nav-item d-none d-xl-block">
@@ -22,9 +22,7 @@
             </li> &nbsp; -->
             <li class="nav-item">
                 <a href="javascript:void(0)" class="nav-link mt-1"
-                    style="padding: 0.375rem 1rem !important; border-color: #999;"
-                    (click)="rltAndLtr()"
-                >
+                    style="padding: 0.375rem 1rem !important; border-color: #999;" (click)="rltAndLtr()">
                     RTL/LTR
                 </a>
             </li> &nbsp;
@@ -35,8 +33,8 @@
                 <ul class="dropdown-menu-right messages" ngbDropdownMenu>
                     <li class="media">
                         <img class="d-flex align-self-center mr-3"
-                            src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg" alt="Generic placeholder image"
-                        >
+                            src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg"
+                            alt="Generic placeholder image">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">{{username}}</h5>
                             <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
@@ -46,8 +44,7 @@
                     <li class="media">
                         <img class="d-flex align-self-center mr-3"
                             src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg"
-                            alt="Generic placeholder image"
-                        >
+                            alt="Generic placeholder image">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">{{username}}</h5>
                             <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
@@ -57,8 +54,7 @@
                     <li class="media">
                         <img class="d-flex align-self-center mr-3"
                             src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg"
-                            alt="Generic placeholder image"
-                        />
+                            alt="Generic placeholder image" />
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">{{username}}</h5>
                             <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
@@ -81,13 +77,13 @@
                     <a href="javascript:void(0)" class="dropdown-item">
                         {{ 'Mail' | translate }} <span class="badge badge-info"> 45</span>
                     </a>
-                    <li class="dropdown-divider"></li>
-                    <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'View All' | translate }}
-                    </a>
-                </div>
-            </li>
-            <!-- <li class="nav-item dropdown" ngbDropdown>
+            <li class="dropdown-divider"></li>
+            <a href="javascript:void(0)" class="dropdown-item">
+                {{ 'View All' | translate }}
+            </a>
+    </div>
+    </li>
+    <!-- <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                     <i class="fa fa-language"></i> {{ 'Language' | translate }} <b class="caret"></b>
                 </a>
@@ -118,26 +114,26 @@
                     </a>
                 </div>
             </li> -->
-            <li class="nav-item dropdown" ngbDropdown>
-                <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                    <i class="fa fa-user"></i> {{username}} <b class="caret"></b>
-                </a>
-                <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a routerLink="/profile" class="dropdown-item" href="javascript:void(0)">
-                        <i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)">
-                        <i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)">
-                        <i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="onLoggedout()">
-                        <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}
-                    </a>
-                </div>
-            </li>
-        </ul>
+    <li class="nav-item dropdown" ngbDropdown>
+        <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+            <i class="fa fa-user"></i> {{username}} <b class="caret"></b>
+        </a>
+        <div class="dropdown-menu-right" ngbDropdownMenu>
+            <a routerLink="/profile" class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}
+            </a>
+            <a class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}
+            </a>
+            <a class="dropdown-item" href="javascript:void(0)">
+                <i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}
+            </a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="onLoggedout()">
+                <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}
+            </a>
+        </div>
+    </li>
+    </ul>
     </div>
 </nav>
 
@@ -148,198 +144,228 @@
 </div>
 
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
-  <div class="list-group">
-      <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
-          <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-          <span>{{ 'Dashboard' | translate }}</span>
-      </a>
-      <!-- need to add clients page -->
-      <a class="list-group-item" href="javascript:void(0)">
-          <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
-          <span>{{ 'Clients' | translate }}</span>
-      </a>
-      <a class="list-group-item" href="javascript:void(0)">
-          <i class="fa fa-fw fa-table"></i>&nbsp;
-          <span>{{ 'Appointments' | translate }}</span>
-      </a>
-      <a routerLink="/file" class="list-group-item" href="javascript:void(0)">
-          <i class="fa fa-fw fa-edit"></i>&nbsp;
-          <span>{{ 'File' | translate }}</span>
-      </a>
-      <a class="list-group-item" href="javascript:void(0)">
-          <i class="fa fa-fw fa-desktop"></i>&nbsp;
-          <span>{{ 'Notifications' | translate }}</span>
-      </a>
-      <a class="list-group-item" href="javascript:void(0)">
-          <i class="fa fa-fw fa-wrench"></i>&nbsp;
-          <span>{{ 'Report' | translate }}</span>
-      </a>
-      <a routerLink="/profile" class="list-group-item" href="javascript:void(0)">
-          <i class="fa fa-fw fa-user"></i>&nbsp;
-          <span>{{ 'Profile' | translate }}</span>
-      </a>
-      <a class="list-group-item" href="javascript:void(0)">
-          <i class="fa fa-th-list"></i>&nbsp;
-          <span>{{ 'Calander' | translate }}</span>
-      </a>
-      <div class="nested-menu">
-          <a class="list-group-item" (click)="addExpandClass('pages')">
-              <i class="fa fa-plus"></i>&nbsp;
-              <span>{{ 'Menu' | translate }}</span>
-          </a>
-          <li class="nested" [class.expand]="showMenu === 'pages'">
-              <ul class="submenu">
-                  <li>
-                      <a href="javascript:void(0)">
-                          <i class="fa fa-monument"></i>&nbsp;
-                          <span>{{ 'Submenu' | translate }}</span>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="javascript:void(0)">
-                          <i class="fa fa-monument"></i>&nbsp;
-                          <span>{{ 'Submenu' | translate }}</span>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="javascript:void(0)">
-                          <i class="fa fa-monument"></i>&nbsp;
-                          <span>{{ 'Submenu' | translate }}</span>
-                      </a>
-                  </li>
-              </ul>
-          </li>
-      </div>
-      <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-          <i class="fa fa-file-o"></i>&nbsp;
-          <span>{{ 'Blank Page' | translate }}</span>
-      </a>
+    <div class="list-group">
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ 'Dashboard' | translate }}</span>
+        </a>
+        <!-- need to add clients page -->
+        <a class="list-group-item" href="javascript:void(0)">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Clients' | translate }}</span>
+        </a>
+        <a routerLink="/lawyers" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Lawyers' | translate }}</span>
+        </a>
+        <a [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-table"></i>&nbsp;
+            <span>{{ 'Appointments' | translate }}</span>
+        </a>
+        <a routerLink="/file" class="list-group-item" href="javascript:void(0)">
+            <i class="fa fa-fw fa-edit"></i>&nbsp;
+            <span>{{ 'File' | translate }}</span>
+        </a>
+        <a routerLink="/notifications" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-desktop"></i>&nbsp;
+            <span>{{ 'Notifications' | translate }}</span>
+        </a>
+        <a class="list-group-item" href="javascript:void(0)">
+            <i class="fa fa-fw fa-wrench"></i>&nbsp;
+            <span>{{ 'Report' | translate }}</span>
+        </a>
+        <a routerLink="/profile" class="list-group-item" href="javascript:void(0)">
+            <i class="fa fa-fw fa-user"></i>&nbsp;
+            <span>{{ 'Profile' | translate }}</span>
+        </a>
+        <a class="list-group-item" href="javascript:void(0)">
+            <i class="fa fa-th-list"></i>&nbsp;
+            <span>{{ 'Calander' | translate }}</span>
+        </a>
+        <a [routerLink]="['/post']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Post' | translate }}</span>
+        </a>
+        <div *ngIf="type==1">
+            <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                <i class="fa fa-fw fa-desktop"></i>&nbsp;
+                <span>{{ 'Category' | translate }}</span>
+            </a>
+        </div>
+        
+        <a [routerLink]="['/cases']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-th-list"></i>&nbsp;
+            <span>{{ 'Cases' | translate }}</span>
+        </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages')">
+                <i class="fa fa-plus"></i>&nbsp;
+                <span>{{ 'Menu' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Submenu' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;
+            <span>{{ 'Blank Page' | translate }}</span>
+        </a>
 
-      <div class="header-fields">
-          <a (click)="rltAndLtr()" class="list-group-item">
-              <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
-          </a>
-          <div class="nested-menu">
-              <a class="list-group-item" (click)="addExpandClass('languages')">
-                  <span><i class="fa fa-language"></i>&nbsp; {{ 'Language' | translate }} <b class="caret"></b></span>
-              </a>
-              <li class="nested" [class.expand]="showMenu === 'languages'">
-                  <ul class="submenu">
-                      <li>
-                          <a href="javascript:void(0)" (click)="changeLang('en')">
-                              {{ 'English' | translate }}
-                          </a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)" (click)="changeLang('fr')">
-                              {{ 'French' | translate }}
-                          </a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)" (click)="changeLang('ur')">
-                              {{ 'Urdu' | translate }}
-                          </a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)" (click)="changeLang('es')">
-                              {{ 'Spanish' | translate }}
-                          </a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)" (click)="changeLang('it')">
-                              {{ 'Italian' | translate }}
-                          </a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)" (click)="changeLang('fa')">
-                              {{ 'Farsi' | translate }}
-                          </a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)" (click)="changeLang('de')">
-                              {{ 'German' | translate }}
-                          </a>
-                      </li>
-                  </ul>
-              </li>
-          </div>
-          <div class="nested-menu">
-              <a class="list-group-item" (click)="addExpandClass('profile')">
-                  <span><i class="fa fa-user"></i>&nbsp; {{username}}</span>
-              </a>
-              <li class="nested" [class.expand]="showMenu === 'profile'">
-                  <ul class="submenu">
-                      <li>
-                          <a routerLink="/profile" href="javascript:void(0)">
-                              <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)">
-                              <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="javascript:void(0)">
-                              <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a [routerLink]="['/login']" (click)="onLoggedout()">
-                              <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
-                          </a>
-                      </li>
-                  </ul>
-              </li>
-          </div>
-      </div>
-  </div>
-  <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
-      <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
-      <span>{{ 'Collapse Sidebar' | translate }}</span>
-  </div>
+        <div class="header-fields">
+            <a (click)="rltAndLtr()" class="list-group-item">
+                <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
+            </a>
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('languages')">
+                    <span><i class="fa fa-language"></i>&nbsp; {{ 'Language' | translate }} <b class="caret"></b></span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'languages'">
+                    <ul class="submenu">
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('en')">
+                                {{ 'English' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('fr')">
+                                {{ 'French' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('ur')">
+                                {{ 'Urdu' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('es')">
+                                {{ 'Spanish' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('it')">
+                                {{ 'Italian' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('fa')">
+                                {{ 'Farsi' | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" (click)="changeLang('de')">
+                                {{ 'German' | translate }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <div class="nested-menu">
+                <a class="list-group-item" (click)="addExpandClass('profile')">
+                    <span><i class="fa fa-user"></i>&nbsp; {{username}}</span>
+                </a>
+                <li class="nested" [class.expand]="showMenu === 'profile'">
+                    <ul class="submenu">
+                        <li>
+                            <a routerLink="/profile" href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">
+                                <span><i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/login']" (click)="onLoggedout()">
+                                <span><i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
+        <i class="fa fa-fw fa-angle-double-{{collapsed?'right':'left'}}"></i>&nbsp;
+        <span>{{ 'Collapse Sidebar' | translate }}</span>
+    </div>
 </nav>
 
 <!-- user -->
 <div class="main-content" style="padding-top:70px">
     <div class="container-fluid">
         <div class="row">
-            <div class= "col-md-2"> 
+            <div class="col-md-2">
             </div>
             <div class="col-md-6">
                 <div *ngIf="profile===1">
-                <div class="card" style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
-                    <div class="header">
-                        <h4 class="title"><strong>User Profile</strong></h4>
-                    </div>
-                    <div class="content">
-                        <form>
-                            <div class="row">
-                                <!-- <div class="col-md-5">
+                    <div class="card"
+                        style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
+                        <div class="header">
+                            <h4 class="title"><strong>User Profile</strong></h4>
+                        </div>
+                        <div class="content">
+                            <form>
+                                <div class="row">
+                                    <!-- <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Company (disabled)</label>
                                         <input type="text" class="form-control" disabled placeholder="Company" value="Creative Code Inc.">
                                     </div>
                                 </div> -->
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control" value="{{username}}" disabled>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input type="text" class="form-control" value="{{username}}" disabled>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">NIc</label>
-                                        <input type="text" class="form-control" value="{{nic}}" disabled>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">NIc</label>
+                                            <input type="text" class="form-control" value="{{nic}}" disabled>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="col-md-4" *ngIf="type==2">
+                                        <!-- display rating -->
+                                        <ng-template #t let-fill="fill">
+                                            <span class="star" [class.full]="fill === 100">
+                                                <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                                            </span>
+                                        </ng-template>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="nic" class="form-control" value="{{email}}" disabled>
+                                        <ngb-rating [(rate)]="averageRate" [starTemplate]="t" [readonly]="true" max="5">
+                                        </ngb-rating>
+
+                                        <hr>
+                                        <pre>Rate: <b>{{averageRate}}</b></pre>
+                                        <!-- <div *ngFor="let rate of rates">
+                                            <div *ngIf="rate">{{rate.feedback}}</div>
+                                        </div> -->
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -348,7 +374,6 @@
                                         <input type="text" class="form-control" placeholder="number" value="{{this.number}}" disabled>
                                    </div>
                                 </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -357,7 +382,6 @@
                                         <input type="text" class="form-control" placeholder="Home Address" value="{{address}}" disabled>
                                     </div>
                                 </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-md-4">
@@ -391,22 +415,25 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- <button type="submit" class="btn btn-info btn-fill pull-right">Settings</button> -->
-                            <div class="clearfix"></div>
-                        </form>
+                                <!-- <button type="submit" class="btn btn-info btn-fill pull-right">Settings</button> -->
+                                <div class="clearfix"></div>
+
+
+
+                            </form>
+                        </div>
                     </div>
-                </div>
                 </div>
 
                 <!-- notification -->
 
                 <div *ngIf="notification===1">
-                    <div class="card" style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
+                    <div class="card"
+                        style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
                         <div class="card-body">
-                                <div class="header">
-                                        <h4 class="title"><strong>Notifications</strong></h4>
-                                    </div>
+                            <div class="header">
+                                <h4 class="title"><strong>Notifications</strong></h4>
+                            </div>
                             <div class="list-group">
                                 <a href="#" class="list-group-item clearfix d-block">
                                     <i class="fa fa-comment fa-fw"></i> New Comment
@@ -558,6 +585,32 @@
                                             <div class="clearfix"></div>
                                         </form>
                                     </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>About Me</label>
+                                            <textarea rows="5" class="form-control"
+                                                placeholder="Here can be your description"
+                                                value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-info btn-fill pull-right">Save Changes</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- change_password -->
+
+                <div *ngIf="pass===1">
+                    <div class="card"
+                        style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
+                        <div class="header">
+                            <h4 class="title"><strong>Change Password</strong></h4>
                         </div>
                      </div>
 
@@ -618,18 +671,45 @@
                                                 <div class="clearfix"></div>
                                             </form>
                                         </div>
-                            </div>
-                         </div>  
-                         
-                         <!-- delete_account -->
-                         <div class="card" style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);" *ngIf="delete===1">
-                                Are you Sure you want to delete your account?
-                                <div class="bn-toolbar">
-                                        <button type="button" id="btnSubmit" class="btn btn-secondary btn-sm" style="margin: 5px;">Yes</button>
-                                        <button type="button" id="btnCancel" class="btn btn-secondary btn-sm">No</button>
+                                    </div>
                                 </div>
-                         </div>
-                         
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>New Password</label>
+                                            <input type="text" class="form-control" placeholder="new password">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input type="text" class="form-control" placeholder="confirm password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-info btn-fill pull-right">Save Changes</button>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- delete_account -->
+                <div class="card"
+                    style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);"
+                    *ngIf="delete===1">
+                    Are you Sure you want to delete your account?
+                    <div class="bn-toolbar">
+                        <button type="button" id="btnSubmit" class="btn btn-secondary btn-sm"
+                            style="margin: 5px;">Yes</button>
+                        <button type="button" id="btnCancel" class="btn btn-secondary btn-sm">No</button>
+                    </div>
+                </div>
+
 
 
 
@@ -646,34 +726,40 @@
                                 Your chick she so thirsty <br>
                                 I'm in that two seat Lambo"
                             </p> -->
-                            <div class="text-block">
-                                <ul class="menue-vertical" style="list-style-type:none">
-                                    <li>
-                                        <a href="javascript:void(0)" (click)="onProfile()">Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" (click)="onNotification()">Notifications</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" (click)="onPass()">Change Password</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" (click)="onEdit()">Edit Details</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" (click)="onDelete()">Delete Account</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="text-center">
-                            <button href="#" class="btn btn-simple" style="color: grey;background-color: white;margin: 5px;"><i class="fa fa-facebook-square"></i></button>
-                            <button href="#" class="btn btn-simple" style="color: grey;background-color: white;margin: 5px;"><i class="fa fa-twitter"></i></button>
-                            <button href="#" class="btn btn-simple" style="color: grey;background-color: white;margin: 5px;"><i class="fa fa-google-plus-square"></i></button>
+                        <div class="text-block">
+                            <ul class="menue-vertical" style="list-style-type:none">
+                                <li>
+                                    <a href="javascript:void(0)" (click)="onProfile()">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" (click)="onNotification()">Notifications</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" (click)="onPass()">Change Password</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" (click)="onEdit()">Edit Details</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" (click)="onDelete()">Delete Account</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                    <hr>
+                    <div class="text-center">
+                        <button href="#" class="btn btn-simple"
+                            style="color: grey;background-color: white;margin: 5px;"><i
+                                class="fa fa-facebook-square"></i></button>
+                        <button href="#" class="btn btn-simple"
+                            style="color: grey;background-color: white;margin: 5px;"><i
+                                class="fa fa-twitter"></i></button>
+                        <button href="#" class="btn btn-simple"
+                            style="color: grey;background-color: white;margin: 5px;"><i
+                                class="fa fa-google-plus-square"></i></button>
+                    </div>
                 </div>
+            </div>
         </div>
     </div>
 </div>

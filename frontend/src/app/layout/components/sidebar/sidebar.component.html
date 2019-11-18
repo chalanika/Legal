@@ -1,27 +1,60 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
     <div class="list-group">
+        <!-- <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+            <span>{{ 'Dashboard' | translate }}</span>
+        </a>
+        
+        <a [routerLink]="['/cateory']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Cateory' | translate }}</span>
+        </a>
+        <a [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Appointment' | translate }}</span>
+        </a>
+        <a [routerLink]="['/notification']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Notification' | translate }}</span>
+        </a>
+        <a [routerLink]="['/calender']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Calender' | translate }}</span>
+        </a>
+        <a routerLink="/profile" class="list-group-item" href="javascript:void(0)">
+            <i class="fa fa-fw fa-user"></i>&nbsp;
+            <span>{{ 'Profile' | translate }}</span>
+        </a>
+        <a routerLink="/file" class="list-group-item" href="javascript:void(0)">
+            <i class="fa fa-fw fa-user"></i>&nbsp;
+            <span>{{ 'File' | translate }}</span>
+        </a> -->
+        <!-- update -->
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
-        <!-- need to add clients page -->
-        <a class="list-group-item" href="javascript:void(0)">
+        <a routerLink="/clients" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
             <span>{{ 'Clients' | translate }}</span>
         </a>
-        <a class="list-group-item" href="javascript:void(0)">
+        <a routerLink="/lawyers" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
+            <span>{{ 'Lawyers' | translate }}</span>
+        </a>
+        <a [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Appointments' | translate }}</span>
         </a>
         <a routerLink="/file" class="list-group-item" href="javascript:void(0)">
             <i class="fa fa-fw fa-edit"></i>&nbsp;
-            <span>{{ 'File' | translate }}</span>
+            <span>{{ 'Files' | translate }}</span>
         </a>
-        <a class="list-group-item" href="javascript:void(0)">
+        <a routerLink="/notifications" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
             <span>{{ 'Notifications' | translate }}</span>
         </a>
-        <a class="list-group-item" href="javascript:void(0)">
+        <a routerLink="/report" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-wrench"></i>&nbsp;
             <span>{{ 'Report' | translate }}</span>
         </a>
@@ -29,10 +62,25 @@
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span>{{ 'Profile' | translate }}</span>
         </a>
-        <a class="list-group-item" href="javascript:void(0)">
+        <a routerLink="/calender" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-th-list"></i>&nbsp;
             <span>{{ 'Calander' | translate }}</span>
         </a>
+        <a [routerLink]="['/post']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Post' | translate }}</span>
+        </a>
+        <div *ngIf="this.currentUserType==1">
+        <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-desktop"></i>&nbsp;
+            <span>{{ 'Category' | translate }}</span>
+        </a>
+        </div>
+        <a [routerLink]="['/cases']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-th-list"></i>&nbsp;
+            <span>{{ 'Cases' | translate }}</span>
+        </a>
+
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages')">
                 <i class="fa fa-plus"></i>&nbsp;
