@@ -65,4 +65,9 @@ export class UserService {
     return this._http.put('http://127.0.0.1:3000/users/'+id+'/rates',rate);
   }
 
+  getRate(id){
+    console.log(id);
+    return this._http.get('http://127.0.0.1:3000/users/rate/'+id);
+  }
+
 }

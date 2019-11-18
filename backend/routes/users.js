@@ -267,15 +267,16 @@ router.put('/:id/rates', async (req,res)=>{
   }
 });
 //show rates on lawyers profile
-// router.get('/:id', async (req,res)=>{
-//   try{
-//     const lawyer = await User.findById(req.params.id);
-//     console.log(lawyer.rates);
-//     res.json(lawyer.rates);
-//   }catch{
-//     res.json({message:error});
-//   }
-// })
+router.get('/rate/:id', async (req,res)=>{
+  try{
+    const lawyer = await User.findById(req.params.id);
+    console.log("rate");
+    console.log(lawyer.rates);
+    res.json(lawyer.rates);
+  }catch{
+    res.json({message:error});
+  }
+})
 
 router.get('/lawyer/:id', async (req,res)=>{
   

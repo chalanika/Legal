@@ -12,7 +12,8 @@ export class RateService {
   constructor(private http:HttpClient) { }
   
   //check case files is closed
-  isFinished(cid:String){
+  isFinished(cid){
+    console.log('ddd',cid);
     return this.http.get(this.baseUrl+'/case/'+cid);
   }
 }

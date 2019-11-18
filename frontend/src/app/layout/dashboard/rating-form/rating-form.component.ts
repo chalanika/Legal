@@ -36,22 +36,36 @@ export class RatingFormComponent implements OnInit {
   clientId = "5dce03204ecd9729d4574d03";
   result;
   lawyer;
+  currentUser;
+  currentUserId;
   caseModel = new Case;
 
   @ViewChild('content') content
 
   constructor(private modalService: NgbModal, private _rateService: RateService, private _userService:UserService ){ }
   ngOnInit() {
-    this.check(this.clientId);
+    this._userService.user()
+    .subscribe(
+        res=>{
+          this.currentUser = res;
+          console.log('this is',res);
+          this.currentUserId = this.currentUser._id;
+          console.log(this.currentUserId);
+          console.log(this.clientId);
+          this.check();
+        }
+    )
+    
+    
     // this.open();
   }
 
   //check case is closed
-  check(clientId) {
-    this._rateService.isFinished(clientId).subscribe(
+  check() {
+    this._rateService.isFinished(this.currentUserId).subscribe(
       res => {
         this.result = res;
-        // console.log(this.result);
+        console.log(this.result);
         if (this.result.length > 0) {
           this.caseModel = this.result[0];
           if (this.caseModel.is_closed && !this.caseModel.is_rated) {

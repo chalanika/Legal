@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
 
     rateModel = new Rate(0,"");
     rates;
-    lid;
+    lid = "5dce02aa4ecd9729d4574d02";
     averageRate;
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
@@ -90,6 +90,7 @@ linkImg(fileName) {
         this.collapsed = false;
         this.showMenu = '';
         this.pushRightClass = 'push-right';
+        this.getRates();
   }
 
   isToggled(): boolean {
@@ -185,22 +186,23 @@ onPass(){
 
 
 //get rate values
-// getRates(){
-//   let sum = 0
-//   this._rateService.getRate(this.lid).subscribe(
-//       res=>{
-//           this.rates = res;
-//           for (let i in this.rates){
-//               sum += this.rates[i].rate;
-//               console.log(this.rates[i].rate);
-//           }
-//           console.log(sum);
+getRates(){
+  let sum = 0
+  console.log(1);
+  this._user.getRate(this.lid).subscribe(
+      res=>{
+          this.rates = res;
+          for (let i in this.rates){
+              sum += this.rates[i].rate;
+              console.log(this.rates[i].rate);
+          }
+          console.log(sum);
 
-//           this.averageRate=sum/this.rates.length;
-//           console.log(this.rates);
-//       },
-//       error=>console.log(error)
-//   )
-// }
+          this.averageRate=sum/this.rates.length;
+          console.log(this.rates);
+      },
+      error=>console.log(error)
+  )
+}
 
 }
