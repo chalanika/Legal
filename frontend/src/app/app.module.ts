@@ -14,6 +14,7 @@ import { FileComponent } from './file/file.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { ProfileComponent } from './profile/profile.component';
         FileUploadModule,
         NgbModule,
         ReactiveFormsModule,
+        ScheduleModule, RecurrenceEditorModule,
         
     ],
     declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent],
