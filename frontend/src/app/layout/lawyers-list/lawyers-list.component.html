@@ -1,0 +1,31 @@
+
+    <div class="row">
+        <div class="col-sm-6">
+            <article>
+                
+                <h3>Select a category </h3>
+
+                <div class="container">
+                    <input type="radio" name="category" value="All" checked (change) = "radioChangeaHandler($event)">
+                    <label >All</label>
+                    <div *ngFor="let category of categories">
+                        <input 
+                        type="radio"
+                        name="category"
+                        value="{{category}}"
+                        (change) = "radioChangeaHandler($event)"
+                        >
+                        <label>{{  category}}</label>  
+                    </div>
+                </div>
+                <p>{{selectedCategory}}</p>
+            </article>
+        </div>   
+        <div class="col-sm-6">
+            <p style="font-size: 20px;color: black;"><img class="avatar border-gray"
+                src="{{this.imageUrl}}" alt="..."
+                style="padding:5px;padding-right:30px;width: 180px;height: 120px;"><b>{{username}}</b>
+        </p>
+        </div>
+        
+    </div>
