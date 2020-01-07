@@ -1,31 +1,44 @@
-
+<div class="container ml-5 mt-5">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-3">
             <article>
-                
-                <h3>Select a category </h3>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search your lawyer ">
+                </form>
+                <p></p>
+                <br>
 
-                <div class="container">
-                    <input type="radio" name="category" value="All" checked (change) = "radioChangeaHandler($event)">
-                    <label >All</label>
-                    <div *ngFor="let category of categories">
-                        <input 
-                        type="radio"
-                        name="category"
-                        value="{{category}}"
-                        (change) = "radioChangeaHandler($event)"
-                        >
-                        <label>{{  category}}</label>  
+                <div class="">
+                    <h4 class="text-primary">Select a category </h4>
+
+                    <div class="container ml-5">
+                        <input type="radio" name="category" value="All" checked (change)="radioChangeaHandler($event)">
+                        <label> &nbsp; All</label>
+                        <div *ngFor="let category of categories">
+                            <input type="radio" name="category" value="{{category}}"
+                                (change)="radioChangeaHandler($event)">
+                            <label> &nbsp; {{category}}</label>
+                        </div>
                     </div>
                 </div>
-                <p>{{selectedCategory}}</p>
+
             </article>
-        </div>   
+        </div>
         <div class="col-sm-6">
-            <p style="font-size: 20px;color: black;"><img class="avatar border-gray"
+            <!-- <img class="avatar border-gray"
                 src="{{this.imageUrl}}" alt="..."
                 style="padding:5px;padding-right:30px;width: 180px;height: 120px;"><b>{{username}}</b>
-        </p>
+                result.image.replace(/\\/g, '/').replace(/public/g, '')
+                'http://localhost:3000/' + result.image.replace(/\\/g, '/').replace(/public/g, '')
+        </p> -->
+            <div class="container border pt-5 pb-5">
+                
+                <div class="m-2" *ngFor="let lawyer of lawyers">
+                    <app-lawyer [lawyer]="lawyer"></app-lawyer>
+                   
+                </div>
+            </div>
         </div>
-        
+
     </div>
+</div>

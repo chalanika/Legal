@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col">
+    <a [routerLink] routerLinkActive="routerLinkActive" (click)="isCollapsed = !isCollapsed"  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">{{lawyer.username}}</a>
+  </div>
+  <div class="col-5">
+    <button class="btn btn-primary btn-sm">Book Now</button>
+  </div>
+</div>
+
+<div id="collapseExample" [ngbCollapse]="isCollapsed">
+  kkk
+</div>

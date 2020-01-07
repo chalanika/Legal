@@ -12,8 +12,9 @@ export class LawyersListComponent implements OnInit {
 
   user;
   userType;
-  result;
+  lawyers;
   type:String;
+  imageUrl;
   selectedCategory : String = '';
   categories : any =[
     'Family',
@@ -26,7 +27,7 @@ export class LawyersListComponent implements OnInit {
   ngOnInit() {
     this._userService.viewLawyers().subscribe(
       res => {
-        this.result = res;
+        this.lawyers = res;
         console.log(res);
       },
       error => console.log(error)
@@ -44,21 +45,21 @@ export class LawyersListComponent implements OnInit {
     console.log("ccccccccc");
     if(category == 'Business'){
       this.type = "1";
-      this.displayLawyers(this.type);
+      this.getLawyers(this.type);
     }
     if(category == 'Family'){
       this.type = "2";
-      this.displayLawyers(this.type);
+      this.getLawyers(this.type);
     }
     if(category == 'Criminal'){
       this.type = "3";
-      this.displayLawyers(this.type);
+      this.getLawyers(this.type);
     }
     if(category == 'All'){
       
       this._userService.viewLawyers().subscribe(
         res => {
-          this.result = res;
+          this.lawyers = res;
           console.log(res);
         },
         error => console.log(error)
@@ -66,16 +67,18 @@ export class LawyersListComponent implements OnInit {
     }
   }
   //display categorised lawyers
-  displayLawyers(category:String){
+ getLawyers(category:String){
     console.log(category);
     this._userService.categorizedLawyers(category).subscribe(
       res => {
-        this.result = res;
+        this.lawyers = res;
+        
         console.log(res);
       },
       error => console.log(error)
     );
   }
 
+  
 
 }
