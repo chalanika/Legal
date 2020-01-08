@@ -63,7 +63,7 @@ export class UserService {
     return this._http.get('http://127.0.0.1:3000/users/lawyers/'+category);
   }
 
-  //get specific lawyer details for rate form
+  //get specific lawyer details 
   getLawyer(id:String){
     // console.log(id);
     return this._http.get('http://127.0.0.1:3000/users/lawyer/'+id);

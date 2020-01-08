@@ -1,12 +1,37 @@
 <div class="row">
   <div class="col">
-    <a [routerLink] routerLinkActive="routerLinkActive" (click)="isCollapsed = !isCollapsed"  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">{{lawyer.username}}</a>
+    <img class="avatar border-gray" src="{{this.imageUrl}}" alt="..." class="rounded-circle  border" style="width: 30px; height: 30px;">
+    <a  [routerLink] routerLinkActive="routerLinkActive" (click)="isCollapsed = !isCollapsed"  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"> {{lawyer.username}}</a>
   </div>
   <div class="col-5">
-    <button class="btn btn-primary btn-sm">Book Now</button>
+    <button class="btn btn-primary btn-sm" (click)="appointment()">Book Now</button>
   </div>
 </div>
 
-<div id="collapseExample" [ngbCollapse]="isCollapsed">
-  kkk
+<div id="collapseExample" [ngbCollapse]="isCollapsed" class="border m-2 p-2">
+  <div class="row">
+    <div class="col-6  p-0" style="margin-left:20px; margin-top: 10px;">
+      <b>{{lawyer.username}}</b>
+      <img class="avatar border-gray" src="{{this.imageUrl}}" alt="..." style="padding:5px;padding-right:30px;width: 150px;height: 150px;">
+    </div>
+    <div class="col pt-2 ">
+      <small><b>Practise Area</b></small><br>
+      
+      <small>-Nugegoda</small>
+      <br>
+      <hr>
+      <small><b>Expertise</b></small><br>
+      
+      <small>-Business</small><br>
+      <small>-Family</small><br>
+      <small>-Real State</small><br>
+      <small>-Debt Recovery</small><br>
+      <hr>
+      <small><b>Contact details</b></small>
+      <br>
+      <small>Contact No: {{lawyer.number}}</small><br>
+      <small>Email</small><br>
+      <small>{{lawyer.email}}</small>
+    </div>
+  </div>
 </div>
