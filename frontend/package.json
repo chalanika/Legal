@@ -30,6 +30,7 @@
     "@ngx-translate/http-loader": "4.0.0",
     "angular-bootstrap-datetimepicker": "^4.0.2",
     "angular2-flash-messages": "^3.0.1",
+    "@syncfusion/ej2-angular-schedule": "^17.2.49",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
     "chart.js": "2.7.3",
@@ -47,7 +48,8 @@
     "rxjs": "6.3.3",
     "rxjs-compat": "^6.5.3",
     "yarn": "1.12.1",
-    "zone.js": "0.8.26"
+    "zone.js": "0.8.26",
+    "@syncfusion/ej2-material-theme": "~17.2.47"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.10.4",

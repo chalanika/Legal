@@ -20,6 +20,8 @@ import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
 import { ValidateService } from './validate.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ScheduleModule, RecurrenceEditorModule } from '@syncfusion/ej2-angular-schedule';
+
 
 @NgModule({
     imports: [
@@ -33,7 +35,11 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
         FileUploadModule,
         NgbModule,
         ReactiveFormsModule,
+
         // RouterModule.forRoot(appRoutes),
+
+        ScheduleModule, RecurrenceEditorModule,
+
     ],
     declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent],
     providers: [AuthGuard , UserService , ValidateService],
