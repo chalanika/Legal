@@ -2,36 +2,18 @@ import { Component, OnInit,Input,ViewChild } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { UserService } from 'src/app/user.service';
 import { Router } from '@angular/router';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
-    styles: [`
-  .star {
-    font-size: 3rem;
-  }
-  .bad {
-    color: gray;
-  }
-  .filled.bad {
-    color: yellow;
-  }
-
-  .feedback{
-    border:0;
-    
-  }
-`],
+    styles: [],
     animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
-    closeResult: string;
-    currentRate = 0;
-    @ViewChild('content') content
-    constructor( private modalService: NgbModal,private _user:UserService , private _router:Router) {
+   
+    constructor( private _user:UserService , private _router:Router) {
         this.sliders.push(
             {
                 imagePath: 'assets/images/slider1.jpg',
@@ -79,7 +61,7 @@ export class DashboardComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.open();
+        
     }
 
     public closeAlert(alert: any) {
@@ -87,25 +69,6 @@ export class DashboardComponent implements OnInit {
         this.alerts.splice(index, 1);
     }
 
-
-/*create modal for rating*/
-open() {
-    this.modalService.open(this.content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
 
 
 

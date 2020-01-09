@@ -10,7 +10,7 @@ passport.use('local',new LocalStrategy({
         User.findOne({ nic: username }, function (err, user) {
             if (err) { return done(err); }
             if (!user) {
-                return done(null, false, { message: 'Incorrect NIC...' });
+                return done(null, false, { message: 'Not a user.....' });
             }
             if (!user.isValid(password)) {
                 console.log('Incorrect Password');
