@@ -4,10 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser'); //
+var compression = require('compression');
 
 var indexRouter = require('./routes/index');  // 1F4lkl1r891A3syQ
 var usersRouter = require('./routes/users'); // admin xFVgzsJmhA4hYTtK
 var fileRoutes = require('./routes/file');
+var categoryRouter = require('./routes/categories');
+var caseRouter = require('./routes/cases');
+
+// var imageRoutes = require();
 
 var cors= require('cors');
 var app = express();
@@ -17,17 +22,31 @@ app.use(cors({
   credentials:true
 }));
 
+// var dir = path.join(__dirname, 'public');
+// app.use(express.static(dir));
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
+// const { static } = require('express');
+// app.use('/images/', static('../uploads/'));
+
 var mongoose =require('mongoose');
+
+
+// mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
+
+// .catch((err)=>console.error(err));
 
 mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
 .catch((err)=>console.error(err));
-
+ 
 // mongoose.connect('mongodb://localhost/easycase',{ useNewUrlParser: true , useCreateIndex: true , useFindAndModify: false })
 // .then(() => console.log('DB connection successfull'));
 
 //passport
 var passport = require('passport');
-var session = require('express-session');
+var session = require('express-session');   
 const MongoStore = require('connect-mongo')(session);
 app.use(session({
   name:'myname.sid',
@@ -57,10 +76,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(compression());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/file', fileRoutes);
+app.use('/category', categoryRouter);
+app.use('/case', caseRouter);
+
+//rating form
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -77,6 +101,18 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+// ignore favicon
+function ignoreFavicon(req, res, next) {
+  if (req.originalUrl === '/favicon.ico') {
+    res.status(204).json({nope: true});
+  } else {
+    next();
+  }
+}
+
+app.use(ignoreFavicon);
+
+// app.use(express.static('uploads')); not working
 
 // app.listen(3000, ()=>console.log("server started"));
 

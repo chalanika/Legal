@@ -5,6 +5,8 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import {RateService} from 'src/app/core/services/rate.service';
 
 import {
     TimelineComponent,
@@ -24,7 +26,8 @@ import { RatingFormComponent } from './rating-form/rating-form.component';
         DashboardRoutingModule,
         StatModule,
         NgbModule,
-        NgbPaginationModule
+        NgbPaginationModule,
+        FormsModule
     ],
     declarations: [
         DashboardComponent,
@@ -32,6 +35,8 @@ import { RatingFormComponent } from './rating-form/rating-form.component';
         NotificationComponent,
         ChatComponent,
         RatingFormComponent
-    ]
+    ],
+
+    providers: [RateService]
 })
 export class DashboardModule {}
