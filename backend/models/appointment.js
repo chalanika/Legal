@@ -6,7 +6,15 @@ const AppointmentSchema = new Schema({
         type:String,
         required:true
     },
+    lawyerName:{
+        type:String,
+        required:true
+    },
     clientId:{
+        type:String,
+        required:true
+    },
+    clientName:{
         type:String,
         required:true
     },
@@ -26,8 +34,17 @@ const AppointmentSchema = new Schema({
         type:Date,
         required:true
     },
-    isSeen:{
-        type:Boolean
+    isAccepted:{
+        type:Boolean,
+        required:true
+    },
+    isRejected:{
+        type:Boolean,
+        required:true
+    },
+    isAlert:{
+        type:Boolean,
+        required:true
     }
 });
 

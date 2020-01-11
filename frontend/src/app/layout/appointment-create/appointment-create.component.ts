@@ -50,7 +50,13 @@ export class AppointmentCreateComponent implements OnInit {
 
   appointment(){
     this.appointmentModel.lawyerId = this.lawyerId;
-    this.appointmentModel.isSeen = false;
+    this.appointmentModel.isAccepted = false;
+    this.appointmentModel.isRejected = false;
+    this.appointmentModel.isAlert = false;
+    this.appointmentModel.clientName = this.currentUser.username;
+    this.appointmentModel.lawyerName = this.lawyer.username;
+    console.log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+    console.log(this.appointmentModel);
     this._appointmentService.createAppointment(this.appointmentModel).subscribe(
       res => {
         console.log(res);

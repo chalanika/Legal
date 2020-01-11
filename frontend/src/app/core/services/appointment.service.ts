@@ -16,9 +16,18 @@ export class AppointmentService {
     console.log(appointment);
     return this.http.post(this.baseUrl,appointment);
   }
-
+  getLawyersAppointments(lawyerId){
+    console.log(lawyerId);
+    return this.http.get(this.baseUrl+'/lawyers/'+lawyerId);
+  }
   getAppointment(id:string){
-    return this.http.get(this.baseUrl+id);
+    return this.http.get(this.baseUrl+'/'+id);
+  }
+  editAppointment(id,appointment:Appointment){
+    return this.http.put(this.baseUrl+'/'+id,appointment);
+  }
+  deleteAppointment(id){
+    return this.http.delete(this.baseUrl+'/'+id);
   }
 
 }

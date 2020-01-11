@@ -4,6 +4,7 @@ import { UserService } from 'src/app/user.service';
 import { AppointmentService } from 'src/app/core/services/appointment.service';
 
 
+
 interface Alert {
   type: string;
   message: string;
@@ -26,22 +27,24 @@ export class LawyersListComponent implements OnInit {
   Booked;
   submitedUser;
   successBooking = 0;
+  resultArray;
   currentUser;
+
   user;
   userType;
   lawyers;
-  type:String;
+  type: String;
   imageUrl;
-  selectedCategory : String = '';
-  categories : any =[
+  selectedCategory: String = '';
+  categories: any = [
     'Family',
     'Business',
     'Criminal'
   ];
 
-  constructor(private _userService:UserService,private _appointmentService:AppointmentService) { }
+  constructor(private _userService: UserService, private _appointmentService: AppointmentService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this._userService.viewLawyers().subscribe(
       res => {
         this.lawyers = res;
@@ -51,33 +54,33 @@ export class LawyersListComponent implements OnInit {
     );
     this.alerts = Array.from(ALERTS);
     this.getCurrentUser();
-    
+
 
   }
 
   //event handler for the radio button's change event
-  radioChangeaHandler(event:any){
+  radioChangeaHandler(event: any) {
     this.selectedCategory = event.target.value;
     this.changedCategory(this.selectedCategory);
   }
 
-  changedCategory(category:String){
+  changedCategory(category: String) {
     console.log(category);
     console.log("ccccccccc");
-    if(category == 'Business'){
+    if (category == 'Business') {
       this.type = "1";
       this.getLawyers(this.type);
     }
-    if(category == 'Family'){
+    if (category == 'Family') {
       this.type = "2";
       this.getLawyers(this.type);
     }
-    if(category == 'Criminal'){
+    if (category == 'Criminal') {
       this.type = "3";
       this.getLawyers(this.type);
     }
-    if(category == 'All'){
-      
+    if (category == 'All') {
+
       this._userService.viewLawyers().subscribe(
         res => {
           this.lawyers = res;
@@ -88,49 +91,73 @@ export class LawyersListComponent implements OnInit {
     }
   }
   //display categorised lawyers
- getLawyers(category:String){
+  getLawyers(category: String) {
     console.log(category);
     this._userService.categorizedLawyers(category).subscribe(
       res => {
         this.lawyers = res;
-        
+
         console.log(res);
       },
       error => console.log(error)
     );
   }
 
-  submitBooking(){
+  submitBooking() {
     this._appointmentService.getAppointment(this.currentUser._id).subscribe(
-      res=>{
-        this.submitedUser  = res;
+      res => {
+        this.resultArray = res;
         console.log("ssssssssssssssssssssssssssssssssss");
-        console.log(this.submitedUser);
-        if(this.submitedUser._id == this.currentUser._id && this.submitedUser.isSeen == 0)
-        {
-          this.successBooking = 1;
+        console.log(res);
+        if (this.resultArray.length > 0) {
+          this.submitedUser = this.resultArray[0];
+          console.log(this.submitedUser.clientId);
+          console.log(this.currentUser._id);
+          if (this.submitedUser.clientId === this.currentUser._id && this.submitedUser.isAlert == false ) {
+            this.successBooking = 1;
+            this.editAppointment(this.submitedUser._id);
+            console.log(this.successBooking);
+          } else {
+            console.log("pppppppppppppppppppppppppppppppppppp");
+          }
         }
+
       }
     );
   }
+
+  editAppointment(id){
+    this.submitedUser.isAlert = true;
+    console.log(this.submitedUser);
+    return this._appointmentService.editAppointment(id,this.submitedUser).subscribe(res => {
+      console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+      console.log(res);
+    }, err => {
+      console.log(err);
+    });
+  }
+
 
   close(alert: Alert) {
     this.alerts.splice(this.alerts.indexOf(alert), 1);
   }
 
-  getCurrentUser(){
+  getCurrentUser() {
     this._userService.user().subscribe(
-      res=>{
-        this.currentUser = res;  
+      res => {
+        this.currentUser = res;
         console.log("ccccccccccccccccccc");
         console.log(this.currentUser);
-        this.submitBooking();
+        if (this.currentUser.type === "3") {
+          this.submitBooking();
+        }
+
       }, err => {
-        console.log(err);
+        console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
       }
     );
-    
+
   }
-  
+
 
 }
