@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/user.service';
 
 @Component({
   selector: 'app-lawyer',
@@ -7,15 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./lawyer.component.scss']
 })
 export class LawyerComponent implements OnInit {
-  @Input() lawyer;
+  
+  @Input() lawyer; //get value from parent to child
   public isCollapsed = true;
   imageUrl;
-
-  constructor(private router:Router) { }
+  currentUser;
+  currentUserType;
+  
+  constructor(private router:Router,private _userService:UserService) { }
 
   ngOnInit() {
     console.log(this.lawyer);
+    this.getCurrentUser();
     this.displayLawyerPic();
+       
   }
 
   displayLawyerPic(){
@@ -27,7 +33,20 @@ export class LawyerComponent implements OnInit {
   }
 
   appointment(){
-    this.router.navigate([`/book/${this.lawyer._id}`])
+    this.router.navigate([`/book/${this.lawyer._id}`]);
   }
+
+  getCurrentUser(){
+    this._userService.user().subscribe(
+      res=>{
+        this.currentUser = res;  
+        this.currentUserType = this.currentUser.type; 
+      }, err => {
+        console.log(err);
+      }
+    );
+  }
+
+  
 
 }
