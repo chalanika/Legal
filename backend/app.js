@@ -11,6 +11,7 @@ var usersRouter = require('./routes/users'); // admin xFVgzsJmhA4hYTtK
 var fileRoutes = require('./routes/file');
 var categoryRouter = require('./routes/categories');
 var caseRouter = require('./routes/cases');
+var appointmentRouter = require('./routes/appointments');
 
 // var imageRoutes = require();
 
@@ -83,8 +84,9 @@ app.use('/users', usersRouter);
 app.use('/file', fileRoutes);
 app.use('/category', categoryRouter);
 app.use('/case', caseRouter);
+app.use('/appointment',appointmentRouter);
 
-//rating form
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

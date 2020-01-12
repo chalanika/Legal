@@ -1,3 +1,45 @@
-<p>
-  appointment works!
-</p>
+<h3>Appointments</h3>
+
+<div class="container-fluid border  m-2" *ngFor="let appointment of appointments">
+    <div class=" row border bg-info  ">
+        <div class="col-5 p-2 text-white">
+
+            <i class="fas fa-user"></i>
+            {{appointment.clientName}}
+
+        </div>
+        <div class="col">
+            <button class="btn btn-dark btn-sm m-2 pull-right">Open a New Case</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <small><b>Subject</b></small>
+            <div class="col border"><small>{{appointment.subject }}</small></div>
+        </div>
+        <div class="col-3">
+            <small><b>Start Date</b></small>
+            <div class="border">
+                <small>{{appointment.startDateTime}}</small>
+            </div>
+        </div>
+        <div class="col-3">
+            <small><b>Finish Date</b></small>
+            <div class="border">
+                <small>{{appointment.finishDateTime}}</small>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row ml-1 mb-1">
+        <small><b>Description</b></small>&nbsp;
+        <div class="col-8 border mb-1 "><small>{{appointment.description}}</small></div>
+        <div  class="col mb-3 mt-5" >
+            <button *ngIf="this.appointment.isAccepted === false" class=" btn btn-success btn-sm ml-5" (click)="confirmAppointment(appointment._id,appointment)">Accept</button>
+            <button *ngIf="this.appointment.isAccepted === true" class=" btn btn-success btn-sm ml-5" disabled>Accepted</button>
+            <button *ngIf="this.appointment.isRejected === false && this.appointment.isAccepted === false " class="btn btn-danger btn-sm ml-3" (click)="rejectAppointment(appointment._id,appointment)">Reject</button>
+           
+        </div>
+    </div>
+</div>
