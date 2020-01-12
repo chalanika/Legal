@@ -8,8 +8,9 @@ export class Appointment {
     description: string;
     startDateTime : Date;
     finishDateTime : Date;
-    isAccepted : Boolean;
-    isRejected:Boolean;
+    // isAccepted : Boolean;
+    // isRejected:Boolean;
+    status:string;
     isAlert: Boolean;
 
     constructor() { }
