@@ -277,9 +277,8 @@ router.get('/rate/:id', async (req,res)=>{
     res.json({message:error});
   }
 })
-
-router.get('/lawyer/:id', async (req,res)=>{
-  
+//find special lawyer
+router.get('/lawyer/:id', async (req,res)=>{  
   try{
     const lawyer = await User.findById(req.params.id);
   res.json(lawyer);
@@ -308,5 +307,6 @@ router.get('/lawyers/:category',async (req,res)=>{
     res.json({message:error});
   }
 })
+
 
 module.exports = router;
