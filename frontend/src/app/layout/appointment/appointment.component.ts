@@ -3,6 +3,7 @@ import { routerTransition } from '../../router.animations';
 import { AppointmentService } from 'src/app/core/services/appointment.service';
 import { UserService } from 'src/app/user.service';
 import { Appointment } from 'src/app/core/models/appointment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment',
@@ -13,65 +14,100 @@ import { Appointment } from 'src/app/core/models/appointment';
 export class AppointmentComponent implements OnInit {
 
   currentUser;
-  appointments;
+  confirmedAppointments;
+  incomingAppointments;
+  rejectedAppointments;
   newAppointment = new Appointment();
   
-  constructor(private _appointmentService:AppointmentService,private _userService:UserService) { }
+  constructor(private _appointmentService:AppointmentService,private _userService:UserService,private router:Router) { }
 
   ngOnInit() {
     this.getCurrentUser();
   }
-
+//get current users details
   getCurrentUser(){
     this._userService.user().subscribe(
       res=>{
         this.currentUser = res;
         if(this.currentUser.type == "2"){
-          this.getlawyerAppointments(this.currentUser._id);
+          this.getlawyerConfirmedAppointments(this.currentUser._id);
+          this.getlawyerIncomingAppointments(this.currentUser._id);
+        }else{
+          if(this.currentUser.type == "3"){
+            this.getclientConfirmedAppointments(this.currentUser._id);
+            this.getclientRejectedAppointments(this.currentUser._id);
+          }
         }    
       }, err => {
         console.log(err);
       }
     );
   }
-
-  getlawyerAppointments(id){
-    this._appointmentService.getLawyersAppointments(id).subscribe(
+//display confirmed appointments in clients appoinments
+  getclientConfirmedAppointments(id){
+    this._appointmentService.getClientsConfirmedAppointments(id).subscribe(
       res=>{
-        this.appointments = res;
-        console.log(this.appointments);
+        this.confirmedAppointments = res;
+
       },err=>{
         console.log(err);
       }
     )
   }
+  //display rejected appointments
+  getclientRejectedAppointments(id){
+    this._appointmentService.getClientsRejectedAppointments(id).subscribe(
+      res=>{
+        this.rejectedAppointments = res;
+      },err=>{
+        console.log(err);
+      }
+    )
+  }
+  //display confirmed appointments of lawyers 
+  getlawyerConfirmedAppointments(id){
+    this._appointmentService.getLawyersConfirmedAppointments(id).subscribe(
+      res=>{
+        this.confirmedAppointments = res;
+      },err=>{
+        console.log(err);
+      }
+    )
+  }
+  //display incoming appointments of lawyers
+  getlawyerIncomingAppointments(id){
+    this._appointmentService.getLawyersIncomingAppointments(id).subscribe(
+      res=>{
+        this.incomingAppointments = res;
+      },err=>{
+        console.log(err);
+      }
+    )
+  }
+  //lawyer confirm appointment
   confirmAppointment(id,appointment){
     this.newAppointment = appointment;
     console.log(this.newAppointment);
-    this.newAppointment.isAccepted = true;
+    this.newAppointment.status="Confirmed";
     this._appointmentService.editAppointment(id,this.newAppointment).subscribe(res => {
+      this.getlawyerConfirmedAppointments(this.currentUser._id);
+      this.getlawyerIncomingAppointments(this.currentUser._id);
       console.log(res);
+      
     }, err => {
       console.log(err);
     });
   }
+  //lawyer reject appointment
   rejectAppointment(id,appointment){
     this.newAppointment = appointment;
+    this.newAppointment.status = "Rejected";
     console.log(this.newAppointment);
-    this.newAppointment.isRejected = true;
-    this.deleteAppoinment(this.newAppointment._id,this.newAppointment.lawyerId);
     this._appointmentService.editAppointment(id,this.newAppointment).subscribe(res => {
+      this.getlawyerConfirmedAppointments(this.currentUser._id);
+      this.getlawyerIncomingAppointments(this.currentUser._id);
       console.log(res);
-    }, err => {
-      console.log(err);
-    });
-  }
-
-  deleteAppoinment(id,lawyerId){
-    this._appointmentService.deleteAppointment(id).subscribe(
-      res => {
-        console.log(res);
-        this.getlawyerAppointments(lawyerId);   
+      
     }, err => {
       console.log(err);
     });

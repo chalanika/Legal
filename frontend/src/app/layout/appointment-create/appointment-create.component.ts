@@ -50,8 +50,9 @@ export class AppointmentCreateComponent implements OnInit {
 
   appointment(){
     this.appointmentModel.lawyerId = this.lawyerId;
-    this.appointmentModel.isAccepted = false;
-    this.appointmentModel.isRejected = false;
+    // this.appointmentModel.isAccepted = false;
+    // this.appointmentModel.isRejected = false;
+    this.appointmentModel.status = "Not Confirmed";
     this.appointmentModel.isAlert = false;
     this.appointmentModel.clientName = this.currentUser.username;
     this.appointmentModel.lawyerName = this.lawyer.username;
