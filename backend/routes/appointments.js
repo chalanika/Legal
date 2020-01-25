@@ -93,7 +93,7 @@ router.get('/rejected/clients/:clientId', async (req, res) => {
     res.json({ message: error });
   }
 });
-
+//delete appointment
 router.delete('/:id',async(req,res)=>{
   try{
     const removed = await Appointment.remove({_id: req.params.id})
@@ -102,6 +102,6 @@ router.delete('/:id',async(req,res)=>{
     res.json({message:error})
   }
 });
-
+//
 
 module.exports = router;
