@@ -413,13 +413,36 @@ router.get('/rate/:id', async (req,res)=>{
     res.json({message:error});
   }
 })
-
-router.get('/lawyer/:id', async (req,res)=>{
-  
-  const lawyer = await User.findById(req.params.id);
+//find special lawyer
+router.get('/lawyer/:id', async (req,res)=>{  
+  try{
+    const lawyer = await User.findById(req.params.id);
   res.json(lawyer);
+  }catch{
+    res.json({message:error});
+  }
+  
 })
-
+//find all lawyers from users
+router.get('/lawyers',async (req,res)=>{ 
+  try{
+    const result = await User.find({type:"2"});
+    res.json(result);
+  }catch{
+    res.json({message:error});
+  }
+})
+//find lawyers by category
+router.get('/lawyers/:category',async (req,res)=>{ 
+  console.log(req.params.category);
+  const type  = req.params.category;
+  try{
+    const result = await User.find({area:type});
+    res.json(result);
+  }catch{
+    res.json({message:error});
+  }
+})
 
 
 module.exports = router;

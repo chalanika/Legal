@@ -1,3 +1,177 @@
-<p>
-  appointment works!
-</p>
+<h3><b>Appointments</b></h3><br>
+
+<div *ngIf="currentUser?.type == '2'">
+    <div *ngIf="incomingAppointments?.length > 0">
+        <h4 >Incoming Appointments</h4><br>
+        <div class="container-fluid m-2" *ngFor="let appointment of incomingAppointments">
+
+            <div class=" container border">
+                <div class=" row  bg-info  ">
+                    <div class="col-5 p-2 text-white">
+                        <i class="fas fa-user"></i>
+                        {{appointment.clientName}}
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-4">
+                        <small><b>Subject</b></small>
+                        <div class="col border"><small>{{appointment.subject }}</small></div>
+                    </div>
+                    <div class="col-3">
+                        <small><b>Start Date</b></small>
+                        <div class="border">
+                            <small>{{appointment.startDateTime}}</small>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <small><b>Finish Date</b></small>
+                        <div class="border">
+                            <small>{{appointment.finishDateTime}}</small>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row ml-1 mb-1">
+                    <small><b>Description</b></small>&nbsp;
+                    <div class="col-8 border mb-1 "><small>{{appointment.description}}</small></div>
+                    <div class="col mb-3 mt-5">
+                        <button class=" btn btn-success btn-sm ml-5"
+                            (click)="confirmAppointment(appointment._id,appointment)">Accept</button>
+                        <button class="btn btn-danger btn-sm ml-3"
+                            (click)="rejectAppointment(appointment._id,appointment)">Reject</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="confirmedAppointments?.length > 0">
+        <h4 >Confirmed Appointments</h4>
+        <div class="container-fluid m-2" *ngFor="let appointment of confirmedAppointments">
+
+            <div class=" container border">
+                <div class=" row  bg-info  ">
+                    <div class="col-5 p-2 text-white">
+                        <i class="fas fa-user"></i>
+                        {{appointment.clientName}}
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-dark btn-sm m-2 pull-right">Open a New Case</button>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-4">
+                        <small><b>Subject</b></small>
+                        <div class="col border"><small>{{appointment.subject }}</small></div>
+                    </div>
+                    <div class="col-3">
+                        <small><b>Start Date</b></small>
+                        <div class="border">
+                            <small>{{appointment.startDateTime}}</small>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <small><b>Finish Date</b></small>
+                        <div class="border">
+                            <small>{{appointment.finishDateTime}}</small>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row ml-1 mb-1">
+                    <small><b>Description</b></small>&nbsp;
+                    <div class="col-8 border mb-1 "><small>{{appointment.description}}</small></div>
+                    <div class="col mb-3 mt-5">
+                        <button class=" btn btn-success btn-sm ml-5" disabled>Accepted</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="currentUser?.type == '3'">
+    <div *ngIf="confirmedAppointments?.length > 0">
+        <h4>Confirmed Appointments</h4>
+        <div class="container-fluid m-2" *ngFor="let appointment of confirmedAppointments">
+            <div class="container border">
+                <div class=" row border bg-info  ">
+                    <div class="col-5 p-2 text-white">
+                        <i class="fas fa-user"></i>
+                        {{appointment.lawyerName}}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <small><b>Subject</b></small>
+                        <div class="col border"><small>{{appointment.subject }}</small></div>
+                    </div>
+                    <div class="col-3">
+                        <small><b>Start Date</b></small>
+                        <div class="border">
+                            <small>{{appointment.startDateTime}}</small>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <small><b>Finish Date</b></small>
+                        <div class="border">
+                            <small>{{appointment.finishDateTime}}</small>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row ml-1 mb-1">
+                    <small><b>Description</b></small>&nbsp;
+                    <div class="col-8 border mb-1 "><small>{{appointment.description}}</small></div>
+                    <div class="col mb-3 mt-5">
+                        <button class=" btn btn-success btn-sm ml-5" disabled>Accepted</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="rejectedAppointments?.length > 0">
+        <h4>Rejected Appointments</h4>
+        <div class="container-fluid m-2" *ngFor="let appointment of rejectedAppointments">
+            <div class="container border">
+                <div class=" row border bg-info  ">
+                    <div class="col-5 p-2 text-white">
+                        <i class="fas fa-user"></i>
+                        {{appointment.lawyerName}}
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <small><b>Subject</b></small>
+                        <div class="col border"><small>{{appointment.subject }}</small></div>
+                    </div>
+                    <div class="col-3">
+                        <small><b>Start Date</b></small>
+                        <div class="border">
+                            <small>{{appointment.startDateTime}}</small>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <small><b>Finish Date</b></small>
+                        <div class="border">
+                            <small>{{appointment.finishDateTime}}</small>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row ml-1 mb-1">
+                    <small><b>Description</b></small>&nbsp;
+                    <div class="col-8 border mb-1 "><small>{{appointment.description}}</small></div>
+                    <div class="col mb-3 mt-5">
+                        <button class=" btn btn-danger btn-sm ml-5" disabled>Rejected</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

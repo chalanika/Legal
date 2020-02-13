@@ -93,7 +93,17 @@ export class UserService {
   //   });
   // }
 
-  //get lawyer details for rate form
+  //get all lawyers details
+  viewLawyers(){
+    console.log("xxxxxxxxx");
+    return this._http.get('http://127.0.0.1:3000/users/lawyers');
+  }
+  //get categorized lawyers
+  categorizedLawyers(category: String){
+    return this._http.get('http://127.0.0.1:3000/users/lawyers/'+category);
+  }
+
+  //get specific lawyer details 
   getLawyer(id:String){
     // console.log(id);
     return this._http.get('http://127.0.0.1:3000/users/lawyer/'+id);

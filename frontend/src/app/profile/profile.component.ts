@@ -80,7 +80,7 @@ get updateArea() {
   return this.updateMeForm.get('updateArea');
 }
 
-    rateModel = new Rate(0,"");
+    rateModel = new Rate();
     rates;
     currentUserId= "5dce02aa4ecd9729d4574d02";
     averageRate;
@@ -127,9 +127,9 @@ get updateArea() {
     this.type = data.type;
     this.currentUserType = data.type; 
     this.currentUserId = data._id;
-    if(this.type=='Lawyer'){
+    if(this.type==='Lawyer'){
       console.log('Hi');
-      this.getRates();
+      // this.getRates();
     }
     
     console.log(data.image);
@@ -326,25 +326,23 @@ asyncFunc = (...args) =>
             });
 
 //get rate values
-getRates(){
-  let sum = 0
-  console.log(1);
-  this._user.getRate(this.currentUserId).subscribe(
-      res=>{
-          this.rates = res;
-          console.log('dssdf',res);
-          for (let i in this.rates){
-              sum += this.rates[i].rate;
-              console.log(this.rates[i].rate);
-          }
-          console.log(sum);
+// getRates(){
+//   let sum = 0
+//   console.log(1);
+//   this._user.getRate(this.currentUserId).subscribe(
+//       res=>{
+//           this.rates = res;
+//           for (let i in this.rates){
+//               sum += this.rates[i].rate;
+//               console.log(this.rates[i].rate);
+//           }
+//           console.log(sum);
 
-          this.averageRate=sum/this.rates.length;
-          this.averageRate = 3;
-          console.log(this.rates);
-      },
-      error=>console.log(error)
-  )
-}
+//           this.averageRate=sum/this.rates.length;
+//           console.log(this.rates);
+//       },
+//       error=>console.log(error)
+//   )
+// }
 
 }

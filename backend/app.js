@@ -11,6 +11,7 @@ var usersRouter = require('./routes/users'); // admin xFVgzsJmhA4hYTtK
 var fileRoutes = require('./routes/file');
 var categoryRouter = require('./routes/categories');
 var caseRouter = require('./routes/cases');
+var appointmentRouter = require('./routes/appointments');
 
 // var imageRoutes = require();
 
@@ -40,11 +41,11 @@ var mongoose =require('mongoose');
 
 // .catch((err)=>console.error(err));
 
-// mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
-// .catch((err)=>console.error(err));
+mongoose.connect('mongodb+srv://Admin:FqQRPlcPOtxMxafu@legal-vyrsv.mongodb.net/Legal?retryWrites=true&w=majority',{ useNewUrlParser: true }).then(()=>console.log("connect successfully"))
+.catch((err)=>console.error(err));
  
-mongoose.connect('mongodb://localhost/easycase',{ useNewUrlParser: true , useCreateIndex: true , useFindAndModify: false })
-.then(() => console.log('DB connection successfull'));
+// mongoose.connect('mongodb://localhost/easycase',{ useNewUrlParser: true , useCreateIndex: true , useFindAndModify: false })
+// .then(() => console.log('DB connection successfull'));
 
 //passport
 var passport = require('passport');
@@ -85,8 +86,9 @@ app.use('/users', usersRouter);
 app.use('/file', fileRoutes);
 app.use('/category', categoryRouter);
 app.use('/case', caseRouter);
+app.use('/appointment',appointmentRouter);
 
-//rating form
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
