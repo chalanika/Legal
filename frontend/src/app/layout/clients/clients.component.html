@@ -20,24 +20,24 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form>
+              <form #caseForm="ngForm" (ngSubmit)="caseForm.reset()">
+                {{caseForm.value | json}}
+                {{caseModel | json}}
               <div class="modal-body">
-                
                   <div class="form-group">
                     <label >Case Title</label>
-                    <input type="text" class="form-control">                
+                    <input type="text" class="form-control" [(ngModel)]="caseModel.caseName" name="caseName">                
                   </div>
                   <div class="form-group">
                     <label >Case Type</label>
-                    <select class="form-control form-control-sm">
-                      <option>Family</option>
-                      <option >Criminal</option>
+                    <select class="form-control form-control-sm" [(ngModel)]="caseModel.lawType" name="lawType">
+                      <option value="Family">Family</option>
+                      <option value="Criminal">Criminal</option>
                     </select>
-                  </div>
-                 
+                  </div>       
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="modal.close('Save click')">Submit</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="modal.close('Save click'); openCase(pendingClient);">Submit</button>
               </div>
             </form>
             </ng-template>
@@ -48,16 +48,7 @@
   </div><br>
   <!-- display current clients -->
   <h4 class="text-muted">Clients</h4><br>
-  <div></div>
-
-
-
 </div>
 
 
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
-
-<hr>
-
-<pre>{{closeResult}}</pre>

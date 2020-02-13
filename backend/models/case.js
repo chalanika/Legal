@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CaseSchema = new Schema({
+    caseName:{
+        type:String,
+        required:true
+    },
     lawyer_id:{
         type:String,
         required:true

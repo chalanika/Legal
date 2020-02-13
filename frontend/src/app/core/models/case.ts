@@ -1,5 +1,6 @@
 export class Case{
     _id:String;
+    caseName:String;
     lawyer_id:String;
     lawyerName:String;
     client_id:String;
@@ -7,7 +8,7 @@ export class Case{
     lawType:String;
     openedDate:Date;
     closedDate:Date;
-    is_closed:String;
-    is_rated:String;
+    is_closed:Boolean;
+    is_rated:Boolean;
 
 }
