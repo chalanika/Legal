@@ -47,6 +47,7 @@ export class RatingFormComponent implements OnInit {
         res=>{
           this.currentUser = res;
           this.currentUserId = this.currentUser._id;
+          console.log('userid',this.currentUserId);
           this.check();
         }
     )
@@ -54,17 +55,20 @@ export class RatingFormComponent implements OnInit {
 
   //check case is closed
   check() {
+    console.log("check");
     this._rateService.isFinished(this.currentUserId).subscribe(
       res => {
         this.result = res;
-        console.log(this.result);
+        console.log('result',this.result);
         if (this.result.length > 0) {
           this.caseModel = this.result[0];
+          console.log(this.caseModel.is_closed);
           if (this.caseModel.is_closed && !this.caseModel.is_rated) {
+            console.log("ccccccccccccccccc");
             this._userService.getLawyer(this.caseModel.lawyer_id).subscribe(
               res=>{
                 this.lawyer = res;
-                // console.log(res);
+                
                 this.open();
 
               }
