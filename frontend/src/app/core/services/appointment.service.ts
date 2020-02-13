@@ -16,9 +16,21 @@ export class AppointmentService {
     console.log(appointment);
     return this.http.post(this.baseUrl,appointment);
   }
-  getLawyersAppointments(lawyerId){
+  getLawyersConfirmedAppointments(lawyerId){
     console.log(lawyerId);
-    return this.http.get(this.baseUrl+'/lawyers/'+lawyerId);
+    return this.http.get(this.baseUrl+'/confirmed/lawyers/'+lawyerId);
+  }
+  getLawyersIncomingAppointments(lawyerId){
+    console.log(lawyerId);
+    return this.http.get(this.baseUrl+'/incoming/lawyers/'+lawyerId);
+  }
+  getClientsConfirmedAppointments(clientId){
+    console.log(clientId);
+    return this.http.get(this.baseUrl+'/confirmed/clients/'+clientId);
+  }
+  getClientsRejectedAppointments(clientId){
+    console.log(clientId);
+    return this.http.get(this.baseUrl+'/rejected/clients/'+clientId);
   }
   getAppointment(id:string){
     return this.http.get(this.baseUrl+'/'+id);
@@ -29,5 +41,4 @@ export class AppointmentService {
   deleteAppointment(id){
     return this.http.delete(this.baseUrl+'/'+id);
   }
-
 }
