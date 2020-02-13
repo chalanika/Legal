@@ -3,6 +3,7 @@ var _router = express.Router();
 var multer = require('multer');
 var path = require('path');
 var fs = require('fs');
+var multer = require('multer');
 var crypto = require('crypto');
 // const algorithm = 'aes-256-ctr';
 let key = 'MySuperSecretKey';
@@ -37,15 +38,14 @@ _router.post('/upload', function(req,res,next){
             return res.status(501).json({error:err});
         }
         //do all database record saving activity
-        addFileToDb(req,res);
+        addFileToDb(req,res,req.body.nic);
         originalname = req.file.originalname;
         uploadname = req.file.filename
         var input = req.file.path;
         input = path.resolve(input);
-        console.log('Input',input);
         nodecipher.encrypt({
             input: input,
-            output: input+'.dat',
+            output: input+'.enc',
             password: key
         }, function (err, opts) {
             if (err) throw err;
@@ -55,15 +55,15 @@ _router.post('/upload', function(req,res,next){
                 console.log('file deleted successfully');
            });
         });
-        console.log(input);
         return res.json({originalname:originalname, uploadname:uploadname});
     });
 });
 
-function addFileToDb(req,res){
+function addFileToDb(req,res,nic){
     var theFile = new File({
+        uploadedBy: nic,
         file: req.file.path,
-        creation_dt: Date.now()
+        upload_dt: Date.now()
       });
       theFile.save(function (err) {
         if(err) {
@@ -76,20 +76,39 @@ _router.post('/download', function(req,res,next){
     filepath = path.join(__dirname,`../uploads/files/${req.body.nic}/myFiles`) +'/'+ req.body.filename;
 input = path.resolve(filepath);
 nodecipher.decrypt({
-    input: input+'.dat',
+    input: input+'.enc',
     output: filepath,
     password: key
     
   }, function (err, opts) {
     if (err) throw err;
     console.log('Image successfully decrypted!');
-    input = input+'.dat';
-    fs.unlink(input,function(err){
-        if(err) return console.log(err);
-        console.log('file deleted successfully');
-   });
-    res.sendFile(filepath);
+    res.sendFile(filepath , function(err){
+        if(err) console.log(err);
+        else {
+            fs.unlink(filepath,function(err){
+                if(err) return console.log(err);
+                console.log('file deleted successfully');
+           });
+        }
+    });
   });
+});
+
+_router.post('/share',function(req,res,next){
+    upload(req,res,function(err){
+        if(err){
+            return res.status(501).json({error:err});
+        }
+        //do all database record saving activity
+        //addFileToDb(req,res,req.body.nic);
+        originalname = req.file.originalname;
+        uploadname = req.file.filename
+        var input = req.file.path;
+        input = path.resolve(input);
+        return res.json({originalname:originalname, uploadname:uploadname});
+    });
+    return 0;
 });
 
 module.exports = _router;
