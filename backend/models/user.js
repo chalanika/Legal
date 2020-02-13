@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
 var validator = require('validator');
-var crypto = require('crypto');
 
 const Rate = new Schema({
     rate : {type:Number},
@@ -62,12 +61,22 @@ var schema = new Schema({
         required:true
     },
     passwordResetToken: String,
-    passwordResetExpires: Date
+    passwordResetExpires: Date,
+    active: {
+        type: Boolean,
+        default: true,
+        select: false
+    }
 });
 
 schema.statics.hashPassword = function hashPassword(password){
     return bcrypt.hashSync(password,10);
 }
+
+schema.pre(/^find/ , function(next) {
+    this.find({active:{$ne:false}});
+    next();
+});
 
 schema.methods.isValid = function(hashedpassword){
     return bcrypt.compareSync(hashedpassword,this.password);

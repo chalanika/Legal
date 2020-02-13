@@ -13,6 +13,10 @@ export class UserService {
     return this._http.post('http://127.0.0.1:3000/users/register',body);
   }
 
+  share(body:any){
+    return this._http.post('http://127.0.0.1:3000/users/share',body);
+  }
+
   login(body:any){
     return this._http.post('http://127.0.0.1:3000/users/login',body,{
       observe:'body',
@@ -27,6 +31,18 @@ export class UserService {
       withCredentials:true,
       headers:new HttpHeaders().append('Content-Type' , 'application/json')
     });
+  }
+
+  getLawyers(){
+    return this._http.get('http://127.0.0.1:3000/users/getLawyers',{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+    });
+  }
+
+  rev(theNic){
+    return this._http.get('http://127.0.0.1:3000/users/files/'+theNic);
   }
 
   logout(){
@@ -55,6 +71,14 @@ export class UserService {
 
   updateMe(body:any){
     return this._http.patch('http://127.0.0.1:3000/users/updateMe',body,{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+    });
+  }
+
+  deleteMe(){
+    return this._http.delete('http://127.0.0.1:3000/users/deleteMe' , {
       observe:'body',
       withCredentials:true,
       headers:new HttpHeaders().append('Content-Type' , 'application/json')

@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
         email: new FormControl(null , [Validators.email, Validators.required]),
         area: new FormControl(null , [Validators.required]),
         address: new FormControl(null),
-        number: new FormControl(null),
+        number: new FormControl(null , [Validators.minLength(10) , Validators.maxLength(10)]),
         detail: new FormControl(null , [Validators.required]),
         password: new FormControl(null , [Validators.required , Validators.minLength(8)]),
         cpass: new FormControl(null , [Validators.required]),
@@ -128,7 +128,6 @@ export class SignupComponent implements OnInit {
         data.append('number', this.registerForm.controls.number.value);
         data.append('password', this.registerForm.controls.password.value);
         data.append('image', this.imageFile, this.imageFile['name']);
-
         // console.log(this.registerForm.controls.image.value);
 
         this._userService.register(data)

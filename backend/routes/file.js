@@ -3,6 +3,7 @@ var _router = express.Router();
 var multer = require('multer');
 var path = require('path');
 var fs = require('fs');
+var multer = require('multer');
 var crypto = require('crypto');
 // const algorithm = 'aes-256-ctr';
 let key = 'MySuperSecretKey';
@@ -37,7 +38,7 @@ _router.post('/upload', function(req,res,next){
             return res.status(501).json({error:err});
         }
         //do all database record saving activity
-        addFileToDb(req,res);
+        addFileToDb(req,res,req.body.nic);
         originalname = req.file.originalname;
         uploadname = req.file.filename
         var input = req.file.path;
@@ -58,10 +59,11 @@ _router.post('/upload', function(req,res,next){
     });
 });
 
-function addFileToDb(req,res){
+function addFileToDb(req,res,nic){
     var theFile = new File({
+        uploadedBy: nic,
         file: req.file.path,
-        creation_dt: Date.now()
+        upload_dt: Date.now()
       });
       theFile.save(function (err) {
         if(err) {
@@ -91,6 +93,22 @@ nodecipher.decrypt({
         }
     });
   });
+});
+
+_router.post('/share',function(req,res,next){
+    upload(req,res,function(err){
+        if(err){
+            return res.status(501).json({error:err});
+        }
+        //do all database record saving activity
+        //addFileToDb(req,res,req.body.nic);
+        originalname = req.file.originalname;
+        uploadname = req.file.filename
+        var input = req.file.path;
+        input = path.resolve(input);
+        return res.json({originalname:originalname, uploadname:uploadname});
+    });
+    return 0;
 });
 
 module.exports = _router;
