@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
     edit = 0;
     delete = 0;
 
-    rateModel = new Rate(0,"");
+    rateModel = new Rate();
     rates;
     currentUserId= "5dce02aa4ecd9729d4574d02";
     averageRate;
@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
     this.type = data.type;  
     this.currentUserId = data._id;
     if(this.type==2){
-      this.getRates();
+      // this.getRates();
     }
     
     console.log(data.image);
@@ -194,23 +194,23 @@ onPass(){
 
 
 //get rate values
-getRates(){
-  let sum = 0
-  console.log(1);
-  this._user.getRate(this.currentUserId).subscribe(
-      res=>{
-          this.rates = res;
-          for (let i in this.rates){
-              sum += this.rates[i].rate;
-              console.log(this.rates[i].rate);
-          }
-          console.log(sum);
+// getRates(){
+//   let sum = 0
+//   console.log(1);
+//   this._user.getRate(this.currentUserId).subscribe(
+//       res=>{
+//           this.rates = res;
+//           for (let i in this.rates){
+//               sum += this.rates[i].rate;
+//               console.log(this.rates[i].rate);
+//           }
+//           console.log(sum);
 
-          this.averageRate=sum/this.rates.length;
-          console.log(this.rates);
-      },
-      error=>console.log(error)
-  )
-}
+//           this.averageRate=sum/this.rates.length;
+//           console.log(this.rates);
+//       },
+//       error=>console.log(error)
+//   )
+// }
 
 }

@@ -31,12 +31,12 @@ export class RatingFormComponent implements OnInit {
 
   closeResult: string;
   currentRate = 0;
-  rateModel = new Rate(0, " ");
+  rateModel = new Rate();
   result;
   lawyer;
   currentUser;
   currentUserId;
-  caseModel = new Case;
+  caseModel = new Case();
 
   @ViewChild('content') content
 

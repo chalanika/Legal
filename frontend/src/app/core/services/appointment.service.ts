@@ -41,5 +41,4 @@ export class AppointmentService {
   deleteAppointment(id){
     return this.http.delete(this.baseUrl+'/'+id);
   }
-
 }
