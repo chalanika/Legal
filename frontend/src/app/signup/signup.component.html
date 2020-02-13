@@ -50,8 +50,12 @@
                     </div>
                     <div class="form-group">
                         <input formControlName="number" type="text" class="form-control input-underline input-lg" id="number" placeholder="Contact Number">
+                        <div *ngIf="number.invalid" class="alert alert-danger">
+                                <div *ngIf="number.errors.minlength">Not a Valid number!</div>
+                                <div *ngIf="number.errors.maxLength">Not a Valid number!</div>
+                        </div>
                     </div>
-                    <div *ngIf="info==2">
+                    <div *ngIf="info=='Lawyer'">
                     <div class="form-group">
                         <label for="area"><strong>Expertise Area</strong></label>
                         <select class="form-control;browser-default custom-select mb-4 box_border" id="area" formControlName="area">
@@ -62,7 +66,7 @@
                         </div>
                     </div>
                     </div>
-                    <div div *ngIf="info==2">
+                    <div div *ngIf="info=='Lawyer'">
                     <div class="form-group">
                         <!-- <label for="detail">Describe You</label> -->
                         <textarea class="form-control" name="detail" id="detail" formControlName="detail" rows="6" 
