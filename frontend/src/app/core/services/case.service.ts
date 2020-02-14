@@ -11,7 +11,23 @@ export class CaseService {
   constructor(private http:HttpClient) { }
 
   createCase(caseModel:Case){
-    console.log(caseModel);
     return this.http.post(this.baseUrl,caseModel);
   }
+//get all clients that has cases for specific lawyer
+  getClients(lawyerId){
+    return this.http.get(this.baseUrl +'/clients/'+ lawyerId);
+  }
+
+  getOngoingCases(lawyerId){
+    return this.http.get(this.baseUrl+'/ongoing/cases/'+lawyerId);
+  }
+//edit is_closed to true after finished case
+  editCase(caseId,newCase:Case){
+    return this.http.patch(this.baseUrl+'/'+caseId,newCase);
+  }
+
+  getClosedCases(lawyerId){
+    return this.http.get(this.baseUrl+'/closed/cases/'+lawyerId);
+  }
+
 }

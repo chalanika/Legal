@@ -1,6 +1,7 @@
 export class Case{
     _id:String;
     caseName:String;
+    description:String;
     lawyer_id:String;
     lawyerName:String;
     client_id:String;

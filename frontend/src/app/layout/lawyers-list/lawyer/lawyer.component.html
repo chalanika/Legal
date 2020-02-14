@@ -3,7 +3,7 @@
     <img class="avatar border-gray" src="{{this.imageUrl}}" alt="..." class="rounded-circle  border" style="width: 30px; height: 30px;">
     <a  [routerLink] routerLinkActive="routerLinkActive" (click)="isCollapsed = !isCollapsed"  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"> {{lawyer.username}}</a>
   </div>
-  <div *ngIf="this.currentUserType==3" class="col-5">
+  <div *ngIf="this.currentUserType== 'Client'" class="col-5">
     <button class="btn btn-primary btn-sm" (click)="appointment()">Book Now</button>
   </div>
 </div>

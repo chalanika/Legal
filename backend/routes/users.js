@@ -426,7 +426,7 @@ router.get('/lawyer/:id', async (req,res)=>{
 //find all lawyers from users
 router.get('/lawyers',async (req,res)=>{ 
   try{
-    const result = await User.find({type:"2"});
+    const result = await User.find({type:"Lawyer"});
     res.json(result);
   }catch{
     res.json({message:error});

@@ -15,6 +15,7 @@ import { CaseService } from 'src/app/core/services/case.service';
 export class ClientsComponent implements OnInit {
   currentUser;
   pendingClients;
+  clients;
   appointment;
   closeResult: string;
   caseModel = new Case;
@@ -45,7 +46,8 @@ export class ClientsComponent implements OnInit {
     this._userService.user().subscribe(
       res=>{
         this.currentUser = res; 
-        this.getPendingClients(this.currentUser._id);   
+        this.getPendingClients(this.currentUser._id); 
+          
       }, err => {
         console.log(err);
       }
@@ -56,29 +58,30 @@ export class ClientsComponent implements OnInit {
     this._appointmentService.getLawyersConfirmedAppointments(id).subscribe(
       res=>{
         this.pendingClients = res;
+        this.getClients(this.currentUser._id);
         console.log(this.pendingClients);
       },err=>{
         console.log(err);
       }
     );
   }
-//edit appointments status
-  createCase(appointment){
-    appointment.status = 'opened';
-    this._appointmentService.editAppointment(appointment._id,appointment).subscribe(
+
+  //delete appointments after confirmed
+  deleteAppointment(appointment){
+    this._appointmentService.deleteAppointment(appointment._id).subscribe(
       res=>{
         console.log(res);
         this.getPendingClients(this.currentUser._id);
+        this.getClients(this.currentUser._id); 
       },err=>{
         console.log(err);
       }
-    );
+    )
   }
 
   //create new case
   openCase(client){
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-    console.log(client);
+    this.caseModel.description = client.description,
     this.caseModel.lawyer_id = client.lawyerId;
     this.caseModel.lawyerName = client.lawyerName;
     this.caseModel.client_id = client.clientId;
@@ -89,12 +92,23 @@ export class ClientsComponent implements OnInit {
     console.log(this.caseModel);
     this._caseService.createCase(this.caseModel).subscribe(
       res=>{
-        console.log("sucess");    
+        console.log(res);    
       },err=>{
         console.log(err);
       }   
-    );
-    
+    );  
+  }
+
+  getClients(id){
+   this._caseService.getClients(id).subscribe(
+     res=>{
+       this.clients = res;
+       console.log("ppppppppppppppppppppp");
+       console.log(this.clients);
+     },err=>{
+       console.log(err);
+     }
+   )
   }
 
 }

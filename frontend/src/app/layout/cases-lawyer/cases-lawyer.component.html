@@ -1,3 +1,59 @@
-<p>
-  cases-lawyer works!
-</p>
+<h1>Cases</h1><br>
+
+<div *ngIf="ongoingCases?.length>0">
+  <h2 class="text-muted">Ongoing Cases</h2>
+  <div class="container-fluid m-2" *ngFor="let ongoingCase of ongoingCases">
+    <div class=" container border m-4">
+      <div class=" row  bg-info  ">
+        <div class="col-5 p-2 text-white">
+          <i class="fa fa-legal"></i>
+          <a [routerLink] routerLinkActive="routerLinkActive" class="text-white"> {{ongoingCase.caseName}}</a>
+        </div>
+        <div class="col">
+          <button class="btn btn-dark btn-sm m-2 pull-right" (click)="editCase(ongoingCase)">Close</button>
+        </div>
+      </div>
+      <div class="row m-2">
+        <div class="col-4">
+          <i class="fas fa-user"></i>
+          {{ongoingCase.clientName}}
+        </div>
+        <div class="col-6">
+          <small><b>Opened Date :</b>{{ongoingCase.openedDate }}</small>
+        </div>
+        <div class="col pull-right">
+          <small><b>Law Type:{{ongoingCase.lawType }}</b></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="closedCases?.length>0">
+  <h2 class="text-muted">Closed Cases</h2>
+  <div class="container-fluid m-2" *ngFor="let closedCase of closedCases">
+    <div class=" container border m-4">
+      <div class=" row  bg-info  ">
+        <div class="col-5 p-2 text-white">
+          <i class="fa fa-legal"></i>
+          <a [routerLink] routerLinkActive="routerLinkActive" class="text-white"> {{closedCase.caseName}}</a>
+        </div>
+        <div class="col">
+          <button class="btn btn-dark btn-sm m-2 pull-right" disabled>Closed</button>
+        </div>
+      </div>
+      <div class="row m-2">
+        <div class="col-4">
+          <i class="fas fa-user"></i>
+          {{closedCase.clientName}}
+        </div>
+        <div class="col-6">
+          <small><b>Opened Date :</b>{{closedCase.openedDate }}</small>
+        </div>
+        <div class="col pull-right">
+          <small><b>Law Type:{{closedCase.lawType }}</b></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
