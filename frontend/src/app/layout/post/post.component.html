@@ -1,3 +1,48 @@
-<p>
-  post works!
-</p>
+<html>
+  
+  <head>
+      <meta charset="utf-8">
+      <title>HTML5 Contact Form</title>
+  </head>
+
+  <body>
+    
+    <form role="form" [formGroup]="postForm">
+      
+      <ul>
+
+        <li>
+          <h2>Create a post</h2>
+          <span class="required_notification">* Denotes Required Field</span>
+        </li>
+
+        <li>
+          <label for="name">Name:</label>
+            <input type="text" formControlName= "name" placeholder="JohnSilva" required>
+        </li>
+
+        <li>
+          <label for="email">Email:</label>
+          <input type="email" formControlName= "email" placeholder="John123@xxx.com" required>
+          <span class="form_hint">Proper format "name@something.com"</span>
+        </li>
+
+        <li>
+          <label for="description">Description:</label>
+          <textarea formControlName= "description" cols="40" rows="6" placeholder="Your description" required></textarea>
+        </li>
+        
+        <li>
+          <button class="submit" (click)="post()">Post</button>
+        </li>
+
+      </ul>
+
+    </form>
+    
+  </body>
+
+</html>
+
+
+

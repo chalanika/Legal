@@ -13,6 +13,7 @@ var categoryRouter = require('./routes/categories');
 var caseRouter = require('./routes/cases');
 var appointmentRouter = require('./routes/appointments');
 var notificationRouter = require('./routes/notification');
+var postRouter = require('./routes/postlawyer');
 
 
 // var imageRoutes = require();
@@ -88,6 +89,7 @@ app.use('/category', categoryRouter);
 app.use('/case', caseRouter);
 app.use('/appointment',appointmentRouter);
 app.use('/notification',notificationRouter);
+app.use('/postlawyer',postRouter);
 
 
 // catch 404 and forward to error handler
