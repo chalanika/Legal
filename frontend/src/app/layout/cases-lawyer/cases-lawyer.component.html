@@ -7,7 +7,7 @@
       <div class=" row  bg-info  ">
         <div class="col-5 p-2 text-white">
           <i class="fa fa-legal"></i>
-          <a [routerLink] routerLinkActive="routerLinkActive" class="text-white"> {{ongoingCase.caseName}}</a>
+          <a [routerLink]="['/case', ongoingCase._id]" routerLinkActive="routerLinkActive" class="text-white" > {{ongoingCase.caseName}}</a>
         </div>
         <div class="col">
           <button class="btn btn-dark btn-sm m-2 pull-right" (click)="editCase(ongoingCase)">Close</button>
@@ -36,19 +36,22 @@
       <div class=" row  bg-info  ">
         <div class="col-5 p-2 text-white">
           <i class="fa fa-legal"></i>
-          <a [routerLink] routerLinkActive="routerLinkActive" class="text-white"> {{closedCase.caseName}}</a>
+          <a [routerLink]="['/case', closedCase._id]" routerLinkActive="routerLinkActive" class="text-white"> {{closedCase.caseName}}</a>
         </div>
         <div class="col">
           <button class="btn btn-dark btn-sm m-2 pull-right" disabled>Closed</button>
         </div>
       </div>
       <div class="row m-2">
-        <div class="col-4">
+        <div class="col-3">
           <i class="fas fa-user"></i>
           {{closedCase.clientName}}
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <small><b>Opened Date :</b>{{closedCase.openedDate }}</small>
+        </div>
+        <div class="col-3">
+          <small><b>Closed Date :</b>{{closedCase.closedDate }}</small>
         </div>
         <div class="col pull-right">
           <small><b>Law Type:{{closedCase.lawType }}</b></small>

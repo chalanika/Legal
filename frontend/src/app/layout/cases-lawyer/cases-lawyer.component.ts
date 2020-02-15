@@ -3,6 +3,7 @@ import { routerTransition } from '../../router.animations';
 import { UserService } from 'src/app/user.service';
 import { CaseService } from 'src/app/core/services/case.service';
 import { Case } from 'src/app/core/models/case';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,8 +18,7 @@ export class CasesLawyerComponent implements OnInit {
   areas;
   ongoingCases;
   closedCases;
-  case1 = new Case;
-  constructor(private _userService:UserService, private _caseService:CaseService) { }
+  constructor(private _userService:UserService, private _caseService:CaseService,private router:Router) { }
 
   ngOnInit() {
     this.getCurrentUser();
@@ -54,6 +54,7 @@ export class CasesLawyerComponent implements OnInit {
 //edit is_closed to true
   editCase(newCase){
     newCase.is_closed = true;
+    newCase.closedDate = new Date;
     this._caseService.editCase(newCase._id,newCase).subscribe(
       res=>{
         console.log(res);
@@ -74,6 +75,10 @@ export class CasesLawyerComponent implements OnInit {
         console.log(err);
       }
     )
+  }
+
+  displayCase(caseId){
+     this.router.navigate([`/case/${caseId}`]);
   }
 
 }

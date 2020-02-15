@@ -72,7 +72,7 @@ export class ClientsComponent implements OnInit {
       res=>{
         console.log(res);
         this.getPendingClients(this.currentUser._id);
-        this.getClients(this.currentUser._id); 
+       
       },err=>{
         console.log(err);
       }
@@ -92,13 +92,14 @@ export class ClientsComponent implements OnInit {
     console.log(this.caseModel);
     this._caseService.createCase(this.caseModel).subscribe(
       res=>{
-        console.log(res);    
+        console.log(res); 
+        this.getClients(client.lawyerId)   
       },err=>{
         console.log(err);
       }   
     );  
   }
-
+//get clients after open a case
   getClients(id){
    this._caseService.getClients(id).subscribe(
      res=>{
