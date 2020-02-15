@@ -1,3 +1,65 @@
-<p>
-  clients works!
-</p>
+<h3>Clients</h3><br>
+<div class="container">
+  <!-- display pending clients -->
+  <h4 class="text-muted">Pending Clients</h4><br>
+  <div *ngIf='pendingClients?.length > 0'>
+    <div *ngFor='let pendingClient of pendingClients'>
+       <div class="border col-7 container ml-5">
+        <div class="row">
+          <div class="col-5 mt-2">
+            <i class="fa fa-user-circle-o" style="font-size:24px"></i>
+            {{pendingClient.clientName}}
+          </div>
+          <div class="col">
+            <button class="btn btn-primary btn-sm m-2 pull-right " (click)="deleteAppointment(pendingClient);open(content)"><i class="fa fa-plus" ></i> New Case</button>
+            <!-- popup a form -->
+            <ng-template #content let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Open a New Case -{{pendingClient.clientName}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form #caseForm="ngForm" (ngSubmit)="caseForm.reset()">
+                {{caseForm.value | json}}
+                {{caseModel | json}}
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label >Case Title</label>
+                    <input type="text" class="form-control" [(ngModel)]="caseModel.caseName" name="caseName">                
+                  </div>
+                  <div class="form-group">
+                    <label >Case Type</label>
+                    <select class="form-control form-control-sm" [(ngModel)]="caseModel.lawType" name="lawType">
+                      <option value="Family">Family</option>
+                      <option value="Criminal">Criminal</option>
+                    </select>
+                  </div>       
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="modal.close('Save click'); openCase(pendingClient); ">Submit</button>
+              </div>
+            </form>
+            </ng-template>
+          </div>
+        </div>
+       </div>
+    </div>
+  </div><br>
+  <!-- display current clients -->
+  <h4 class="text-muted">Clients</h4><br>
+   <div *ngIf='clients?.length>0'>
+    <div *ngFor='let client of clients'>
+      <div class="border col-7 container ml-5">
+        <div class="row">
+          <div class="col-5 mt-2">
+            <i class="fa fa-user-circle-o m-2" style="font-size:24px"></i>
+            {{client.clientName}}
+          </div>
+      </div>
+    </div>
+   </div>
+</div>
+
+
+
