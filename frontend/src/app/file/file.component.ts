@@ -42,7 +42,10 @@ export class FileComponent implements OnInit {
     revf = 0;
     fileName;
     showMsg: boolean = false;
-    receivedFiles:any = [];
+    receivedFiles;
+    objId;
+    client;
+    clientNic;
 
     shareForm: FormGroup = new FormGroup({
         image: new FormControl(null),
@@ -80,6 +83,7 @@ export class FileComponent implements OnInit {
         .subscribe(
             data=>{
                 this.addName(data);
+                this.runThis();
                 // this.uploader.onBeforeUploadItem = (item: any) => {
                 //     this.uploader.options.additionalParameter = {
                 //       nic: this.nic,
@@ -104,8 +108,8 @@ export class FileComponent implements OnInit {
                     //     console.log(value);
                     //   }); 
                     // {'id': 'Admin', 'name':'Admin'}, {'id':'Lawyer', 'name': 'Lawyer'}, {'id':'Client', 'name': 'Client'}
-                    this.types = data['All Lawyers'];
-                    console.log(this.types);
+                    // this.types = data['All Lawyers'];
+                    // console.log(this.types);
                 },
                 error=>console.log('error')
             )
@@ -116,6 +120,19 @@ export class FileComponent implements OnInit {
     this.nic = data.nic;
     this.type = data.type;
     this.currentUserType = data.type;
+    this.objId = data._id;
+}
+
+runThis(){
+    this._user.getConnect(this.objId)
+            .subscribe(
+                data=>{
+                    console.log(data)
+                    this.types = data['All Connect'];
+                    console.log(this.types);
+                },
+                error=>console.log('error')
+            )
 }
 
   download(index){
@@ -138,9 +155,9 @@ export class FileComponent implements OnInit {
 
   share(){
     let data = new FormData();
-    
-    data.append('lawyer', this.shareForm.controls.lawyer.value);
+    data.append('lawyer', this.clientNic);
     data.append('nic', this.nic);
+    data.append('fromName',this.username);
     data.append('task' , 'share');
     data.append('image', this.imageFile, this.imageFile['name']);
 
@@ -173,7 +190,7 @@ revF(){
     this.sharef = 0;
 
     this._user.rev(this.nic).subscribe(
-        data => {console.log(data);this.receivedFiles = data},// window.location.reload();
+        data => {this.receivedFiles = data['Received Files'],console.log(this.receivedFiles);},// window.location.reload();
         error => {console.log(error);}
     )
 
@@ -205,6 +222,16 @@ asyncFunc = (...args) =>
 
   callType(value){
     this.choise = value;
+    console.log(value);
+    this._user.getClient(value).subscribe(
+        data=>{
+            this.client = data;
+            console.log(this.client);
+            console.log(this.client.nic);
+            this.clientNic = this.client.nic;
+        },
+        err=>{console.log(err);}
+    )
     return;
 }
 

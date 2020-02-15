@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
     uploadedBy: String,
-    file: String,
+    file: [String],
     upload_dt:Date
 });
 

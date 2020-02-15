@@ -2,6 +2,7 @@ var express = require('express');
 const { promisify } = require('util');
 var router = express.Router();
 var User = require('../models/user');
+var Case = require('../models/case');
 var fileShare = require('../models/fileShareSchema');
 var passport = require('passport');
 var multer = require('multer');
@@ -126,7 +127,7 @@ var copyFile = (file,dir2) => {
 };
 
 router.post('/share', upload.single('image'), function (req, res, next) {
-  console.log(req.file);
+  console.log(req.body);
   var dir = `./public/images/${req.body.nic}/sent_items/${f_name}`;
   var des = `./public/images/${req.body.lawyer}/received_items`;
   if (!fs.existsSync(des)) {
@@ -135,6 +136,7 @@ router.post('/share', upload.single('image'), function (req, res, next) {
   
   var fileshare = new fileShare({
     from : req.body.nic,
+    fromName : req.body.fromName,
     to : req.body.lawyer,
     file : req.file.path,
     fileName : req.file.filename,
@@ -153,20 +155,21 @@ router.post('/share', upload.single('image'), function (req, res, next) {
   });
 });
 
-router.get('/files/:token' , (req,res)=>{
-  let filesData = [];
-  let count = 0;
-  const testFolder = `./public/images/${req.params.token}/received_items`;
-  fs.readdirSync(testFolder).forEach(file => {
-    console.log(file);
-    fileShare.findOne({fileName:file},function(err,fileshare){
-      // console.log('fileshare:'+fileshare);
-      // filesData[count++] = {name:file,path:fileshare.file};
+router.get('/files/:token' , function(req,res,next){
+  fileShare.find({to:req.params.token},function(err,files){
+    var o = {}
+    var key = 'Received Files';
+    o[key] = [];
+    files.forEach(ele=>{
+      var data = {
+        name:ele.fileName,
+        from:ele.fromName
+      };
+      o[key].push(data);
     });
-    filesData[count++] = file;
+    console.log(o);
+    return res.status(200).json(o);
   });
-  console.log(filesData);
-  return res.json(filesData);
 });
 
 router.post('/login', function (req, res, next) {
@@ -204,6 +207,28 @@ router.get('/getLawyers', isValidUser, function (req, res, next) {
       // {'id': 'Admin', 'name':'Admin'}, {'id':'Lawyer', 'name': 'Lawyer'}, {'id':'Client', 'name': 'Client'}
     });
     
+    console.log(o);
+    return res.status(200).json(o);
+  });
+  // return res.status(200).json(req.user);
+});
+
+router.get('/getConnect/:token', isValidUser, function (req, res, next) {
+  console.log()
+  Case.find({lawyer_id:req.params.token} , function(err , cases){
+    // console.log(ele.nic);
+    var o = {} // empty Object
+    var key = 'All Connect';
+    o[key] = []; // empty Array, which you can push() values into
+
+    cases.forEach(ele => {
+      var data = {
+          id: ele.client_id,
+          name: ele.clientName
+      };
+      o[key].push(data);
+      // {'id': 'Admin', 'name':'Admin'}, {'id':'Lawyer', 'name': 'Lawyer'}, {'id':'Client', 'name': 'Client'}
+    });
     console.log(o);
     return res.status(200).json(o);
   });
@@ -444,5 +469,14 @@ router.get('/lawyers/:category',async (req,res)=>{
   }
 })
 
+router.get('/client/:id', async (req,res)=>{  
+  console.log(req.params.id);
+  try{
+    const client = await User.findById(req.params.id);
+    res.json(client);
+  }catch{
+    res.json({message:error});
+  }
+})
 
 module.exports = router;
