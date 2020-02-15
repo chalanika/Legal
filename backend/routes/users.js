@@ -420,7 +420,6 @@ router.put('/:id/rates', async (req,res)=>{
   try{
     const lawyer = await User.findById(req.params.id);
     lawyer.rates.push(rate);
-
     const saved = await lawyer.save();
     res.json(saved);
   }catch(error){
@@ -446,12 +445,21 @@ router.get('/lawyer/:id', async (req,res)=>{
   }catch{
     res.json({message:error});
   }
-  
+})
+
+//find specific client
+router.get('/client/:id', async (req,res)=>{  
+  try{
+    const client = await User.findById(req.params.id);
+    res.json(client);
+  }catch{
+    res.json({message:error});
+  }
 })
 //find all lawyers from users
 router.get('/lawyers',async (req,res)=>{ 
   try{
-    const result = await User.find({type:"2"});
+    const result = await User.find({type:"Lawyer"});
     res.json(result);
   }catch{
     res.json({message:error});

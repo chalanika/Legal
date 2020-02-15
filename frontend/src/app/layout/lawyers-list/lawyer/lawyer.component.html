@@ -1,9 +1,11 @@
 <div class="row">
-  <div  class="col">
-    <img class="avatar border-gray" src="{{this.imageUrl}}" alt="..." class="rounded-circle  border" style="width: 30px; height: 30px;">
-    <a  [routerLink] routerLinkActive="routerLinkActive" (click)="isCollapsed = !isCollapsed"  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"> {{lawyer.username}}</a>
+  <div class="col">
+    <img class="avatar border-gray" src="{{this.imageUrl}}" alt="..." class="rounded-circle  border"
+      style="width: 30px; height: 30px;">
+    <a [routerLink] routerLinkActive="routerLinkActive" (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample"> {{lawyer.username}}</a>
   </div>
-  <div *ngIf="this.currentUserType==3" class="col-5">
+  <div *ngIf="this.currentUserType== 'Client'" class="col-5">
     <button class="btn btn-primary btn-sm" (click)="appointment()">Book Now</button>
   </div>
 </div>
@@ -12,16 +14,29 @@
   <div class="row">
     <div class="col-6  p-0" style="margin-left:20px; margin-top: 10px;">
       <b>{{lawyer.username}}</b>
-      <img class="avatar border-gray" src="{{this.imageUrl}}" alt="..." style="padding:5px;padding-right:30px;width: 150px;height: 150px;">
+      <img class="avatar border-gray" src="{{this.imageUrl}}" alt="..."
+        style="padding:5px;padding-right:30px;width: 150px;height: 150px;">
+      
+          <!-- display rating -->
+          <ng-template #t let-fill="fill">
+            <span class="star" [class.full]="fill === 100">
+              <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+            </span>
+          </ng-template>
+
+          <ngb-rating [(rate)]="averageRate" [starTemplate]="t" [readonly]="true" max="5">
+          </ngb-rating>
+       
     </div>
+
     <div class="col pt-2 ">
       <small><b>Practise Area</b></small><br>
-      
+
       <small>-Nugegoda</small>
       <br>
       <hr>
       <small><b>Expertise</b></small><br>
-      
+
       <small>-Business</small><br>
       <small>-Family</small><br>
       <small>-Real State</small><br>
@@ -35,5 +50,3 @@
     </div>
   </div>
 </div>
-
-
