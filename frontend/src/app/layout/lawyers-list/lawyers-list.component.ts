@@ -35,7 +35,7 @@ export class LawyersListComponent implements OnInit {
   lawyers;
   type: String;
   imageUrl;
-  selectedCategory: String = '';
+  selectedCategory;
   categories: any = [
     'Family',
     'Business',
@@ -66,19 +66,8 @@ export class LawyersListComponent implements OnInit {
 
   changedCategory(category: String) {
     console.log(category);
+    this.selectedCategory = category;
     console.log("ccccccccc");
-    if (category == 'Business') {
-      this.type = "1";
-      this.getLawyers(this.type);
-    }
-    if (category == 'Family') {
-      this.type = "2";
-      this.getLawyers(this.type);
-    }
-    if (category == 'Criminal') {
-      this.type = "3";
-      this.getLawyers(this.type);
-    }
     if (category == 'All') {
 
       this._userService.viewLawyers().subscribe(
@@ -88,6 +77,8 @@ export class LawyersListComponent implements OnInit {
         },
         error => console.log(error)
       );
+    }else{
+      this.getLawyers(category);
     }
   }
   //display categorised lawyers

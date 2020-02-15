@@ -1,4 +1,4 @@
-<h1>Cases</h1><br>
+<h1><b>Cases</b></h1><hr><br>
 
 <div *ngIf="ongoingCases?.length>0">
   <h2 class="text-muted">Ongoing Cases</h2>
@@ -7,7 +7,8 @@
       <div class=" row  bg-info  ">
         <div class="col-5 p-2 text-white">
           <i class="fa fa-legal"></i>
-          <a [routerLink]="['/case', ongoingCase._id]" routerLinkActive="routerLinkActive" class="text-white" > {{ongoingCase.caseName}}</a>
+          <a [routerLink]="['/case', ongoingCase._id]" routerLinkActive="routerLinkActive" class="text-white">
+            {{ongoingCase.caseName}}</a>
         </div>
         <div class="col">
           <button class="btn btn-dark btn-sm m-2 pull-right" (click)="editCase(ongoingCase)">Close</button>
@@ -36,7 +37,8 @@
       <div class=" row  bg-info  ">
         <div class="col-5 p-2 text-white">
           <i class="fa fa-legal"></i>
-          <a [routerLink]="['/case', closedCase._id]" routerLinkActive="routerLinkActive" class="text-white"> {{closedCase.caseName}}</a>
+          <a [routerLink]="['/case', closedCase._id]" routerLinkActive="routerLinkActive" class="text-white">
+            {{closedCase.caseName}}</a>
         </div>
         <div class="col">
           <button class="btn btn-dark btn-sm m-2 pull-right" disabled>Closed</button>
@@ -59,4 +61,8 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="alert alert-primary" role="alert" *ngIf='ongoingCases?.length == 0 && closedCases?.length == 0 '>
+  There is not a Case yet.
 </div>
