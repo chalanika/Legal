@@ -1,31 +1,31 @@
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">rate for {{lawyer.username}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <form #rateForm="ngForm" (ngSubmit)="saveRate();modal.close('Save click')">
-    <div class="modal-body">
-      <!-- rating form -->
-      <div class="container">
-
-        <ngb-rating [(rate)]="rateModel.rate" max="5">
-          <ng-template let-fill="fill" let-index="index" >
-            <span class="star" [class.filled]="fill === 100" [class.bad]="index<5" >&#9733;</span>
-          </ng-template>
-        </ngb-rating>
-
-
-        <div *ngIf="rateModel.rate">
-          <label>Write a feedback</label>
-          <input type="text" class="form-control" name="feedbsack" [(ngModel)]="rateModel.feedback">
+<div *ngIf="this.currentUser?.type == 'Client'">
+  <ng-template #content let-modal>
+    <div class="modal-header bg-info text-white " >
+      <h4 class="modal-title m-0" id="modal-basic-title">Rate the lawyer</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form #rateForm="ngForm" (ngSubmit)="saveRate();modal.close('Save click')">
+      <div class="modal-body">
+        <!-- rating form -->
+        <div class="container">
+  
+          <ngb-rating [(rate)]="rateModel.rate" max="5">
+            <ng-template let-fill="fill" let-index="index" >
+              <span class="star" [class.filled]="fill === 100" [class.bad]="index<5" >&#9733;</span>
+            </ng-template>
+          </ngb-rating>
+          <div *ngIf="rateModel.rate">
+            <label class="text-info"><b>Feedback</b></label>
+            <input type="text" class="form-control" name="feedbsack" [(ngModel)]="rateModel.feedback">
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-outline-dark">Save</button>
-    </div>
-  </form>
-</ng-template>
+  
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-info">Save</button>
+      </div>
+    </form>
+  </ng-template>
+</div>

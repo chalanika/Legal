@@ -38,16 +38,16 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const received = await Appointment.findById({ _id: req.params.id });
-    received.lawyerId = req.body.lawyerId,
-    received.lawyerName = req.body.lawyerName,
-    received.clientId = req.body.clientId,
-    received.clientName = req.body.clientName,
-    received.subject = req.body.subject,
-    received.description = req.body.description,
-    received.startDateTime = req.body.startDateTime,
-    received.finishDateTime = req.body.finishDateTime,
-    received.status = req.body.status,
-    received.isAlert = req.body.isAlert
+    received.lawyerId = req.body.lawyerId;
+    received.lawyerName = req.body.lawyerName;
+    received.clientId = req.body.clientId;
+    received.clientName = req.body.clientName;
+    received.subject = req.body.subject;
+    received.description = req.body.description;
+    received.startDateTime = req.body.startDateTime;
+    received.finishDateTime = req.body.finishDateTime;
+    received.status = req.body.status;
+    received.isAlert = req.body.isAlert;
     const saved = await Appointment.findByIdAndUpdate(req.params.id, received, { new: true });
     res.json(saved);
   } catch (error) {

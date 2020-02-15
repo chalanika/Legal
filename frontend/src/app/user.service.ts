@@ -119,5 +119,9 @@ export class UserService {
     console.log(id);
     return this._http.get('http://127.0.0.1:3000/users/rate/'+id);
   }
+  //get specific client details
+  getClient(id){
+    return this._http.get('http://127.0.0.1:3000/users/client/'+id);
+  }
 
 }
