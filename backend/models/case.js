@@ -35,7 +35,7 @@ const CaseSchema = new Schema({
         required:true
     },
     closedDate:{
-        type:Date,
+        type:Date
     },
     is_closed:{
         type:Boolean,
