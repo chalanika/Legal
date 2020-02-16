@@ -5,6 +5,7 @@ var path = require('path');
 var fs = require('fs');
 var multer = require('multer');
 var crypto = require('crypto');
+var fileShare = require('../models/fileShareSchema');
 // const algorithm = 'aes-256-ctr';
 let key = 'MySuperSecretKey';
 key = crypto.createHash('sha256').update(key).digest('base64').substr(0, 32);
@@ -93,6 +94,29 @@ nodecipher.decrypt({
         }
     });
   });
+});
+
+_router.post('/downloadSh',function(req,res,next){
+    console.log(req.body);
+    filepath = path.join(__dirname,`../public/images/${req.body.nic}/received_items`) +'/'+ req.body.filename;
+    filepath = filepath.replace(/\\/g, "/");
+    console.log(filepath);
+    res.sendFile(filepath , function(err){
+        if(err) console.log(err);
+    });
+});
+
+_router.delete('/deleteSh/:token1/:token2',function(req,res,next){
+
+            fileShare.findOneAndRemove({to:req.params.token1,fileName:req.params.token2}, function(err){
+                if(err) console.log(err);
+                else console.log("Document Deleted");
+            });
+            fs.unlink(filepath,function(err){
+                if(err) return console.log(err);
+                console.log('file deleted successfully');
+           });
+           return;
 });
 
 _router.post('/share',function(req,res,next){

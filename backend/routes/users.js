@@ -235,6 +235,23 @@ router.get('/getConnect/:token', isValidUser, function (req, res, next) {
   // return res.status(200).json(req.user);
 });
 
+router.get('/getConnect2/:token', isValidUser, function (req, res, next) {
+  Case.find({client_id:req.params.token} , function(err , cases){
+    var o = {}
+    var key = 'All Connect';
+    o[key] = [];
+    cases.forEach(ele => {
+      var data = {
+          id: ele.lawyer_id,
+          name: ele.lawyerName
+      };
+      o[key].push(data);
+    });
+    console.log(o);
+    return res.status(200).json(o);
+  });
+});
+
 router.get('/logout', isValidUser, function (req, res, next) {
   req.logout();
   console.log("Logout Success");
@@ -393,6 +410,21 @@ router.post('/updatePassword', function (req, res, next) {
 
 router.delete('/deleteMe' , function(req,res,next){
   User.findById(req.user._id , function(err , user){
+    user.active = false;
+    user.save(function (err) {
+      if (err) {
+        console.error('ERROR!');
+      }
+    });
+    res.status(204).json({
+      status:'User deletion successfull',
+      data:null
+    });
+  });
+});
+
+router.delete('/deleteUser/:token' , function(req,res,next){
+  User.findById(req.params.token , function(err , user){
     user.active = false;
     user.save(function (err) {
       if (err) {

@@ -24,6 +24,7 @@ export class FileComponent implements OnInit {
 
     tasks = [{'id': '1', 'name':'Upload file to your store'}, {'id':'2', 'name': 'Share files with lawyer'} , 
                                                                         {'id':'3', 'name': 'Received Files'}];
+    searchText;
     choise;
     types;
     images;
@@ -83,7 +84,10 @@ export class FileComponent implements OnInit {
         .subscribe(
             data=>{
                 this.addName(data);
+                if(this.type == "Lawyer")
                 this.runThis();
+                if(this.type == "Client")
+                this.runThis2();
                 // this.uploader.onBeforeUploadItem = (item: any) => {
                 //     this.uploader.options.additionalParameter = {
                 //       nic: this.nic,
@@ -129,9 +133,24 @@ runThis(){
                 data=>{
                     console.log(data)
                     this.types = data['All Connect'];
+                    const result = Array.from(this.types.reduce((m, t) => m.set(t.name, t), new Map()).values());
+                    this.types = result;
                     console.log(this.types);
                 },
                 error=>console.log('error')
+            )
+}
+
+runThis2(){
+    this._user.getConnect2(this.objId)
+            .subscribe(
+                data=>{
+                    console.log(data)
+                    this.types = data['All Connect'];
+                    const result = Array.from(this.types.reduce((m, t) => m.set(t.name, t), new Map()).values());
+                    this.types = result;
+                },
+                error => console.log('error')
             )
 }
 
@@ -145,6 +164,21 @@ runThis(){
     );
 }
 
+downloadFile(shFile){
+      this._fileService.downloadShFile(this.nic,shFile)
+      .subscribe(
+          data => saveAs(data, shFile),
+          error => console.log(error)
+      )
+}
+
+deleteFile(shFile){
+    this._fileService.deleteShFile(this.nic,shFile)
+      .subscribe(
+          data => {console.log(data)},
+          error => console.log(error)
+      )
+}
 
   ngOnInit() {
         this.isActive = false;
@@ -286,5 +320,15 @@ onLoggedout() {
         )
         localStorage.removeItem('isLoggedin');
 }
+
+// search(){
+//     if(this.receivedFiles.name!=""){
+
+//     }else if(this.receivedFiles.name==""){
+//         this.receivedFiles = this.receivedFiles.filter(res=>{
+//             return this.receivedFiles.name.toLocalLowerCase().match(this.receivedFiles.name.toLocalLowerCase());
+//         });
+//     }
+// }
 
 }
