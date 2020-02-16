@@ -18,33 +18,44 @@
           <h3>Notifications</h3>
         </div>
     </div>
-    <div *ngIf='appointments?.length > 0'>
+    <div *ngIf="appointments?.length > 0 && currentUser.type=='Lawyer' ">
         <div *ngFor='let appointment of appointments'>
-            <div class="alert alert-info">
-                <div class="container">
-                    <div class="alert-icon">
-                        <i class="material-icons">info_outline</i>
-                    </div>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true"><i class="material-icons">clear</i></span>
-                    </button>
+            <div *ngIf="appointment.status =='Not Confirmed' ">
+                <div class="alert alert-info">
+                    <div class="container">
+                        <div class="alert-icon">
+                            <i class="material-icons">info_outline</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
 
-                    <b>Appointment Alert from {{appointment.clientName}} client :</b> You've got a appointment confirmation request on {{appointment.startDateTime}} and it is a {{appointment.status}}
+                        <font color='black'><b>Appointment Alert from client {{appointment.clientName}} :</b> You've got a appointment confirmation request on {{appointment.startDateTime}} and it is <i><b>{{appointment.status}}</b></i></font>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="alert alert-success">
-        <div class="container">
-            <div class="alert-icon">
-                <i class="material-icons">check</i>
+
+    <div *ngIf="clientappointments?.length > 0 && currentUser.type=='Client' ">
+        <div *ngFor='let clientappointment of clientappointments'>
+            <div *ngIf="clientappointment.status =='Confirmed' ||clientappointment.status =='Rejected' ">
+                <div class="alert alert-success">
+                    <div class="container">
+                        <div class="alert-icon">
+                            <i class="material-icons">check</i>
+                        </div>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                        </button>
+                        <font color='black'><b>Appointment Alerts from {{clientappointment.lawyerName}}:</b> Your appointment is <b>{{clientappointment.status}}</b></font>
+                    </div>
+                </div>
             </div>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true"><i class="material-icons">clear</i></span>
-            </button>
-            <b>Reminder Alert:</b> Yuhuuu! Tommorrow there's some works to do
         </div>
     </div>
+
+
     <div class="alert alert-warning">
          <div class="container">
              <div class="alert-icon">

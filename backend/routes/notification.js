@@ -13,5 +13,19 @@ router.get('/appointments/:id',async (req,res)=>{
       }
 })
 
+router.get('/clientAppointment/:id',async (req,res)=>{
+  try {
+    console.log(req.params.id);
+    
+      const clientappointments = await Appointment.find({ clientId: req.params.id });
+      console.log('success client post');
+      console.log(clientappointments);
+      res.json(clientappointments);
+    } catch (error) {
+        console.log('error')
+      res.json({ message: error });
+    }
+})
+
 
 module.exports = router;

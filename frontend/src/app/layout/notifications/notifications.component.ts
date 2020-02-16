@@ -15,6 +15,7 @@ export class NotificationsComponent implements OnInit {
 
   currentUser;
   appointments;
+  clientappointments;
   constructor(private _user: UserService, private _router: Router, private _notification: NotificationService) {}
 
   ngOnInit() {
@@ -25,6 +26,7 @@ export class NotificationsComponent implements OnInit {
     .subscribe(
         res => {
           this.currentUser = res;
+          console.log(this.currentUser.type);
           this.loadData();
         },
         error => this._router.navigate(['/login'])
@@ -32,13 +34,33 @@ export class NotificationsComponent implements OnInit {
   }
 
   loadData() {
-    this._notification.getAppointmentNotification(this.currentUser._id).subscribe(
-      res => {
-        this.appointments = res;
-      }, err => {
-        console.log(err);
-      }
-    );
+    console.log('hai i am here');
+    if (this.currentUser.type=='Lawyer'){
+      console.log(this.currentUser._id);
+      this._notification.getAppointmentNotification(this.currentUser._id).subscribe(
+        res => {
+          this.appointments = res;
+          console.log(this.appointments);
+          // console.log(this.appointments);
+        }, err => {
+          console.log(err);
+        }
+      );
+    }
+    if (this.currentUser.type=='Client') {
+      console.log('cat');
+      console.log(this.currentUser._id);
+      this._notification.getClientApointments(this.currentUser._id).subscribe(
+        res => {
+          console.log('dog');
+          this.clientappointments = res;
+          console.log('ele');
+          console.log(this.clientappointments);
+        }, err => {
+          console.log(err);
+        }
+      );
+    }
   }
 
 }
