@@ -11,8 +11,8 @@ export class NotificationService {
 
   constructor(private http:HttpClient) { }
 
-  getAppointmentNotification(lawyerId){
+  getAppointmentNotification(lawyerId) {
     console.log(lawyerId);
-    return this.http.get(this.baseUrl+"/notification/appointments/"+lawyerId);
+    return this.http.get(this.baseUrl + '/notification/appointments/' + lawyerId);
   }
 }

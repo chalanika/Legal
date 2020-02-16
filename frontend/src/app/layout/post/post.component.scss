@@ -1,3 +1,17 @@
+.center{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+.container{
+    width:50%;
+}
+#loader{
+    display:none;
+}
+
+
 :-moz-placeholder {
     color: blue;
 }
@@ -161,6 +175,16 @@ button.submit:active {
     top:1px;
     left:-6px;
 }
+fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove (internal value);
+  }
 
 .contact_form input:focus + .form_hint {display: inline;}
 .contact_form input:required:valid + .form_hint {background: #28921f;} /* change form hint color when valid */

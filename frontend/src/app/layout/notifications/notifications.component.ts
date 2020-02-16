@@ -15,30 +15,30 @@ export class NotificationsComponent implements OnInit {
 
   currentUser;
   appointments;
-  constructor(private _user:UserService, private _router:Router,private _notification:NotificationService) {}
+  constructor(private _user: UserService, private _router: Router, private _notification: NotificationService) {}
 
   ngOnInit() {
     this.getCurrentUser();
   }
-  getCurrentUser(){
+  getCurrentUser() {
     this._user.user()
     .subscribe(
-        res=>{
+        res => {
           this.currentUser = res;
           this.loadData();
         },
-        error=>this._router.navigate(['/login'])
+        error => this._router.navigate(['/login'])
     );
   }
 
-  loadData(){
+  loadData() {
     this._notification.getAppointmentNotification(this.currentUser._id).subscribe(
-      res=>{
+      res => {
         this.appointments = res;
-      },err=>{
+      }, err => {
         console.log(err);
       }
-    )
+    );
   }
 
 }

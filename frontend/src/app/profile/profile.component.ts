@@ -12,10 +12,10 @@ import {RateService} from 'src/app/core/services/rate.service';
 })
 export class ProfileComponent implements OnInit {
 
-    username:'';
-    email:'';
-    nic:'';
-    image:'';
+    username: '';
+    email: '';
+    nic: '';
+    image: '';
     detail: '';
     address;
     number;
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
     collapsed: boolean;
     showMenu: string;
     BASE_URL = location.origin;
-    imageUrl =  'http://localhost:3000/images/avatar.jpg';
+    imageUrl = 'http://localhost:3000/images/avatar.jpg';
 
     profile = 1;
     notification = 0;
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
 
     rateModel = new Rate();
     rates;
-    currentUserId= "5dce02aa4ecd9729d4574d02";
+    currentUserId = '5dce02aa4ecd9729d4574d02';
     averageRate;
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
@@ -54,13 +54,13 @@ export class ProfileComponent implements OnInit {
 
   this._user.user()
   .subscribe(
-      data=>this.addName(data),
-      error=>this._router.navigate(['/login'])
+      data => this.addName(data),
+      error => this._router.navigate(['/login'])
   )
 
    }
 
-   addName(data){
+   addName(data) {
     this.username = data.username;
     this.nic = data.nic;
     this.email = data.email;
@@ -69,12 +69,11 @@ export class ProfileComponent implements OnInit {
     this.address = data.address;
     this.number = data.number;
     this.area = data.area;
-    this.type = data.type;  
+    this.type = data.type;
     this.currentUserId = data._id;
-    if(this.type==2){
+    if( this.type == 2 ) {
       // this.getRates();
     }
-    
     console.log(data.image);
     var path = data.image.replace(/\\/g, '/');
     path = path.replace(/public/g, '');

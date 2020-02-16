@@ -6,40 +6,127 @@
   </head>
 
   <body>
-    
+    <div class ="row">
+    <div *ngIf="postf==1 && typef==1" class = "col-6">
     <form role="form" [formGroup]="postForm">
       
       <ul>
 
-        <li>
-          <h2>Create a post</h2>
-          <span class="required_notification">* Denotes Required Field</span>
-        </li>
+        
+          <h2 >Create a post</h2>
+          <span class="required_notification"></span>
+        
 
         <li>
-          <label for="name">Name:</label>
+          <label for="name">Name</label><br>
             <input type="text" formControlName= "name" placeholder="JohnSilva" required>
+            <p>
         </li>
 
         <li>
-          <label for="email">Email:</label>
+          <label for="email">Email</label><br>
           <input type="email" formControlName= "email" placeholder="John123@xxx.com" required>
           <span class="form_hint">Proper format "name@something.com"</span>
+          <p>
         </li>
 
         <li>
-          <label for="description">Description:</label>
+          <label for="title">Title of Post</label>
+          <br>
+          <input type="text" formControlName= "title" placeholder="Title" required>
+          <span class="form_hint">Proper format "Heading"</span>
+          <p>
+        </li>
+
+        <li>
+          <label for="description">Description</label>
+          <p></p>
           <textarea formControlName= "description" cols="40" rows="6" placeholder="Your description" required></textarea>
         </li>
         
-        <li>
-          <button class="submit" (click)="post()">Post</button>
-        </li>
+        
+       <button class="submit" (click)="post()" onClick="window.location.reload()">Post</button>
+        
 
       </ul>
 
     </form>
-    
+    </div>
+
+
+    <div *ngIf="editf==1 && typef==1 " class = "col-6">
+    <form role="form" [formGroup]="postForm">
+      
+      <ul>
+
+        
+          <h2 >Create a post</h2>
+          <span class="required_notification"></span>
+        
+
+        <li>
+          <label for="name">Name</label><br>
+            <input type="text" formControlName= "name" placeholder="editname" value = {{details.name}} required>
+            <p>
+        </li>
+
+        <li>
+          <label for="email">Email</label><br>
+          <input type="email" formControlName= "email" placeholder="editmail@xxx.com" value = {{details.email}} required>
+          <span class="form_hint">Proper format "name@something.com"</span>
+          <p>
+        </li>
+
+        <li>
+          <label for="title">Title of Post</label>
+          <br>
+          <input type="text" formControlName= "title" placeholder="Title" value= {{details.title}} required>
+          <span class="form_hint">Proper format "Heading"</span>
+          <p>
+        </li>
+
+        <li>
+          <label for="description">Description</label>
+          <p></p>
+          <textarea formControlName= "description" cols="40" rows="6" placeholder="Your description" value ={{details.description}} required></textarea>
+        </li>
+        
+        
+       <button class="submit" (click)="post()" onClick="window.location.reload()">Update</button>
+        
+
+      </ul>
+
+    </form>
+    </div>
+    <div class="col-6">
+      <table class="table table-hover">
+  <thead>
+    <tr>
+      
+      <th scope="col">Name</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">
+      
+      </th>
+    </tr>
+  </thead>
+  <tbody *ngIf='posts?.length > 0'>
+    <tr *ngFor='let post of posts' >
+      
+      <td>{{post.name}}</td>
+      <td>{{post.title}}</td>
+      <td>{{post.description}}</td>
+      <td>
+      <button type="button" class="btn btn-outline-danger" (click)="Delete(post._id)">Delete</button>&nbsp;
+      <button type="button" class="btn btn-outline-success" (click)="Edit(post._id)">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+    </div>
   </body>
 
 </html>

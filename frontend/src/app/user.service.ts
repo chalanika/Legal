@@ -7,41 +7,41 @@ import { Rate } from './core/models/Rate';
 })
 export class UserService {
 
-  constructor(private _http:HttpClient) { }
+  constructor(private _http: HttpClient) { }
 
-  register(body:any){
-    return this._http.post('http://127.0.0.1:3000/users/register',body);
+  register(body: any) {
+    return this._http.post('http://127.0.0.1:3000/users/register', body);
   }
 
-  login(body:any){
-    return this._http.post('http://127.0.0.1:3000/users/login',body,{
-      observe:'body',
-      withCredentials:true,
-      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+  login(body: any) {
+    return this._http.post('http://127.0.0.1:3000/users/login', body, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type' , 'application/json')
     });
   }
 
-  user(){
-    return this._http.get('http://127.0.0.1:3000/users/user',{
-      observe:'body',
-      withCredentials:true,
-      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+  user() {
+    return this._http.get('http://127.0.0.1:3000/users/user', {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type' , 'application/json')
     });
   }
 
-  logout(){
-    return this._http.get('http://127.0.0.1:3000/users/logout',{
-      observe:'body',
-      withCredentials:true,
-      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+  logout() {
+    return this._http.get('http://127.0.0.1:3000/users/logout', {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type' , 'application/json')
     });
   }
 
-  resetPassword(body:any){
-    return this._http.post('http://127.0.0.1:3000/users/forgotPassword',body,{
-      observe:'body',
-      withCredentials:true,
-      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+  resetPassword(body: any) {
+    return this._http.post('http://127.0.0.1:3000/users/forgotPassword', body, {
+      observe: 'body',
+      withCredentials: true,
+      headers: new HttpHeaders().append('Content-Type' , 'application/json')
     });
   }
 
@@ -53,31 +53,31 @@ export class UserService {
   //   });
   // }
 
-  //get all lawyers details
-  viewLawyers(){
-    console.log("xxxxxxxxx");
+  // get all lawyers details
+  viewLawyers() {
+    console.log('xxxxxxxxx');
     return this._http.get('http://127.0.0.1:3000/users/lawyers');
   }
-  //get categorized lawyers
-  categorizedLawyers(category: String){
-    return this._http.get('http://127.0.0.1:3000/users/lawyers/'+category);
+  // get categorized lawyers
+  categorizedLawyers(category: String) {
+    return this._http.get('http://127.0.0.1:3000/users/lawyers/' + category);
   }
 
-  //get specific lawyer details 
-  getLawyer(id:String){
+  // get specific lawyer details
+  getLawyer(id: String) {
     // console.log(id);
-    return this._http.get('http://127.0.0.1:3000/users/lawyer/'+id);
+    return this._http.get('http://127.0.0.1:3000/users/lawyer/' + id);
   }
 
   // send rating form to server
-  rate(id:String,rate:Rate){
+  rate(id: String, rate: Rate) {
     console.log(rate);
-    return this._http.put('http://127.0.0.1:3000/users/'+id+'/rates',rate);
+    return this._http.put('http://127.0.0.1:3000/users/' + id + '/rates', rate);
   }
 
-  getRate(id){
+  getRate(id) {
     console.log(id);
-    return this._http.get('http://127.0.0.1:3000/users/rate/'+id);
+    return this._http.get('http://127.0.0.1:3000/users/rate/' + id);
   }
 
 }
