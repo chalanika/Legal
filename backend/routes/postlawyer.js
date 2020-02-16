@@ -25,7 +25,7 @@ router.post('/postcreation',async function(req,res,next){
   router.get('/postview/:lawyerId',async (req,res)=>{
     try {
         const post = await Post.find({ id: req.params.lawyerId });
-        console.log(post);
+        
         console.log('success');
         res.json(post);
       } catch (error) {
@@ -33,7 +33,17 @@ router.post('/postcreation',async function(req,res,next){
         res.json({ message: error });
       }
   });
-
+  router.get('/postclient/',async (req,res)=>{
+    try{
+      const post = await Post.find();
+      console.log('postclient success');
+      res.json(post);
+    }
+    catch(error){
+      console.log('error')
+      res.json({ message: error });
+    }
+  });
   //delete a post
   router.delete('/postdelete/:pid',async (req,res) =>{
     console.log("going to delte the post");
@@ -57,7 +67,7 @@ router.post('/postcreation',async function(req,res,next){
     try{
       console.log("edit eka athule inne");
       const edit = await Post.find({_id: req.params.pid });
-      console.log(edit);
+      // console.log(edit);
       console.log('update success');
       res.json(edit);
     }
@@ -67,5 +77,30 @@ router.post('/postcreation',async function(req,res,next){
   }
 });
 
+router.post('/updatepost',async (req,res) =>{
+  console.log("going to update the post");
+  console.log(req.body.details.name);
+  const update = await Post.findOne({_id: req.body.pid });
+  // console.log("Update : ",update);
+  console.log("update")
+  console.log(req.body.details.name)
+  console.log(req.body.details.email)
+  console.log(req.body.details.title)
+  console.log(req.body.details.description)
+  update.name = req.body.details.name;
+  update.email = req.body.details.email;
+  update.title = req.body.details.title;
+  update.description = req.body.details.description;
+  console.log("Update"+update);
+  try{
+    const saved = await update.save();
+    console.log("Saved"+saved);
+    res.json(saved);
+  }
+  catch (error) {
+    console.log('error')
+  res.json({ message: error });
+}
+});
 
   module.exports = router;

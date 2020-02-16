@@ -55,7 +55,7 @@
 
 
     <div *ngIf="editf==1 && typef==1 " class = "col-6">
-    <form role="form" [formGroup]="postForm">
+    <form role="form" [formGroup]="updateForm">
       
       <ul>
 
@@ -92,19 +92,20 @@
         </li>
         
         
-       <button class="submit" (click)="post()" onClick="window.location.reload()">Update</button>
+       <button class="submit" (click)="update(details._id)" onClick="window.location.reload()">Update</button>
         
 
       </ul>
 
     </form>
     </div>
-    <div class="col-6">
+    <div class="col-6" *ngIf="typef==1">
       <table class="table table-hover">
   <thead>
     <tr>
       
       <th scope="col">Name</th>
+      <th scope="col">Email</th>
       <th scope="col">Title</th>
       <th scope="col">Description</th>
       <th scope="col">
@@ -117,11 +118,37 @@
       
       <td>{{post.name}}</td>
       <td>{{post.title}}</td>
+      <td>{{post.email}}</td>
       <td>{{post.description}}</td>
       <td>
       <button type="button" class="btn btn-outline-danger" (click)="Delete(post._id)">Delete</button>&nbsp;
       <button type="button" class="btn btn-outline-success" (click)="Edit(post._id)">Edit</button>
       </td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+<!--client view-->
+    <div class="col-12" *ngIf="typef!=1">
+      <table class="table table-hover" border="1" bordercolor="#3e402d">
+  <thead>
+    <tr>
+      
+      <th scope="col" bgcolor="#42f5a4">Name</th>
+      <th scope="col" bgcolor="#e3ed8a">Email</th>
+      <th scope="col" bgcolor="#42f5a4">Title</th>
+      <th scope="col" bgcolor="e3ed8a">Description</th>
+      
+    </tr>
+  </thead>
+  <tbody *ngIf='posts?.length > 0'>
+    <tr *ngFor='let post of posts' >
+      
+      <td>{{post.name}}</td>
+      <td>{{post.title}}</td>
+      <td>{{post.email}}</td>
+      <td>{{post.description}}</td>
+      
     </tr>
   </tbody>
 </table>

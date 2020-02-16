@@ -25,6 +25,10 @@ export class PostService {
     return this._http.get('http://127.0.0.1:3000/postlawyer/postview/' + lawyerId);
 
   }
+  clientposts(){
+    console.log('in client post section');
+    return this._http.get('http://127.0.0.1:3000/postlawyer/postclient');
+  }
 
   deletepost(pid) {
     console.log(pid);
@@ -34,5 +38,10 @@ export class PostService {
   updatepost(pid) {
     console.log(pid);
     return this._http.get('http://127.0.0.1:3000/postlawyer/postupdate/' + pid);
+  }
+  postupdate(details:any , pid:any){
+    console.log(details+"awa awa "+pid);
+    const body={details: details, pid: pid};
+    return this._http.post('http://127.0.0.1:3000/postlawyer/updatepost' ,body);
   }
 }

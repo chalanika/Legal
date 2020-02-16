@@ -21,6 +21,16 @@ export class PostComponent implements OnInit {
     description: new FormControl(null),
   });
 
+  updateForm: FormGroup = new FormGroup({
+    name: new FormControl(true),
+    email: new FormControl(true),
+    title: new FormControl(true),
+    description: new FormControl(true),
+  });
+
+
+  
+
   CurrentUser;
   type;
   id;
@@ -39,11 +49,14 @@ export class PostComponent implements OnInit {
         this.id = this.CurrentUser._id;
         this.type = this.CurrentUser.type;
         console.log(this.type);
-        if(this.type != 'Client') {
-          this.loadPosts(); 
-          this.typef=1;
-
-        };
+        if (this.type != 'Client') {
+          this.loadPosts();
+          this.typef = 1 ;
+        }
+       if (this.type  == 'Client') {
+         this.typef = 0;
+          this.loadClientposts();        
+        }
       }, err => {
         console.log(err);
       }
@@ -68,6 +81,30 @@ export class PostComponent implements OnInit {
     );
     this.loadPosts();
   }
+  update(pid){
+    console.log('You are here to update the post');
+    console.log(pid);
+    console.log(this.updateForm.value);
+    if(this.updateForm.controls.name.value==true){
+      this.updateForm.controls['name'].setValue(this.details.name); 
+    }
+    if(this.updateForm.controls.email.value==true){
+      this.updateForm.controls['email'].setValue(this.details.email); 
+    }
+    if(this.updateForm.controls.title.value==true){
+      this.updateForm.controls['title'].setValue(this.details.title); 
+    }
+    if(this.updateForm.controls.description.value==true){
+      this.updateForm.controls['description'].setValue(this.details.description); 
+    }
+    console.log(this.updateForm.value);
+    this._post.postupdate(this.updateForm.value , pid).subscribe(
+      data => { console.log(data); 
+                this.loadPosts();},
+      err => {console.log(err); }
+    );
+
+  }
 
   Edit(pid) {
     this.postf = 0;
@@ -78,6 +115,7 @@ export class PostComponent implements OnInit {
         this.postid = res;
         console.log(this.postid[0].name);
         this.details = this.postid[0];
+        console.log(this.details);
       },
       err => {
         console.log(err);
@@ -89,6 +127,17 @@ export class PostComponent implements OnInit {
     console.log(this.id);
     this._post.Postedposts(this.id).subscribe(
       res => {
+        console.log(res);
+        this.posts = res;
+      }, err => {
+        console.log(err);
+      }
+    );
+  }
+  loadClientposts(){
+    console.log(this.id);
+    this._post.clientposts().subscribe(
+      res =>{
         console.log(res);
         this.posts = res;
       }, err => {
