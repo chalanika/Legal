@@ -6,7 +6,7 @@
     <div id="header">
         <!-- class="animated slideInDown" style="animation-delay:1.8s;" -->
 
-        
+
         <div id="links"><br>
             <a href="#about">About</a>
             <a href="#contact" style="margin:0px 60px;">Contact</a>
@@ -25,7 +25,90 @@
     </div>
     <br><br>
 
-    <div id="portfolio">
+<!-- Header -->
+<header class="bg-dark text-center py-5 mb-2">
+  <div class="container">
+    <h1 class="font-weight-light text-white">CATEGORIES</h1>
+  </div>
+</header>
+
+<!-- Page Content -->
+<div class="container">
+  <div class="row">
+    <!-- type 1 -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img src="assets/images/bussiness.png" width="350px" height="200px" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <div class="card-text text-dark">Bussiness Law</div>
+          <button class='btn btn-primary' (click)="click('Bussiness')">View Lawyers</button>
+        </div>
+      </div>
+    </div>
+    <!-- type 2 -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img src="assets/images/family.jpg" width="350px" height="200px" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <div class="card-text text-dark">Family Law</div>
+          <button class='btn btn-primary' (click)="click('Family')">View Lawyers</button>
+        </div>
+      </div>
+    </div>
+    <!-- type 3 -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img src="assets/images/real.jpg" width="350px" height="200px" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <div class="card-text text-dark">Real Estate Law</div>
+          <button class='btn btn-primary' (click)="click('Real Estate')">View Lawyers</button>
+        </div>
+      </div>
+    </div>
+    <!-- type 4 -->
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-0 shadow">
+        <img src="assets/images/Criminal.jpg" width="350px" height="200px" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+          <div class="card-text text-dark">Criminal Law</div>
+          <button class='btn btn-primary' (click)="click('Criminal Law')">View Lawyers</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
+  <br><br>
+
+  <div class="col-sm-6">
+    <!-- <img class="avatar border-gray"
+        src="{{this.imageUrl}}" alt="..."
+        style="padding:5px;padding-right:30px;width: 180px;height: 120px;"><b>{{username}}</b>
+        result.image.replace(/\\/g, '/').replace(/public/g, '')
+        'http://localhost:3000/' + result.image.replace(/\\/g, '/').replace(/public/g, '')
+</p> -->
+    <div class="m-2" *ngIf="category!=null">
+      <div class="container border pt-5 pb-5" style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
+
+        <div class="bg-dark text-center py-5 mb-4">
+          <!-- <h1 class="font-weight-light text-dark">{{category}}</h1> -->
+          <div class="m-2" *ngFor="let lawyer of lawyers">
+                    <!-- call child component -->
+                    <app-home> {{category}}</app-home>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+</div>
+
+<br><br>
+
+</div>
+<!-- /.container -->
+
+    <!-- <div id="portfolio">
         <div id="about">
             <h1>About Us</h1>
             <div>
@@ -90,4 +173,4 @@
         made by #CS<strong>GROUP</strong>4
     </div>
     <script src="assets/index.js" type="text/javascript"></script>
-</body>
+</body> -->

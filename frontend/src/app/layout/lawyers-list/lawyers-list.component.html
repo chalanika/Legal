@@ -5,7 +5,7 @@
       </div>
 </div>
 
-  
+
 <div class="container ml-5 mt-5">
     <div class="row">
         <div class="col-sm-3">
@@ -39,11 +39,11 @@
                 'http://localhost:3000/' + result.image.replace(/\\/g, '/').replace(/public/g, '')
         </p> -->
             <div class="container border pt-5 pb-5" style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
-                
+
                 <div class="m-2" *ngFor="let lawyer of lawyers">
                     <!-- call child component -->
                     <app-lawyer [lawyer]="lawyer"></app-lawyer>
-                    
+
                 </div>
             </div>
         </div>

@@ -20,6 +20,7 @@ import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
 import { ValidateService } from './validate.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
     imports: [
@@ -33,6 +34,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
         FileUploadModule,
         NgbModule,
         ReactiveFormsModule,
+        FullCalendarModule
         // RouterModule.forRoot(appRoutes),
     ],
     declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent],

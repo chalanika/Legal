@@ -3,8 +3,6 @@ import { routerTransition } from '../../router.animations';
 import { UserService } from 'src/app/user.service';
 import { AppointmentService } from 'src/app/core/services/appointment.service';
 
-
-
 interface Alert {
   type: string;
   message: string;
