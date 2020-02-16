@@ -23,6 +23,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
     imports: [
@@ -36,6 +37,7 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
         FileUploadModule,
         NgbModule,
         ReactiveFormsModule,
+        Ng2SearchPipeModule
         // RouterModule.forRoot(appRoutes),
     ],
     declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent],

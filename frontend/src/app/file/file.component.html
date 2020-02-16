@@ -441,7 +441,7 @@
                     <div class="col-sm-12">
                         <h4 class="card-title">Received Files</h4>
                         <div class="search-hero">
-                            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;Search for files">
+                            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for files">
                           </div>
                             <table class="table table-hover">
                                 <thead>
@@ -452,7 +452,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let file of receivedFiles">
+                                    <tr *ngFor="let file of receivedFiles | filter:searchText">
                                         <td>{{file.name}}</td>
                                         <td>{{file.from}}</td>
                                         <td> <button class="btn btn-primary" (click)="downloadFile(file.name)">Download</button>&nbsp;

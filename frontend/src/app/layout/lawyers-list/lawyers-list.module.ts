@@ -6,6 +6,7 @@ import { PageHeaderModule } from './../../shared';
 import { LawyersListComponent } from './lawyers-list.component';
 import { LawyerComponent } from './lawyer/lawyer.component';
 import { FormsModule } from '@angular/forms';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [LawyersListComponent, LawyerComponent],
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     LawyersListRoutingModule,
     PageHeaderModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    Ng2SearchPipeModule
   ]
 })
 export class LawyersListModule { }
