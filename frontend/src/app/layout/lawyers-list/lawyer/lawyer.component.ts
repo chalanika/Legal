@@ -33,7 +33,10 @@ export class LawyerComponent implements OnInit {
   currentUserType;
   rates;
   averageRate;
+<<<<<<< HEAD
   alert=0;
+=======
+>>>>>>> 799a38112a6ab443a9cdc222c16509dbac0a2934
   rateModel = new Rate();
   
   constructor(private router:Router,private _userService:UserService) { }
@@ -84,6 +87,7 @@ getRates(){
       error=>console.log(error)
   )
 }
+<<<<<<< HEAD
 
 delete(info){
   this._userService.deleteUser(info)
@@ -101,5 +105,7 @@ asyncFunc = (...args) =>
             .then(() => {
                 this.alert = 0;
             });
+=======
+>>>>>>> 799a38112a6ab443a9cdc222c16509dbac0a2934
 
 }

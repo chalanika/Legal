@@ -146,6 +146,13 @@ export class UserService {
     return this._http.get('http://127.0.0.1:3000/users/rate/'+id);
   }
   //get specific client details
+<<<<<<< HEAD
+=======
+  getClient(id){
+    return this._http.get('http://127.0.0.1:3000/users/client/'+id);
+  }
+
+>>>>>>> 799a38112a6ab443a9cdc222c16509dbac0a2934
   getClient(id){
     return this._http.get('http://127.0.0.1:3000/users/client/'+id);
   }
