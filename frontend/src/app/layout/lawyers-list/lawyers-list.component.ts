@@ -12,7 +12,7 @@ interface Alert {
 
 const ALERTS: Alert[] = [{
   type: 'success',
-  message: 'This is an success alert',
+  message: 'Appointment send sucessfully',
 }
 ];
 
@@ -42,6 +42,7 @@ export class LawyersListComponent implements OnInit {
     'Criminal'
   ];
 
+
   constructor(private _userService: UserService, private _appointmentService: AppointmentService) { }
 
   ngOnInit() {
@@ -67,9 +68,7 @@ export class LawyersListComponent implements OnInit {
   changedCategory(category: String) {
     console.log(category);
     this.selectedCategory = category;
-    console.log("ccccccccc");
     if (category == 'All') {
-
       this._userService.viewLawyers().subscribe(
         res => {
           this.lawyers = res;
@@ -77,7 +76,7 @@ export class LawyersListComponent implements OnInit {
         },
         error => console.log(error)
       );
-    }else{
+    } else {
       this.getLawyers(category);
     }
   }
@@ -87,7 +86,6 @@ export class LawyersListComponent implements OnInit {
     this._userService.categorizedLawyers(category).subscribe(
       res => {
         this.lawyers = res;
-
         console.log(res);
       },
       error => console.log(error)
@@ -98,18 +96,12 @@ export class LawyersListComponent implements OnInit {
     this._appointmentService.getAppointment(this.currentUser._id).subscribe(
       res => {
         this.resultArray = res;
-        console.log("ssssssssssssssssssssssssssssssssss");
-        console.log(res);
         if (this.resultArray.length > 0) {
           this.submitedUser = this.resultArray[0];
-          console.log(this.submitedUser.clientId);
-          console.log(this.currentUser._id);
-          if (this.submitedUser.clientId === this.currentUser._id && this.submitedUser.isAlert == false ) {
+          if (this.submitedUser.clientId === this.currentUser._id && this.submitedUser.isAlert == false) {
             this.successBooking = 1;
             this.editAppointment(this.submitedUser._id);
             console.log(this.successBooking);
-          } else {
-            console.log("pppppppppppppppppppppppppppppppppppp");
           }
         }
 
@@ -117,15 +109,14 @@ export class LawyersListComponent implements OnInit {
     );
   }
 
-  editAppointment(id){
+  editAppointment(id) {
     this.submitedUser.isAlert = true;
-    console.log(this.submitedUser);
-    return this._appointmentService.editAppointment(id,this.submitedUser).subscribe(res => {
-      console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-      console.log(res);
-    }, err => {
-      console.log(err);
-    });
+    return this._appointmentService.editAppointment(id, this.submitedUser).subscribe(
+      res => {
+        console.log(res);
+      }, err => {
+        console.log(err);
+      });
   }
 
 
@@ -137,14 +128,11 @@ export class LawyersListComponent implements OnInit {
     this._userService.user().subscribe(
       res => {
         this.currentUser = res;
-        console.log("ccccccccccccccccccc");
-        console.log(this.currentUser);
-        if (this.currentUser.type === "3") {
+        if (this.currentUser.type === "Client") {
           this.submitBooking();
         }
-
       }, err => {
-        console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+        console.log(err);
       }
     );
 

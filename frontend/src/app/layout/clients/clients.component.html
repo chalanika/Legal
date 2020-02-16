@@ -8,8 +8,9 @@
       <div class="border col-7 container ml-5">
         <div class="row">
           <div class="col-5 mt-2">
-            <i class="fa fa-user-circle-o" style="font-size:24px"></i>
-            {{pendingClient.clientName}}
+            <i class="fa fa-user-circle-o" style="font-size:24px"></i> 
+            <a [routerLink]="['/client', pendingClient.clientId]" routerLinkActive="routerLinkActive" class="text-dark">
+              {{pendingClient.clientName}}</a>
           </div>
           <div class="col">
             <button class="btn btn-primary btn-sm m-2 pull-right "
@@ -57,7 +58,8 @@
         <div class="row">
           <div class="col-5 mt-2">
             <i class="fa fa-user-circle-o m-2" style="font-size:24px"></i>
-            {{client.clientName}}
+            <a [routerLink]="['/client', client.clientId]" routerLinkActive="routerLinkActive" class="text-dark">
+              {{client.clientName}}</a>      
           </div>
         </div>
       </div>
