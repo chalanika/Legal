@@ -44,6 +44,15 @@ export class UserService {
     });
   }
 
+  getConnect(objId:any){
+    console.log(objId);
+    return this._http.get('http://127.0.0.1:3000/users/getConnect/'+objId,{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+    });
+  }
+
   rev(theNic){
     return this._http.get('http://127.0.0.1:3000/users/files/'+theNic);
   }
@@ -127,5 +136,7 @@ export class UserService {
   getClient(id){
     return this._http.get('http://127.0.0.1:3000/users/client/'+id);
   }
+
+  
 
 }

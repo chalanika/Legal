@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
         res.json({ message: error });
     }
 });
-
+//get all clients
 router.get('/clients/:lawyerId', async (req, res) => {
     console.log(req.params.lawyerId)
     try {
@@ -45,10 +45,19 @@ router.get('/clients/:lawyerId', async (req, res) => {
         res.json({ message: error });
     }
 });
-
+//get ongoing cases of lawyer
 router.get('/ongoing/cases/:lawyerId', async (req, res) => {
     try {
         received = await Case.find({ lawyer_id: req.params.lawyerId, is_closed: false });
+        res.json(received);
+    } catch (error) {
+        res.json({ message: error });
+    }
+})
+//get ongoing cases of client
+router.get('/ongoing/cases/client/:clientId', async (req, res) => {
+    try {
+        received = await Case.find({ client_id: req.params.clientId, is_closed: false });
         res.json(received);
     } catch (error) {
         res.json({ message: error });
@@ -76,10 +85,19 @@ router.put('/:caseId', async (req, res) => {
         res.json({ message: error });
     }
 })
-
+//get closed cases of lawyer
 router.get('/closed/cases/:lawyerId', async (req, res) => {
     try {
         received = await Case.find({ lawyer_id: req.params.lawyerId, is_closed: true });
+        res.json(received);
+    } catch (error) {
+        res.json({ message: error });
+    }
+})
+//get closed cases of client
+router.get('/closed/cases/client/:clientId', async (req, res) => {
+    try {
+        received = await Case.find({ client_id: req.params.clientId, is_closed: true });
         res.json(received);
     } catch (error) {
         res.json({ message: error });
@@ -108,8 +126,6 @@ router.get('/client/:clientId', async (req, res) => {
 
 //update is_rated to true
 router.patch('/update/rate/:caseId', async (req, res) => {
-    console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-    console.log(req.body);
     try {
         const patchCase = await Case.updateOne(
             { _id: req.params.caseId },
@@ -120,4 +136,27 @@ router.patch('/update/rate/:caseId', async (req, res) => {
         res.json({ message: error });
     }
 })
+
+router.get('/ongoing/lawyer/:lawyerId/client/:clientId' , async (req,res)=>{
+    console.log(req.params.lawyerId);
+    console.log(req.params.clientId);
+    try{
+        const result = await Case.find({lawyer_id:req.params.lawyerId,client_id:req.params.clientId,is_closed:false});
+        res.json(result);
+    }catch(error){
+        console.log(error);
+    }
+})
+
+router.get('/closed/lawyer/:lawyerId/client/:clientId' , async (req,res)=>{
+    console.log(req.params.lawyerId);
+    console.log(req.params.clientId);
+    try{
+        const received = await Case.find({lawyer_id:req.params.lawyerId,client_id:req.params.clientId,is_closed:true});
+        res.json(received);
+    }catch(error){
+        console.log(error);
+    }
+})
+
 module.exports = router;

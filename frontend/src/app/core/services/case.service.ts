@@ -17,19 +17,26 @@ export class CaseService {
   getClients(lawyerId){
     return this.http.get(this.baseUrl +'/clients/'+ lawyerId);
   }
-
+//get ongoing cases of lawyer
   getOngoingCases(lawyerId){
     return this.http.get(this.baseUrl+'/ongoing/cases/'+lawyerId);
   }
+//get ongoing cases of client
+getOngoingClientCases(clientId){
+  return this.http.get(this.baseUrl+'/ongoing/cases/client/'+clientId);
+}
 //edit is_closed to true after finished case
   editCase(caseId,newCase:Case){
     return this.http.put(this.baseUrl+'/'+caseId,newCase);
   }
-
+  //get closed case of lawyer
   getClosedCases(lawyerId){
     return this.http.get(this.baseUrl+'/closed/cases/'+lawyerId);
   }
-
+//get closed case of client
+getClosedClientCases(clientId){
+  return this.http.get(this.baseUrl+'/closed/cases/client/'+clientId);
+}
   //get specific case
   getCase(caseId){
     return this.http.get(this.baseUrl+'/id/'+caseId);
@@ -43,6 +50,18 @@ export class CaseService {
   //update is_rated to true
   updateClientRate(caseId,caseModel:Case){
     return this.http.patch(this.baseUrl+'/update/rate/'+caseId,caseModel);
+  }
+
+  //display ongoing cases belongs to client for lawyer
+  getlawyerClientOngoingCases(lawyerId,clientId){
+    console.log(clientId);
+    return this.http.get(this.baseUrl+'/ongoing/lawyer/'+lawyerId+'/client/'+clientId);
+  }
+
+   //display closed cases belongs to client for lawyer
+   getlawyerClientClosedCases(lawyerId,clientId){
+    console.log(clientId);
+    return this.http.get(this.baseUrl+'/closed/lawyer/'+lawyerId+'/client/'+clientId);
   }
 
 }
