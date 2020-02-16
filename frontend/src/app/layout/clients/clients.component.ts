@@ -3,6 +3,8 @@ import { routerTransition } from '../../router.animations';
 import { UserService } from 'src/app/user.service';
 import { AppointmentService } from 'src/app/core/services/appointment.service';
 import {NgbModal,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { Case } from 'src/app/core/models/case';
+import { CaseService } from 'src/app/core/services/case.service';
 
 @Component({
   selector: 'app-clients',
@@ -13,10 +15,12 @@ import {NgbModal,ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 export class ClientsComponent implements OnInit {
   currentUser;
   pendingClients;
+  clients;
   appointment;
   closeResult: string;
+  caseModel = new Case;
 
-  constructor(private _userService:UserService,private _appointmentService:AppointmentService,private modalService: NgbModal) { }
+  constructor(private _userService:UserService,private _appointmentService:AppointmentService,private modalService: NgbModal,private _caseService:CaseService) { }
 
   ngOnInit() {
     this.getCurrentUser();
@@ -42,7 +46,8 @@ export class ClientsComponent implements OnInit {
     this._userService.user().subscribe(
       res=>{
         this.currentUser = res; 
-        this.getPendingClients(this.currentUser._id);   
+        this.getPendingClients(this.currentUser._id); 
+          
       }, err => {
         console.log(err);
       }
@@ -53,22 +58,58 @@ export class ClientsComponent implements OnInit {
     this._appointmentService.getLawyersConfirmedAppointments(id).subscribe(
       res=>{
         this.pendingClients = res;
+        this.getClients(this.currentUser._id);
         console.log(this.pendingClients);
       },err=>{
         console.log(err);
       }
     );
   }
-//edit appointments status
-  createCase(appointment){
-    appointment.status = 'opened';
-    this._appointmentService.editAppointment(appointment._id,appointment).subscribe(
+
+  //delete appointments after confirmed
+  deleteAppointment(appointment){
+    this._appointmentService.deleteAppointment(appointment._id).subscribe(
       res=>{
         console.log(res);
-
+        this.getPendingClients(this.currentUser._id);
+       
       },err=>{
         console.log(err);
       }
-    );
+    )
   }
+
+  //create new case
+  openCase(client){
+    this.caseModel.description = client.description,
+    this.caseModel.lawyer_id = client.lawyerId;
+    this.caseModel.lawyerName = client.lawyerName;
+    this.caseModel.client_id = client.clientId;
+    this.caseModel.clientName = client.clientName;
+    this.caseModel.openedDate = new Date;
+    this.caseModel.is_closed = false;
+    this.caseModel.is_rated =false;
+    console.log(this.caseModel);
+    this._caseService.createCase(this.caseModel).subscribe(
+      res=>{
+        console.log(res); 
+        this.getClients(client.lawyerId)   
+      },err=>{
+        console.log(err);
+      }   
+    );  
+  }
+//get clients after open a case
+  getClients(id){
+   this._caseService.getClients(id).subscribe(
+     res=>{
+       this.clients = res;
+       console.log("ppppppppppppppppppppp");
+       console.log(this.clients);
+     },err=>{
+       console.log(err);
+     }
+   )
+  }
+
 }

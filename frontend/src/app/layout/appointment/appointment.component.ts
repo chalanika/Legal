@@ -29,11 +29,11 @@ export class AppointmentComponent implements OnInit {
     this._userService.user().subscribe(
       res=>{
         this.currentUser = res;
-        if(this.currentUser.type == "2"){
+        if(this.currentUser.type == "Lawyer"){
           this.getlawyerConfirmedAppointments(this.currentUser._id);
           this.getlawyerIncomingAppointments(this.currentUser._id);
         }else{
-          if(this.currentUser.type == "3"){
+          if(this.currentUser.type == "Client"){
             this.getclientConfirmedAppointments(this.currentUser._id);
             this.getclientRejectedAppointments(this.currentUser._id);
           }

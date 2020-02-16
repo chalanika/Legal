@@ -12,25 +12,27 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
     public alerts: Array<any> = [];
     public sliders: Array<any> = [];
+
+    type;
    
     constructor( private _user:UserService , private _router:Router) {
         this.sliders.push(
             {
                 imagePath: 'assets/images/slider1.jpg',
-                label: 'First slide label',
+                label: 'Solve your Case by an Experienced Lawyer',
                 text:
-                    'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+                    'Choose your lawyer according to your preferences!'
             },
             {
                 imagePath: 'assets/images/slider2.jpg',
-                label: 'Second slide label',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                label: '',
+                text: ''
             },
             {
                 imagePath: 'assets/images/slider3.jpg',
-                label: 'Third slide label',
+                label: '',
                 text:
-                    'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
+                    ''
             }
         );
 
@@ -38,26 +40,30 @@ export class DashboardComponent implements OnInit {
             {
                 id: 1,
                 type: 'success',
-                message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
+                message: `You have an appointment with Mr.Silva at 3 p.m. today`
             },
             {
                 id: 2,
                 type: 'warning',
-                message: `Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptates est animi quibusdam praesentium quam, et perspiciatis,
-                consectetur velit culpa molestias dignissimos
-                voluptatum veritatis quod aliquam! Rerum placeat necessitatibus, vitae dolorum`
+                message: `You haven't response to the appointment send by Ms.Kanthi two days ago...`
+            },
+            {
+                id: 3,
+                type: 'success',
+                message: `Your payment has done by Mr Kalpadeep today`
             }
         );
 
         this._user.user()
         .subscribe(
-            data=>console.log(data),
+            data=>this.addName(data),
             error=>this._router.navigate(['/login'])
         )
+    }
+
+    addName(data){
+        this.type = data.type;
+        console.log(this.type);
     }
 
     ngOnInit() {

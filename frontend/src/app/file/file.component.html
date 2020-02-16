@@ -1,7 +1,7 @@
 <!-- header -->
 
 <nav class="navbar navbar-expand-lg fixed-top">
-    <a class="navbar-brand" routerLink="/dashboard">Easy Case </a>
+    <a class="navbar-brand" routerLink="/dashboard">Legal</a>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
         <!-- <span class="navbar-toggler-icon"></span> -->
         <i class="fa fa-bars text-muted" aria-hidden="true"></i>
@@ -171,7 +171,7 @@
         </a>
         <a routerLink="/file" class="list-group-item" href="javascript:void(0)">
             <i class="fa fa-fw fa-edit"></i>&nbsp;
-            <span>{{ 'File' | translate }}</span>
+            <span>{{ 'Files' | translate }}</span>
         </a>
         <a routerLink="/notifications" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
@@ -193,15 +193,17 @@
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
             <span>{{ 'Post' | translate }}</span>
         </a>
+        <div *ngIf="this.currentUserType=='Admin'">
         <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
             <span>{{ 'Category' | translate }}</span>
         </a>
+        </div>
         <a [routerLink]="['/cases']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-th-list"></i>&nbsp;
             <span>{{ 'Cases' | translate }}</span>
         </a>
-        <div class="nested-menu">
+        <!-- <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages')">
                 <i class="fa fa-plus"></i>&nbsp;
                 <span>{{ 'Menu' | translate }}</span>
@@ -228,11 +230,11 @@
                     </li>
                 </ul>
             </li>
-        </div>
-        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        </div> -->
+        <!-- <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-file-o"></i>&nbsp;
             <span>{{ 'Blank Page' | translate }}</span>
-        </a>
+        </a> -->
 
         <div class="header-fields">
             <a (click)="rltAndLtr()" class="list-group-item">
@@ -318,10 +320,24 @@
         <span>{{ 'Collapse Sidebar' | translate }}</span>
     </div>
 </nav>
+<br>
 
+<div class="container-fluid">
+    <div class="col-md-2"></div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+                <div class="col-md-12">
+                    <a class="btn rounded-btn btn btn-outline-primary pick_btn" (click)="uploadF()">Upload Files</a>&nbsp;
+                    <a class="btn rounded-btn btn btn-outline-primary pick_btn" (click)="shareF()">Share Files</a>&nbsp;
+                    <a class="btn rounded-btn btn btn-outline-primary pick_btn" (click)="revF()">Get Received Items</a>&nbsp;
+                </div>
+        </div>
+    </div>
+</div>
 
 <!-- file -->
-
+<div *ngIf="uploadf === 1">
 <div class="container-fluid">
   
 
@@ -330,7 +346,7 @@
       <div class="col-md-8">
           <div class="row card">
               <div class="col-sm-12">
-                  <h4>Upload Section</h4>
+                  <h4>Upload Files to Your Store</h4>
                   <div id="fileSelector">
                       <input type="file" name="fileUplaod" id="fileUpload"
                       multiple ng2FileSelect [uploader]="uploader" style="display: none;" (change)="selectImage($event)" #fileInput>
@@ -370,3 +386,84 @@
       <div class="col-md-2"></div>
   </div>
 </div>
+</div>
+
+<!-- share -->
+<div *ngIf="sharef === 1">
+<div class="container-fluid">
+  
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row card">
+                <div class="col-sm-12">
+                    <h4>Share Files</h4>
+                    <form role="form" [formGroup]="shareForm">
+                        <div class="form-group;form-content">
+                            <div class="form-group">
+                                <label for="lawyers"><strong>Choose  a receiver</strong></label>
+                                <select class="form-control;browser-default custom-select mb-4 box_border" #t (change)="callType(t.value)" id="type" formControlName="lawyer">
+                                  <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="row"  *ngIf="showMsg">
+                                    <div class="col-xs-12">
+                                      <p class="alert alert-success">
+                                          <strong>File Upload Successfull!</strong>
+                                      </p>
+                                    </div>
+                                  </div>
+                                <span *ngIf="fileName">File Name : {{fileName}}</span>
+                                <input  formControlName="image" type="file" (change)="imageUpload($event)" style="display: none;" #fileInput>
+                                <button class="btn btn-outline-primary my-4 btn-block box_border pick_btn" type="button"
+                                                    (click)="fileInput.click()">Get a file</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" (click)="share()">Share File</button>
+                    </form>
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>
+
+<!-- receive -->
+
+<div *ngIf="revf === 1">
+    <div class="container-fluid">
+      
+    
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="row card">
+                    <div class="col-sm-12">
+                        <h4 class="card-title">Received Files</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>File Name</th>
+                                        <th>Sent By</th>
+                                        <td><b>Options</b></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let file of receivedFiles">
+                                        <td>{{file}}</td>
+                                        <td>Chandimal</td>
+                                        <td> <button class="btn btn-primary">Download</button>&nbsp;
+                                             <button class="btn btn-danger">Delete</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </div>                
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+      </div>
+    </div>

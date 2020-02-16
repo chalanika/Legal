@@ -4,7 +4,7 @@
         <div class="col-md-4">
             <img src="assets/images/Logogrey.png" width="150px" class="user-avatar" />
             <h1>Legal Log In</h1>
-            <div *ngIf="this.nicPoint === 1" class="alert alert-danger">username or password is incorrect!</div>
+            <div *ngIf="this.nicPoint === 1" class="alert alert-danger">Nic or password is incorrect!</div>
             <form role="form" [formGroup]="loginForm">
                 <div class="form-content">
                     <div class="form-group">
@@ -25,9 +25,11 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn rounded-btn" (click)="onLoggedin()">{{ 'Log in' | translate }}</a>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a> &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/home']">{{ 'Home' | translate }}</a>
+                <div *ngIf="this.reqMessage == 1" class="alert alert-danger">All fields are required to fill!</div>
+                <div *ngIf="this.showMessage == 1" class="alert alert-success" role="alert">Successfully logged in!</div>
+                <a class="btn rounded-btn" (click)="onLoggedin()">Log In</a>&nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/signup']">Register</a> &nbsp;
+                <a class="btn rounded-btn" [routerLink]="['/home']">Home</a>
                 <br><br>
                 <span class="psw"><p><a [routerLink]="['/forgotPassword']">Forgot password?</a></p></span>
             </form>
