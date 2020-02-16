@@ -1,0 +1,15 @@
+<h1 class="text-center text-dark m-5"><b>{{category}}</b></h1>
+<hr><br>
+<div class="container m-8">
+  <p class="test -center">description gyghcghjfuchidjcijijiojdjcidjijdijicjcjdj nbhjgxayugsyusxhjs xshxgyustyuxbjskxhusihx snxgjsg
+  </p>
+</div>
+<div class=" m-5" *ngIf="lawyers?.length > 0">
+  <div *ngFor="let lawyer of lawyers">
+    <button (click)="getMessage();">{{lawyer.username}}</button>
+  </div>
+  <div *ngIf="sucess == 1" class="m-1" >
+    <div *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert?.type" (close)="close(alert)">{{ alert?.message }}</ngb-alert>
+      </div>
+</div>

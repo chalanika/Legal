@@ -24,6 +24,7 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { DisplayCategoryComponent } from './display-category/display-category.component';
 
 @NgModule({
     imports: [
@@ -40,7 +41,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
         Ng2SearchPipeModule
         // RouterModule.forRoot(appRoutes),
     ],
-    declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent],
+    declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent, DisplayCategoryComponent],
     providers: [AuthGuard , UserService , ValidateService],
     bootstrap: [AppComponent]
 })

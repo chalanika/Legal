@@ -13,12 +13,14 @@ import {RateService} from 'src/app/core/services/rate.service';
 })
 export class ProfileComponent implements OnInit {
 
+
     username:'';
     currentUserType;
     email:'';
     nic:'';
     image:'';
     detail;
+
     address;
     number;
     area;
@@ -30,7 +32,7 @@ export class ProfileComponent implements OnInit {
     collapsed: boolean;
     showMenu: string;
     BASE_URL = location.origin;
-    imageUrl =  'http://localhost:3000/images/avatar.jpg';
+    imageUrl = 'http://localhost:3000/images/avatar.jpg';
 
     profile = 1;
     notification = 0;
@@ -38,6 +40,10 @@ export class ProfileComponent implements OnInit {
     edit = 0;
     delete = 0;
     all = 0;
+    rates;
+    averageRate;
+    rateModel = new Rate();
+    currentUserId;
   
     areas = [{'id': 'Business', 'name':'Business'}, {'id':' Criminal', 'name': 'Criminal'}, {'id': 'Family', 'name': 'Family'}];
 
@@ -80,10 +86,7 @@ get updateArea() {
   return this.updateMeForm.get('updateArea');
 }
 
-    rateModel = new Rate();
-    rates;
-    currentUserId= "5dce02aa4ecd9729d4574d02";
-    averageRate;
+
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -100,13 +103,13 @@ get updateArea() {
 
   this._user.user()
   .subscribe(
-      data=>this.addName(data),
-      error=>this._router.navigate(['/login'])
+      data => this.addName(data),
+      error => this._router.navigate(['/login'])
   )
 
    }
 
-   addName(data){
+   addName(data) {
     this.username = data.username;
     this.nic = data.nic;
     this.email = data.email;
@@ -125,13 +128,15 @@ get updateArea() {
     }
     this.area = data.area;
     this.type = data.type;
+
     this.currentUserType = data.type; 
     this.currentUserId = data._id;
     if(this.type==='Lawyer'){
       console.log('Hi');
-      // this.getRates();
+
+      this.getRates(this.currentUserId);
+
     }
-    
     console.log(data.image);
     var path = data.image.replace(/\\/g, '/');
     path = path.replace(/public/g, '');
@@ -325,24 +330,20 @@ asyncFunc = (...args) =>
                 this.trigger2 = 0;
             });
 
-//get rate values
-// getRates(){
-//   let sum = 0
-//   console.log(1);
-//   this._user.getRate(this.currentUserId).subscribe(
-//       res=>{
-//           this.rates = res;
-//           for (let i in this.rates){
-//               sum += this.rates[i].rate;
-//               console.log(this.rates[i].rate);
-//           }
-//           console.log(sum);
+ //get rate values
+ getRates(id){
+  let sum = 0;
+  this._user.getRate(id).subscribe(
+      res=>{
+          this.rates = res;
+          for (let i in this.rates){
+              sum += this.rates[i].rate;
+          }
+          this.averageRate=sum/this.rates.length;
+      },
+      error=>console.log(error)
+  )
+}
 
-//           this.averageRate=sum/this.rates.length;
-//           console.log(this.rates);
-//       },
-//       error=>console.log(error)
-//   )
-// }
 
 }

@@ -1,8 +1,8 @@
-<h3><b>Appointments</b></h3><br>
+<h1><b>Appointments</b></h1><hr><br>
 
 <div *ngIf="currentUser?.type == 'Lawyer'">
     <div *ngIf="incomingAppointments?.length > 0">
-        <h4 >Incoming Appointments</h4><br>
+        <h4>Incoming Appointments</h4><br>
         <div class="container-fluid m-2" *ngFor="let appointment of incomingAppointments">
 
             <div class=" container border">
@@ -44,8 +44,9 @@
             </div>
         </div>
     </div>
+
     <div *ngIf="confirmedAppointments?.length > 0">
-        <h4 >Confirmed Appointments</h4>
+        <h4>Confirmed Appointments</h4>
         <div class="container-fluid m-2" *ngFor="let appointment of confirmedAppointments">
 
             <div class=" container border">
@@ -87,7 +88,9 @@
             </div>
         </div>
     </div>
-
+    <div class="alert alert-primary" role="alert" *ngIf='incomingAppointments?.length == 0 && confirmedAppointments?.length == 0'>
+        There is not an Appointment yet.
+    </div>
 </div>
 
 <div *ngIf="currentUser?.type == 'Client'">
@@ -173,5 +176,8 @@
 
         </div>
     </div>
-
+    <div class="alert alert-primary" role="alert"
+        *ngIf='confirmedAppointments?.length == 0 && rejectedAppointments?.length == 0'>
+        There is not an Appointment yet.
+    </div>
 </div>

@@ -70,7 +70,7 @@ export class LawyerComponent implements OnInit {
     );
   }
 
-  //get rate values
+//get rate values
 getRates(){
   let sum = 0;
   this._userService.getRate(this.lawyer._id).subscribe(

@@ -18,67 +18,92 @@ export class CasesLawyerComponent implements OnInit {
   areas;
   ongoingCases;
   closedCases;
-  constructor(private _userService:UserService, private _caseService:CaseService,private router:Router) { }
+  constructor(private _userService: UserService, private _caseService: CaseService, private router: Router) { }
 
   ngOnInit() {
     this.getCurrentUser();
 
   }
 
-  getCurrentUser(){
+  getCurrentUser() {
     this._userService.user().subscribe(
-      res=>{
+      res => {
         this.currentUser = res;
-        if(this.currentUser.type == 'Lawyer'){
+        if (this.currentUser.type == 'Lawyer') {
           this.areas = this.currentUser.area;
           this.getOngoingCases(this.currentUser._id);
-          this.getClosedCase(this.currentUser._id);
+          this.getClosedCases(this.currentUser._id);
+        } else {
+          if (this.currentUser.type == 'Client') {
+            this.getOngoingClientCases(this.currentUser._id);
+            this.getClosedClientCases(this.currentUser._id);
+          }
         }
         console.log(this.currentUser);
-      },err=>{
+      }, err => {
         console.log(err);
       }
     )
   }
-
-  getOngoingCases(lawyerId){
+  //get ongoing cases of lawyer
+  getOngoingCases(lawyerId) {
     this._caseService.getOngoingCases(lawyerId).subscribe(
-      res=>{
+      res => {
         this.ongoingCases = res;
         console.log(this.ongoingCases);
-      },err=>{
+      }, err => {
         console.log(err);
       }
     )
   }
-//edit is_closed to true
-  editCase(newCase){
+  //get ongoing cases of client
+  getOngoingClientCases(clientId) {
+    this._caseService.getOngoingClientCases(clientId).subscribe(
+      res => {
+        this.ongoingCases = res;
+        console.log(this.ongoingCases);
+      }, err => {
+        console.log(err);
+      }
+    )
+  }
+  //edit is_closed to true
+  editCase(newCase) {
     newCase.is_closed = true;
     newCase.closedDate = new Date;
-    this._caseService.editCase(newCase._id,newCase).subscribe(
-      res=>{
+    this._caseService.editCase(newCase._id, newCase).subscribe(
+      res => {
         console.log(res);
         this.getOngoingCases(this.currentUser._id);
-        this.getClosedCase(this.currentUser._id);
-      },err=>{
+        this.getClosedCases(this.currentUser._id);
+      }, err => {
         console.log(err);
       }
     )
   }
-
-  getClosedCase(lawyerId){
-    this._caseService.getClosedCases(lawyerId).subscribe(
-      res=>{
+  //get closed case of client
+  getClosedClientCases(clientId){
+    this._caseService.getClosedClientCases(clientId).subscribe(
+      res => {
         this.closedCases = res;
         console.log(this.closedCases);
-      },err=>{
+      }, err => {
+        console.log(err);
+      }
+    )
+  }
+  //get closed case of lawyer
+  getClosedCases(lawyerId) {
+    this._caseService.getClosedCases(lawyerId).subscribe(
+      res => {
+        this.closedCases = res;
+        console.log(this.closedCases);
+      }, err => {
         console.log(err);
       }
     )
   }
 
-  displayCase(caseId){
-     this.router.navigate([`/case/${caseId}`]);
-  }
+ 
 
 }
