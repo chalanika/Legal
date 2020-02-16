@@ -19,6 +19,7 @@ const routes: Routes = [
             { path: 'clients', loadChildren: './clients/clients.module#ClientsModule' },
             { path: 'cases',loadChildren:'./cases-lawyer/cases-lawyer.module#CasesLawyerModule'},
             { path: 'case/:caseId',loadChildren:'./case/case.module#CaseModule'},
+            { path: 'client/:clientId',loadChildren:'./client-display/client-display.module#ClientDisplayModule'},
             { path: '**', redirectTo: 'not-found' }
         ]
     }

@@ -6,6 +6,7 @@ import { FileComponent } from './file/file.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { DisplayCategoryComponent } from './display-category/display-category.component';
 
 const routes: Routes = [
     // { path: '', loadChildren: './signup/signup.module#SignupModule' },
@@ -20,6 +21,7 @@ const routes: Routes = [
     { path: 'home',             component: HomeComponent },
     { path: 'forgotPassword',             component: ForgotPasswordComponent },
     { path: 'profile',             component: ProfileComponent },
+    { path: 'lawyers/category/:categoryName' , component:DisplayCategoryComponent},
     { path: '**', redirectTo: 'not-found' }
 ];
 

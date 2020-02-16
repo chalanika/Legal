@@ -35,16 +35,16 @@
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
         <a [routerLink]="['/clients']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
-            <span>{{ 'Clients' | translate }}</span>
+            <i class="fas fa-users" ></i>&nbsp;
+            <span>&nbsp; {{ ' Clients' | translate }}</span>
         </a> 
         <a [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Appointments' | translate }}</span>
         </a>
         <a [routerLink]="['/lawyers']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-table"></i>&nbsp;
-            <span>{{ 'Lawyers' | translate }}</span>
+            <i class="far fa-user-circle"></i>&nbsp;
+            <span>&nbsp;&nbsp; {{ ' Lawyers' | translate }}</span>
         </a>
         <a routerLink="/file" class="list-group-item" href="javascript:void(0)">
             <i class="fa fa-fw fa-edit"></i>&nbsp;
@@ -54,21 +54,17 @@
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
             <span>{{ 'Notifications' | translate }}</span>
         </a>
-        <a routerLink="/report" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-wrench"></i>&nbsp;
-            <span>{{ 'Report' | translate }}</span>
-        </a>
         <a routerLink="/profile" class="list-group-item" href="javascript:void(0)">
-            <i class="fa fa-fw fa-user"></i>&nbsp;
-            <span>{{ 'Profile' | translate }}</span>
+            <i class="fas fa-user-edit"></i>&nbsp;
+            <span>&nbsp;&nbsp; {{ 'Profile' | translate }}</span>
         </a>
         <a routerLink="/calender" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-th-list"></i>&nbsp;
-            <span>{{ 'Calander' | translate }}</span>
+            <i class=" 	fas fa-calendar-alt"></i>&nbsp;
+            <span>&nbsp;&nbsp; {{ 'Calander' | translate }}</span>
         </a>
         <a [routerLink]="['/post']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
-            <span>{{ 'Post' | translate }}</span>
+            <i class="fas fa-sticky-note"></i>&nbsp;
+            <span>&nbsp;&nbsp; {{ 'Post' | translate }}</span>
         </a>
         <div *ngIf="this.currentUserType=='Admin'">
         <a [routerLink]="['/category']" [routerLinkActive]="['router-link-active']" class="list-group-item">

@@ -133,8 +133,6 @@ export class UserService {
     return this._http.get('http://127.0.0.1:3000/users/client/'+id);
   }
 
-  getClient(id){
-    return this._http.get('http://127.0.0.1:3000/users/client/'+id);
-  }
+  
 
 }
