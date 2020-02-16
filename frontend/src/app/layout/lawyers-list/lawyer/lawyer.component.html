@@ -8,6 +8,14 @@
   <div *ngIf="this.currentUserType== 'Client'" class="col-5 m-2">
     <button class="btn btn-info btn-sm pull-right" (click)="appointment()">Book Now</button>
   </div>
+  <div *ngIf="this.currentUserType== 'Admin'" class="col-5">
+    <button class="btn btn-danger btn-sm" (click)="delete(lawyer._id)">Delete Lawyer</button>
+  </div>
+  <div *ngIf="this.alert===1" class="col-5">
+    <p class="alert alert-success">
+      <strong>User Deletion Successfull!</strong>
+  </p>
+  </div>
 </div>
 
 <div id="collapseExample" [ngbCollapse]="isCollapsed" class="border m-2 p-2">

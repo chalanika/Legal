@@ -57,7 +57,9 @@ export class LoginComponent implements OnInit {
         // console.log(JSON.stringify(this.loginForm.value));
         this._user.login(JSON.stringify(this.loginForm.value))
         .subscribe(
+
             data=>{console.log(data);this.showMessage = 1;this.asyncFunc();this._router.navigate(['/dashboard']);} ,
+
             error => {
                 if(error.error === 2112){
                     this.nicPoint = 1;
