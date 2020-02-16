@@ -20,7 +20,7 @@ import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
 import { ValidateService } from './validate.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-// import { FullCalendarModule } from '@fullcalendar/angular';
+import { DisplayCategoryComponent } from './display-category/display-category.component';
 
 @NgModule({
     imports: [
@@ -37,7 +37,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
         // FullCalendarModule
         // RouterModule.forRoot(appRoutes),
     ],
-    declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent],
+    declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent, DisplayCategoryComponent],
     providers: [AuthGuard , UserService , ValidateService],
     bootstrap: [AppComponent]
 })

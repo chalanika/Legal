@@ -1,5 +1,6 @@
-
-<div  *ngIf="this.successBooking == 1">
+<h1><b>Lawyers</b></h1>
+<hr>
+<div *ngIf="this.successBooking == 1" >
     <div *ngFor="let alert of alerts">
         <ngb-alert [type]="alert.type" (close)="close(alert)">{{ alert.message }}</ngb-alert>
       </div>
@@ -18,7 +19,6 @@
 
                 <div class="">
                     <h4 class="text-primary">Select a category </h4>
-
                     <div class="container ml-5">
                         <input type="radio" name="category" value="All" checked (change)="radioChangeaHandler($event)">
                         <label> &nbsp; All</label>
@@ -38,8 +38,9 @@
                 result.image.replace(/\\/g, '/').replace(/public/g, '')
                 'http://localhost:3000/' + result.image.replace(/\\/g, '/').replace(/public/g, '')
         </p> -->
-            <div class="container border pt-5 pb-5" style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
-
+            <div class="container border pt-5 pb-5"
+                style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
+                <h4 class="text-secondary"><b>{{this.selectedCategory}}</b></h4><br>
                 <div class="m-2" *ngFor="let lawyer of lawyers">
                     <!-- call child component -->
                     <app-lawyer [lawyer]="lawyer"></app-lawyer>

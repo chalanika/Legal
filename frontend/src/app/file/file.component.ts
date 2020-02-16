@@ -5,6 +5,7 @@ import { UserService } from 'src/app/user.service';
 import { FileSelectDirective, FileUploader} from 'ng2-file-upload';
 import { FileService } from '../file.service';
 import { saveAs } from 'file-saver';
+import { FormGroup , FormControl , Validators  } from '@angular/forms';
 // import { Injectable } from '@angular/core';
 // import * as CryptoJS from 'crypto-js';
 
@@ -21,13 +22,43 @@ const uri = 'http://localhost:3000/file/upload';
 })
 export class FileComponent implements OnInit {
 
+    tasks = [{'id': '1', 'name':'Upload file to your store'}, {'id':'2', 'name': 'Share files with lawyer'} , 
+                                                                        {'id':'3', 'name': 'Received Files'}];
+    choise;
+    types;
     images;
     username:'';
     nic:'';
+    type;
+    currentUserType;
     isActive: boolean;
     collapsed: boolean;
     showMenu: string;
     pushRightClass: string;
+    imageFile = null;
+    imageUrl: any;
+    uploadf = 1;
+    sharef = 0;
+    revf = 0;
+    fileName;
+    showMsg: boolean = false;
+    receivedFiles;
+    objId;
+    client;
+    clientNic;
+
+    shareForm: FormGroup = new FormGroup({
+        image: new FormControl(null),
+        lawyer: new FormControl(null)
+    } );
+
+    get image() {
+        return this.shareForm.get('image');
+    }
+
+    get lawyer() {
+        return this.shareForm.get('lawyer');
+    }
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -52,6 +83,7 @@ export class FileComponent implements OnInit {
         .subscribe(
             data=>{
                 this.addName(data);
+                this.runThis();
                 // this.uploader.onBeforeUploadItem = (item: any) => {
                 //     this.uploader.options.additionalParameter = {
                 //       nic: this.nic,
@@ -67,11 +99,40 @@ export class FileComponent implements OnInit {
     this.uploader.onCompleteItem = (item:any, response:any , status:any, headers:any) => {
       this.attachmentList.push(JSON.parse(response));
      }
+
+    this._user.getLawyers()
+            .subscribe(
+                data=>{
+                    // console.log(data['All Lawyers'][0]);
+                    // data['All Lawyers'].forEach(function (value) {
+                    //     console.log(value);
+                    //   }); 
+                    // {'id': 'Admin', 'name':'Admin'}, {'id':'Lawyer', 'name': 'Lawyer'}, {'id':'Client', 'name': 'Client'}
+                    // this.types = data['All Lawyers'];
+                    // console.log(this.types);
+                },
+                error=>console.log('error')
+            )
   }
 
   addName(data){
     this.username = data.username;
     this.nic = data.nic;
+    this.type = data.type;
+    this.currentUserType = data.type;
+    this.objId = data._id;
+}
+
+runThis(){
+    this._user.getConnect(this.objId)
+            .subscribe(
+                data=>{
+                    console.log(data)
+                    this.types = data['All Connect'];
+                    console.log(this.types);
+                },
+                error=>console.log('error')
+            )
 }
 
   download(index){
@@ -91,6 +152,88 @@ export class FileComponent implements OnInit {
         this.showMenu = '';
         this.pushRightClass = 'push-right';
   }
+
+  share(){
+    let data = new FormData();
+    data.append('lawyer', this.clientNic);
+    data.append('nic', this.nic);
+    data.append('fromName',this.username);
+    data.append('task' , 'share');
+    data.append('image', this.imageFile, this.imageFile['name']);
+
+    this._user.share(data).subscribe(
+        data => {console.log('Success');this.showMsg= true; this.asyncFunc();},// window.location.reload();
+        error => {console.log(error);}
+    )
+  }
+
+  uploadF(){
+      this.uploadf = 1;
+      this.sharef = 0;
+      this.revf = 0;
+      return;
+    //   this.asyncFunc();
+  }
+
+  shareF(){
+    this.sharef = 1;
+    this.uploadf = 0;
+    this.revf = 0;
+    this.showMsg = false;
+    // this.asyncFunc();
+    return;
+}
+
+revF(){
+    this.revf = 1;
+    this.uploadf = 0;
+    this.sharef = 0;
+
+    this._user.rev(this.nic).subscribe(
+        data => {this.receivedFiles = data['Received Files'],console.log(this.receivedFiles);},// window.location.reload();
+        error => {console.log(error);}
+    )
+
+    return;
+  //   this.asyncFunc();
+}
+
+asyncFunc = (...args) => 
+            new Promise(r => setTimeout(r , 2500))
+            .then(() => {
+                this.showMsg = false;
+                this.fileName = '';
+                this.imageFile = ''; // Find how to clear the selected file values from button
+            });
+
+  imageUpload(event:any) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files[0]) {
+        this.imageFile = event.target.files[0];
+        this.fileName = this.imageFile.name;
+        console.log(this.imageFile);
+
+        reader.onloadend = () => {
+            this.imageUrl = reader.result;
+          }
+          reader.readAsDataURL(this.imageFile);
+    }
+  }
+
+  callType(value){
+    this.choise = value;
+    console.log(value);
+    this._user.getClient(value).subscribe(
+        data=>{
+            this.client = data;
+            console.log(this.client);
+            console.log(this.client.nic);
+            this.clientNic = this.client.nic;
+        },
+        err=>{console.log(err);}
+    )
+    return;
+}
 
   selectImage(event){
       if(event.target.files.length>0){

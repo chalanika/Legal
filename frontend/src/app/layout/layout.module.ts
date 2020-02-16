@@ -9,7 +9,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CalendarComponent } from './calendar/calendar.component';
 
-
 @NgModule({
     imports: [
         CommonModule,

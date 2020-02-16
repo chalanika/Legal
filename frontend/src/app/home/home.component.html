@@ -1,176 +1,45 @@
 <body>
 
-    <!-- <div id="loading">
+  <!-- <div id="loading">
         <div id="spinner"></div>
     </div> -->
-    <div id="header">
-        <!-- class="animated slideInDown" style="animation-delay:1.8s;" -->
+  <div id="header">
+    <!-- class="animated slideInDown" style="animation-delay:1.8s;" -->
 
 
-        <div id="links"><br>
-            <a href="#about">About</a>
-            <a href="#contact" style="margin:0px 60px;">Contact</a>
-            <a [routerLink]="['/signup']">Register</a>
-            <a [routerLink]="['/login']" style="margin:0px 60px;">Login</a>
-        </div>
+    <div id="links"><br>
+      <a href="#about">About</a>
+      <a href="#contact" style="margin:0px 60px;">Contact</a>
+      <a [routerLink]="['/signup']">Register</a>
+      <a [routerLink]="['/login']" style="margin:0px 60px;">Login</a>
     </div>
-    <br><br><br><br>
-    <div style="text-align: center;">
-        <div id="middle">
-            <div id="tagline" class="animated zoomIn" style="animation-delay:1.8s;">
-                <br>We got most experienced lawyers and they are here to help you<br>
-                <button class="btn_one">View Lawyers</button>
-            </div>
-        </div>
-    </div>
-    <br><br>
-
-<!-- Header -->
-<header class="bg-dark text-center py-5 mb-2">
-  <div class="container">
-    <h1 class="font-weight-light text-white">CATEGORIES</h1>
   </div>
-</header>
-
-<!-- Page Content -->
-<div class="container">
-  <div class="row">
-    <!-- type 1 -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-0 shadow">
-        <img src="assets/images/bussiness.png" width="350px" height="200px" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <div class="card-text text-dark">Bussiness Law</div>
-          <button class='btn btn-primary' (click)="click('Bussiness')">View Lawyers</button>
-        </div>
-      </div>
-    </div>
-    <!-- type 2 -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-0 shadow">
-        <img src="assets/images/family.jpg" width="350px" height="200px" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <div class="card-text text-dark">Family Law</div>
-          <button class='btn btn-primary' (click)="click('Family')">View Lawyers</button>
-        </div>
-      </div>
-    </div>
-    <!-- type 3 -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-0 shadow">
-        <img src="assets/images/real.jpg" width="350px" height="200px" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <div class="card-text text-dark">Real Estate Law</div>
-          <button class='btn btn-primary' (click)="click('Real Estate')">View Lawyers</button>
-        </div>
-      </div>
-    </div>
-    <!-- type 4 -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-0 shadow">
-        <img src="assets/images/Criminal.jpg" width="350px" height="200px" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <div class="card-text text-dark">Criminal Law</div>
-          <button class='btn btn-primary' (click)="click('Criminal Law')">View Lawyers</button>
-        </div>
+  <br><br><br><br>
+  <div style="text-align: center;">
+    <div id="middle">
+      <div id="tagline" class="animated zoomIn" style="animation-delay:1.8s;">
+        <br>We got most experienced lawyers and they are here to help you<br>
+        <button class="btn_one">View Lawyers</button>
       </div>
     </div>
   </div>
-  <!-- /.row -->
   <br><br>
 
-  <div class="col-sm-6">
-    <!-- <img class="avatar border-gray"
-        src="{{this.imageUrl}}" alt="..."
-        style="padding:5px;padding-right:30px;width: 180px;height: 120px;"><b>{{username}}</b>
-        result.image.replace(/\\/g, '/').replace(/public/g, '')
-        'http://localhost:3000/' + result.image.replace(/\\/g, '/').replace(/public/g, '')
-</p> -->
-    <div class="m-2" *ngIf="category!=null">
-      <div class="container border pt-5 pb-5" style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);">
+  <!-- Header -->
+  <header class="bg-dark text-center py-5 mb-2">
+    <div class="container">
+      <h1 class="font-weight-light text-white">CATEGORIES</h1>
+    </div>
+  </header>
 
-        <div class="bg-dark text-center py-5 mb-4">
-          <!-- <h1 class="font-weight-light text-dark">{{category}}</h1> -->
-          <div class="m-2" *ngFor="let lawyer of lawyers">
-                    <!-- call child component -->
-                    <app-home> {{category}}</app-home>
-          </div>
-        </div>
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div *ngFor="let category of categories">
+       <button class="btn btn-primary" (click)="click(category.name)">{{category.name}}</button>
       </div>
-
+     
     </div>
-
-
-</div>
-
-<br><br>
-
-</div>
-<!-- /.container -->
-
-    <!-- <div id="portfolio">
-        <div id="about">
-            <h1>About Us</h1>
-            <div>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum tincidunt nulla, id semper mi
-                    cursus ac. Fusce turpis urna, condimentum sit amet dolor at, vulputate ultrices massa. Vestibulum
-                    non euismod nulla, eu pretium risus. Curabitur porta molestie vulputate. Sed tortor enim, rhoncus
-                    vel mauris vitae, elementum condimentum augue. Donec fermentum lobortis lectus, in feugiat turpis
-                    faucibus et. Pellentesque luctus metus vitae augue lobortis sagittis vitae sit amet enim. Morbi
-                    egestas velit ac arcu fermentum lacinia. Nullam eget hendrerit neque. Cras et laoreet ante. Vivamus
-                    condimentum euismod commodo. Nulla pulvinar, turpis vitae condimentum tempor, ex ex eleifend quam,
-                    et maximus sapien mi sed est. Donec elit mi, dictum nec magna quis, mollis sollicitudin ligula.
-                    Maecenas ullamcorper ante vel ullamcorper mollis. Interdum et malesuada fames ac ante ipsum primis
-                    in faucibus.
-                </p>
-            </div>
-        </div>
-
-        <div id="work">
-            <h1>works.</h1>
-
-            <div class="project">
-                <h2>project title 1</h2>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum tincidunt nulla, id semper mi
-                    cursus ac. Fusce turpis urna, condimentum sit amet dolor at, vulputate ultrices massa. Vestibulum
-                    non euismod nulla, eu pretium risus. Curabitur porta molestie vulputate.</div>
-                <button class="btn_one">visit project</button>
-            </div>
-
-            <div class="project">
-                <h2>project title 2</h2>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum tincidunt nulla, id semper mi
-                    cursus ac. Fusce turpis urna, condimentum sit amet dolor at, vulputate ultrices massa. Vestibulum
-                    non euismod nulla, eu pretium risus. Curabitur porta molestie vulputate.Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit. In bibendum tincidunt nulla, id semper mi cursus ac. Fusce turpis urna,
-                    condimentum sit amet dolor at, vulputate ultrices massa. Vestibulum non euismod nulla, eu pretium
-                    risus. Curabitur porta molestie vulputate.
-                </div>
-                <button class="btn_one">visit project</button>
-                <button class="btn_two">code</button>
-            </div>
-
-        </div>
-
-        <div id="contact">
-            <h1>contact.</h1>
-            <form>
-                <input type="text" placeholder="name" required>
-                <input type="email" placeholder="email" required><br>
-                <textarea placeholder="your message" required rows="5"></textarea><br>
-                <button class="btn_one">send</button>
-            </form>
-            <div id="details">
-                <a class="btn_social"><i class="fas fa-phone"></i></a>
-                <a class="btn_social"><i class="fas fa-at"></i></a>
-                <a class="btn_social"><i class="fab fa-twitter"></i></a>
-                <a class="btn_social"><i class="fab fa-dribbble"></i></a>
-            </div>
-        </div>
+    <div>
+     
     </div>
-    <div id="footer">
-        made by #CS<strong>GROUP</strong>4
-    </div>
-    <script src="assets/index.js" type="text/javascript"></script>
-</body> -->

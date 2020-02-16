@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="container col-4 ml-5">
+    <h1>{{this.caseNew?.caseName}}({{this.caseNew?.lawType}})</h1>
+    <hr>
+    <div class="container" *ngIf="currentUser?.type=='Lawyer'">
+      <img class="avatar border-gray" src="{{this.imageUrl}}" alt="..."
+        style="padding:5px;padding-right:30px;width:300px;height: 300px; ">
+      <p class="text-muted">Client : <b>{{this.client?.username}}</b></p>
+      <p class="text-muted">NIC: <b>{{this.client?.nic}}</b></p>
+      <p class="text-muted">Address : <b>{{this.client?.address}}</b></p>
+      <p class="text-muted">Contact Number: <b>{{this.client?.number}}</b></p>
+      <p class="text-muted">Email : <b>{{this.client?.email}}</b></p>
+    </div>
+    <div class="container" *ngIf="currentUser?.type=='Client'">
+      <img class="avatar border-gray" src="{{this.imageUrl}}" alt="..."
+        style="padding:5px;padding-right:30px;width:300px;height: 300px; ">
+      <p class="text-muted">Lawyer : <b>{{this.lawyer?.username}}</b></p>
+      <p class="text-muted">NIC: <b>{{this.lawyer?.nic}}</b></p>
+      <p class="text-muted">Address : <b>{{this.lawyer?.address}}</b></p>
+      <p class="text-muted">Contact Number: <b>{{this.lawyer?.number}}</b></p>
+      <p class="text-muted">Email : <b>{{this.lawyer?.email}}</b></p>
+    </div>
+  </div>
+  <div class="col container ">
+    <br><br><br><br><br>
+    <p>Description : <b>{{caseNew?.description}}</b></p>
+    <p>Opened Date : <b>{{caseNew?.openedDate}}</b></p>
+
+
+
+  </div>
+
+</div>

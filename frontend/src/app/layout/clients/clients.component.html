@@ -1,3 +1,71 @@
-<p>
-  clients works!
-</p>
+<h1><b>Clients</b></h1>
+<hr><br>
+<div class="container">
+  <!-- display pending clients -->
+  <div *ngIf='pendingClients?.length > 0'>
+    <h2 class="text-muted"><b>Pending Clients</b></h2><br>
+    <div *ngFor='let pendingClient of pendingClients'>
+      <div class="border col-7 container ml-5">
+        <div class="row">
+          <div class="col-5 mt-2">
+            <i class="fa fa-user-circle-o" style="font-size:24px"></i>
+            <a [routerLink]="['/client', pendingClient.clientId]" routerLinkActive="routerLinkActive" class="text-dark">
+              {{pendingClient.clientName}}</a>
+          </div>
+          <div class="col">
+            <button class="btn btn-primary btn-sm m-2 pull-right "
+              (click)="deleteAppointment(pendingClient);open(content);"><i class="fa fa-plus"></i> New Case</button>
+            <!-- popup a form -->
+            <ng-template #content let-modal>
+              <div class="modal-header bg-dark text-white">
+                <h4 class="modal-title" id="modal-basic-title">Open a New Case -{{pendingClient.clientName}}</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form #caseForm="ngForm" (ngSubmit)="caseForm.reset()">
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label>Case Title</label>
+                    <input type="text" class="form-control" [(ngModel)]="caseModel.caseName" name="caseName">
+                  </div>
+                  <div class="form-group">
+                    <label>Case Type</label>
+                    <select class="form-control form-control-sm" [(ngModel)]="caseModel.lawType" name="lawType">
+                      <option value="Family">Family</option>
+                      <option value="Family">Business</option>
+                      <option value="Criminal">Criminal</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary btn-lg btn-block"
+                    (click)="modal.close('Save click'); openCase(pendingClient); ">Submit</button>
+                </div>
+              </form>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><br>
+  <!-- display current clients -->
+
+  <div *ngIf='clients?.length>0'>
+    <h2 class="text-muted"><b>Clients</b></h2><br>
+    <div *ngFor='let client of clients'>
+      <div class="border col-7 container ml-5">
+        <div class="row">
+          <div class="col-5 mt-2">
+            <i class="fa fa-user-circle-o m-2" style="font-size:24px"></i>
+            <a [routerLink]="['/client', client.client_id]" routerLinkActive="routerLinkActive" class="text-dark">
+              {{client.clientName}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-primary" role="alert" *ngIf='pendingClients?.length == 0 && clients?.length == 0'>
+  There is no Clients yet.
+</div>

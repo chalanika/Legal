@@ -34,12 +34,8 @@ const AppointmentSchema = new Schema({
         type:Date,
         required:true
     },
-    isAccepted:{
-        type:Boolean,
-        required:true
-    },
-    isRejected:{
-        type:Boolean,
+    status:{
+        type:String,
         required:true
     },
     isAlert:{
