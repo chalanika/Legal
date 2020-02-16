@@ -8,7 +8,7 @@
       <div class="border col-7 container ml-5">
         <div class="row">
           <div class="col-5 mt-2">
-            <i class="fa fa-user-circle-o" style="font-size:24px"></i> 
+            <i class="fa fa-user-circle-o" style="font-size:24px"></i>
             <a [routerLink]="['/client', pendingClient.clientId]" routerLinkActive="routerLinkActive" class="text-dark">
               {{pendingClient.clientName}}</a>
           </div>
@@ -58,15 +58,14 @@
         <div class="row">
           <div class="col-5 mt-2">
             <i class="fa fa-user-circle-o m-2" style="font-size:24px"></i>
-            <a [routerLink]="['/client', client.clientId]" routerLinkActive="routerLinkActive" class="text-dark">
-              {{client.clientName}}</a>      
+            <a [routerLink]="['/client', client.client_id]" routerLinkActive="routerLinkActive" class="text-dark">
+              {{client.clientName}}</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="alert alert-primary" role="alert"
-  *ngIf='pendingClients?.length == 0 && clients?.length == 0'>
-  There is no Clients yet.
 </div>
+<div class="alert alert-primary" role="alert" *ngIf='pendingClients?.length == 0 && clients?.length == 0'>
+  There is no Clients yet.
 </div>
