@@ -20,6 +20,10 @@ import { DashboardComponent } from './Admin/dashboard/dashboard.component';
 import { AdminLayoutComponent } from './Admin/admin-layout/admin-layout.component';
 import { ValidateService } from './validate.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { DisplayCategoryComponent } from './display-category/display-category.component';
 
 @NgModule({
@@ -34,6 +38,7 @@ import { DisplayCategoryComponent } from './display-category/display-category.co
         FileUploadModule,
         NgbModule,
         ReactiveFormsModule,
+        Ng2SearchPipeModule
         // RouterModule.forRoot(appRoutes),
     ],
     declarations: [AppComponent, FileComponent, HomeComponent, ProfileComponent, ForgotPasswordComponent, DisplayCategoryComponent],

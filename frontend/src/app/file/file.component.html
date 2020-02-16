@@ -7,9 +7,9 @@
         <i class="fa fa-bars text-muted" aria-hidden="true"></i>
     </button>
     <div class="collapse navbar-collapse">
-        <form class="form-inline my-2 my-lg-0">
+        <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="{{ 'Search' | translate }}" >
-        </form>
+        </form> -->
         <ul class="navbar-nav ml-auto">
             <!-- <li class="nav-item d-none d-xl-block">
                 <a
@@ -156,18 +156,17 @@
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
-        <!-- need to add clients page -->
-        <a class="list-group-item" href="javascript:void(0)">
+        <a [routerLink]="['/clients']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
             <span>{{ 'Clients' | translate }}</span>
-        </a>
-        <a routerLink="/lawyers" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
-            <span>{{ 'Lawyers' | translate }}</span>
-        </a>
+        </a> 
         <a [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Appointments' | translate }}</span>
+        </a>
+        <a [routerLink]="['/lawyers']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-table"></i>&nbsp;
+            <span>{{ 'Lawyers' | translate }}</span>
         </a>
         <a routerLink="/file" class="list-group-item" href="javascript:void(0)">
             <i class="fa fa-fw fa-edit"></i>&nbsp;
@@ -177,15 +176,15 @@
             <i class="fa fa-fw fa-desktop"></i>&nbsp;
             <span>{{ 'Notifications' | translate }}</span>
         </a>
-        <a class="list-group-item" href="javascript:void(0)">
+        <!-- <a routerLink="/report" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-wrench"></i>&nbsp;
             <span>{{ 'Report' | translate }}</span>
-        </a>
+        </a> -->
         <a routerLink="/profile" class="list-group-item" href="javascript:void(0)">
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span>{{ 'Profile' | translate }}</span>
         </a>
-        <a class="list-group-item" href="javascript:void(0)">
+        <a routerLink="/calender" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-th-list"></i>&nbsp;
             <span>{{ 'Calander' | translate }}</span>
         </a>
@@ -391,8 +390,6 @@
 <!-- share -->
 <div *ngIf="sharef === 1">
 <div class="container-fluid">
-  
-
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
@@ -443,6 +440,9 @@
                 <div class="row card">
                     <div class="col-sm-12">
                         <h4 class="card-title">Received Files</h4>
+                        <div class="search-hero">
+                            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search for files">
+                          </div>
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
@@ -452,11 +452,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let file of receivedFiles">
+                                    <tr *ngFor="let file of receivedFiles | filter:searchText">
                                         <td>{{file.name}}</td>
                                         <td>{{file.from}}</td>
-                                        <td> <button class="btn btn-primary">Download</button>&nbsp;
-                                             <button class="btn btn-danger">Delete</button></td>
+                                        <td> <button class="btn btn-primary" (click)="downloadFile(file.name)">Download</button>&nbsp;
+                                             <button class="btn btn-danger" (click)="deleteFile(file.name)" onClick="window.location.reload();">Delete</button></td>
                                     </tr>
                                 </tbody>
                             </table>

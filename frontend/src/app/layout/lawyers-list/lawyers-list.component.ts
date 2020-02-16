@@ -29,7 +29,7 @@ export class LawyersListComponent implements OnInit {
   successBooking = 0;
   resultArray;
   currentUser;
-
+  searchText;
   user;
   userType;
   lawyers;
