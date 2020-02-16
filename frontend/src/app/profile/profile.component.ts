@@ -13,12 +13,14 @@ import {RateService} from 'src/app/core/services/rate.service';
 })
 export class ProfileComponent implements OnInit {
 
+
     username:'';
     currentUserType;
     email:'';
     nic:'';
     image:'';
     detail;
+
     address;
     number;
     area;
@@ -30,7 +32,7 @@ export class ProfileComponent implements OnInit {
     collapsed: boolean;
     showMenu: string;
     BASE_URL = location.origin;
-    imageUrl =  'http://localhost:3000/images/avatar.jpg';
+    imageUrl = 'http://localhost:3000/images/avatar.jpg';
 
     profile = 1;
     notification = 0;
@@ -84,7 +86,7 @@ get updateArea() {
   return this.updateMeForm.get('updateArea');
 }
 
-    
+
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
@@ -101,13 +103,13 @@ get updateArea() {
 
   this._user.user()
   .subscribe(
-      data=>this.addName(data),
-      error=>this._router.navigate(['/login'])
+      data => this.addName(data),
+      error => this._router.navigate(['/login'])
   )
 
    }
 
-   addName(data){
+   addName(data) {
     this.username = data.username;
     this.nic = data.nic;
     this.email = data.email;
@@ -126,13 +128,15 @@ get updateArea() {
     }
     this.area = data.area;
     this.type = data.type;
+
     this.currentUserType = data.type; 
     this.currentUserId = data._id;
     if(this.type==='Lawyer'){
       console.log('Hi');
+
       this.getRates(this.currentUserId);
+
     }
-    
     console.log(data.image);
     var path = data.image.replace(/\\/g, '/');
     path = path.replace(/public/g, '');
