@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit {
     rateModel = new Rate();
     currentUserId;
   
-    areas = [{'id': 'Business', 'name':'Business'}, {'id':' Criminal', 'name': 'Criminal'}, {'id': 'Family', 'name': 'Family'}];
+    areas = [{'id': 'Business', 'name':'Business'}, {'id':'Criminal', 'name': 'Criminal'}, {'id': 'Family', 'name': 'Family'}];
 
     updatePasswordForm: FormGroup = new FormGroup({
       password: new FormControl(null , [Validators.required]),

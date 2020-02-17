@@ -15,6 +15,9 @@ var sgTransport = require('nodemailer-sendgrid-transport');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 var path = require('path');
+let key = 'MySuperSecretKey';
+key = crypto.createHash('sha256').update(key).digest('base64').substr(0, 32);
+const nodecipher = require('node-cipher');
 var f_name;
 // var realUser = '02fe1b26861e4f';
 // var realPassword = ''
@@ -42,10 +45,16 @@ var storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+  const form = JSON.parse(JSON.stringify(req.body))
+  if(!form.task){
+    if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  }
+  else{
     cb(null, true);
-  } else {
-    cb(null, false);
   }
 }
 
@@ -100,7 +109,7 @@ async function addToDB(req, res) {
     });
   }
   catch (err) {
-    console.log(err.message);
+    console.log("***********"+err.message);
     if (err.message[61] == 'u') {
       console.log('*******ERROR : USERNAME Already taken*****')
       return res.status(501).json(1111);
@@ -149,7 +158,22 @@ router.post('/share', upload.single('image'), function (req, res, next) {
     }
   });
 
+  var input = des+"/"+req.file.filename;
+  input = path.resolve(input);
+  console.log(input);
   copyFile(dir, des + '/');
+  nodecipher.encrypt({
+    input: input,
+    output: input+'.enc',
+    password: key
+}, function (err, opts) {
+    if (err) console.log(error);
+    console.log('Image successfully encrypted!');
+    fs.unlink(input,function(err){
+        if(err) return console.log(err);
+        console.log('file deleted successfully');
+   });
+});
   return res.status(200).json({
     message: 'File Sent Successfull!'
   });
@@ -408,6 +432,36 @@ router.post('/updatePassword', function (req, res, next) {
   return res.status(200).json({ message: 'Update password is successfull' });
 });
 
+router.get('/getFiles/:token1/:token2', async (req, res) => {
+  const user1 = await User.findOne({ _id: req.params.token1});
+  const user2 = await User.findOne({ _id: req.params.token2});
+  const fileset1 = await fileShare.find({from:user1.nic,to:user2.nic});
+  const fileset2 = await fileShare.find({from:user2.nic,to:user1.nic});
+  // console.log(fileset1);
+  // console.log(fileset2);
+  console.log("fileset1"+fileset1);
+  console.log("fileset1"+fileset2);
+  var o = {}
+    var key = 'All Files';
+    o[key] = [];
+    fileset1.forEach(ele => {
+      var data = {
+        _id:ele._id,
+        name: ele.fileName,
+      };
+      o[key].push(data);
+    });
+    fileset2.forEach(ele => {
+      var data = {
+        _id:ele._id,
+        name: ele.fileName,
+      };
+      o[key].push(data);
+    });
+    // console.log(o);
+    return res.status(200).json(o);
+});
+
 router.delete('/deleteMe', function (req, res, next) {
   User.findById(req.user._id, function (err, user) {
     user.active = false;
@@ -503,11 +557,13 @@ router.get('/lawyers/:category', async (req, res) => {
   const type = req.params.category;
   try {
     const result = await User.find({ area: type });
+    console.log("ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp");
+    console.log(result);
     res.json(result);
   } catch{
     res.json({ message: error });
   }
-})
+});
 
 router.get('/client/:id', async (req, res) => {
   console.log(req.params.id);

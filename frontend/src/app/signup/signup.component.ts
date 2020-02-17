@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
     images;
     imageUrl: any = '../../assets/images/avatar2.jpg';
 
-    types = [{'id': 'Admin', 'name':'Admin'}, {'id':'Lawyer', 'name': 'Lawyer'}, {'id':'Client', 'name': 'Client'}];
+    types = [{'id':'Lawyer', 'name': 'Lawyer'}, {'id':'Client', 'name': 'Client'}]; //{'id': 'Admin', 'name':'Admin'}, 
     areas = [{'id': 'Business', 'name':'Business'}, {'id':' Criminal', 'name': 'Criminal'}, {'id': 'Family', 'name': 'Family'}];
 
     userPoint = 0;
@@ -27,11 +27,11 @@ export class SignupComponent implements OnInit {
     invalid = 0;
     info = 0;
     imageFile = null;
-
+    // 0((11)|(2(1|[3-7]))|(3[1-8])|(4(1|5|7))|(5(1|2|4|5|7))|(6(3|[5-7]))|([8-9]1))([2-4]|5|7|9)[0-9]{6})'
     registerForm: FormGroup = new FormGroup({
         type: new FormControl(null , [Validators.required]),
         username: new FormControl(null , [Validators.required , Validators.minLength(3)]),
-        nic: new FormControl(null, [Validators.required , Validators.minLength(10)]),
+        nic: new FormControl(null, [Validators.required , Validators.minLength(10) , Validators.pattern(/^\d{9}[V|v|X|x]|\d{12}$/)]),
         email: new FormControl(null , [Validators.email, Validators.required]),
         area: new FormControl(null , [Validators.required]),
         address: new FormControl(null),
