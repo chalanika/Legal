@@ -1,12 +1,16 @@
-<h1 class="text-center text-dark m-5"><b>{{category}}</b></h1>
-<hr><br>
-<div class="container m-8">
-  <p class="test -center">description gyghcghjfuchidjcijijiojdjcidjijdijicjcjdj nbhjgxayugsyusxhjs xshxgyustyuxbjskxhusihx snxgjsg
-  </p>
-</div>
+<header class="bg-secondary text-center py-5 mb-4">
+  <div class="container">
+    <h1 class="text-center text-dark m-5" class="font-weight-light text-white"><b>Area of Law: {{category}} Law</b></h1>
+  </div>
+</header>
+<br>
+
+<!-- <div style="background-image: 'assets/images/Logogrey.png';"> -->
+
+<!-- </div> -->
 <div class=" m-5" *ngIf="lawyers?.length > 0">
-  <div *ngFor="let lawyer of lawyers">
-    <button (click)="getMessage();">{{lawyer.username}}</button>
+  <div style="text-align: center;" *ngFor="let lawyer of lawyers">
+    <button type="button" class="btn btn-link" (click)="getMessage();">{{lawyer.username}}</button>
   </div>
   <div *ngIf="sucess == 1" class="m-1" >
     <div *ngFor="let alert of alerts">
