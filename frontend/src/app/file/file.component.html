@@ -156,11 +156,11 @@
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
-        <a [routerLink]="['/clients']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a *ngIf="currentUserType =='Lawyer'" [routerLink]="['/clients']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
             <span>{{ 'Clients' | translate }}</span>
         </a> 
-        <a [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a *ngIf="currentUserType !='Admin'" [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Appointments' | translate }}</span>
         </a>
@@ -168,7 +168,7 @@
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Lawyers' | translate }}</span>
         </a>
-        <a routerLink="/file" class="list-group-item" href="javascript:void(0)">
+        <a *ngIf="currentUserType!='Admin'" routerLink="/file" class="list-group-item" href="javascript:void(0)">
             <i class="fa fa-fw fa-edit"></i>&nbsp;
             <span>{{ 'Files' | translate }}</span>
         </a>
@@ -184,7 +184,7 @@
             <i class="fa fa-fw fa-user"></i>&nbsp;
             <span>{{ 'Profile' | translate }}</span>
         </a>
-        <a routerLink="/calender" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a *ngIf="currentUserType!='Admin'" routerLink="/calender" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-th-list"></i>&nbsp;
             <span>{{ 'Calander' | translate }}</span>
         </a>
@@ -198,43 +198,10 @@
             <span>{{ 'Category' | translate }}</span>
         </a>
         </div>
-        <a [routerLink]="['/cases']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <a *ngIf="currentUserType!='Admin'" [routerLink]="['/cases']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-th-list"></i>&nbsp;
             <span>{{ 'Cases' | translate }}</span>
         </a>
-        <!-- <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('pages')">
-                <i class="fa fa-plus"></i>&nbsp;
-                <span>{{ 'Menu' | translate }}</span>
-            </a>
-            <li class="nested" [class.expand]="showMenu === 'pages'">
-                <ul class="submenu">
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Submenu' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Submenu' | translate }}</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Submenu' | translate }}</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </div> -->
-        <!-- <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-file-o"></i>&nbsp;
-            <span>{{ 'Blank Page' | translate }}</span>
-        </a> -->
-
         <div class="header-fields">
             <a (click)="rltAndLtr()" class="list-group-item">
                 <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>

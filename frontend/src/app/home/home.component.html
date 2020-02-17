@@ -1,25 +1,24 @@
 <body>
-
-  <!-- <div id="loading">
-        <div id="spinner"></div>
-    </div> -->
   <div id="header">
+    <br><br>
     <!-- class="animated slideInDown" style="animation-delay:1.8s;" -->
-
-
-    <div id="links"><br>
-      <a href="#about">About</a>
-      <a href="#contact" style="margin:0px 60px;">Contact</a>
-      <a [routerLink]="['/signup']">Register</a>
-      <a [routerLink]="['/login']" style="margin:0px 60px;">Login</a>
+    <div id="title">Legal</div><br>
+    <div id="links">
+    </div>
+    <div id="links" style="text-align: center;" >
+      <!-- <a href="#about">About</a>
+      <a href="#contact" style="margin:0px 60px;">Contact</a> -->
+      <a class="btn_one" [routerLink]="['/signup']">Register</a>
+      <a class="btn_one" [routerLink]="['/login']" style="margin:0px 60px;">Login</a>
     </div>
   </div>
+
   <br><br><br><br>
+
   <div style="text-align: center;">
     <div id="middle">
       <div id="tagline" class="animated zoomIn" style="animation-delay:1.8s;">
         <br>We got most experienced lawyers and they are here to help you<br>
-        <button class="btn_one">View Lawyers</button>
       </div>
     </div>
   </div>
@@ -29,6 +28,7 @@
   <header class="bg-dark text-center py-5 mb-2">
     <div class="container">
       <h1 class="font-weight-light text-white">CATEGORIES</h1>
+      <h4 class="font-weight-light text-white">Below you’ll find a comprehensive list of the different lawyers for a particular areas of law</h4>
     </div>
   </header>
 
@@ -36,10 +36,9 @@
   <div class="container">
     <div class="row">
       <div *ngFor="let category of categories">
-       <button class="btn btn-primary" (click)="click(category.name)">{{category.name}}</button>
+       <button class="btn_one" (click)="click(category.name)">{{category.name}}</button>
       </div>
-     
     </div>
-    <div>
-     
-    </div>
+      <!-- /.row -->
+  </div>
+    <!-- /.container -->

@@ -7,9 +7,9 @@
         <i class="fa fa-bars text-muted" aria-hidden="true"></i>
     </button>
     <div class="collapse navbar-collapse">
-        <form class="form-inline my-2 my-lg-0">
+        <!-- <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="{{ 'Search' | translate }}">
-        </form>
+        </form> -->
         <ul class="navbar-nav ml-auto">
             <!-- <li class="nav-item d-none d-xl-block">
                 <a
@@ -149,11 +149,11 @@
         <i class="fa fa-fw fa-dashboard"></i>&nbsp;
         <span>{{ 'Dashboard' | translate }}</span>
     </a>
-    <a [routerLink]="['/clients']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a *ngIf="currentUserType =='Lawyer'" [routerLink]="['/clients']" [routerLinkActive]="['router-link-active']" class="list-group-item">
         <i class="fa fa-fw fa-bar-chart-o" ></i>&nbsp;
         <span>{{ 'Clients' | translate }}</span>
     </a> 
-    <a [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a *ngIf="currentUserType !='Admin'" [routerLink]="['/appointment']" [routerLinkActive]="['router-link-active']" class="list-group-item">
         <i class="fa fa-fw fa-table"></i>&nbsp;
         <span>{{ 'Appointments' | translate }}</span>
     </a>
@@ -161,7 +161,7 @@
         <i class="fa fa-fw fa-table"></i>&nbsp;
         <span>{{ 'Lawyers' | translate }}</span>
     </a>
-    <a routerLink="/file" class="list-group-item" href="javascript:void(0)">
+    <a *ngIf="currentUserType!='Admin'" routerLink="/file" class="list-group-item" href="javascript:void(0)">
         <i class="fa fa-fw fa-edit"></i>&nbsp;
         <span>{{ 'Files' | translate }}</span>
     </a>
@@ -169,15 +169,15 @@
         <i class="fa fa-fw fa-desktop"></i>&nbsp;
         <span>{{ 'Notifications' | translate }}</span>
     </a>
-    <a routerLink="/report" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <!-- <a routerLink="/report" [routerLinkActive]="['router-link-active']" class="list-group-item">
         <i class="fa fa-fw fa-wrench"></i>&nbsp;
         <span>{{ 'Report' | translate }}</span>
-    </a>
+    </a> -->
     <a routerLink="/profile" class="list-group-item" href="javascript:void(0)">
         <i class="fa fa-fw fa-user"></i>&nbsp;
         <span>{{ 'Profile' | translate }}</span>
     </a>
-    <a routerLink="/calender" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a *ngIf="currentUserType!='Admin'" routerLink="/calender" [routerLinkActive]="['router-link-active']" class="list-group-item">
         <i class="fa fa-th-list"></i>&nbsp;
         <span>{{ 'Calander' | translate }}</span>
     </a>
@@ -191,11 +191,10 @@
         <span>{{ 'Category' | translate }}</span>
     </a>
     </div>
-    <a [routerLink]="['/cases']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <a *ngIf="currentUserType!='Admin'" [routerLink]="['/cases']" [routerLinkActive]="['router-link-active']" class="list-group-item">
         <i class="fa fa-th-list"></i>&nbsp;
         <span>{{ 'Cases' | translate }}</span>
     </a>
-
         <!-- <div class="nested-menu">
           <a class="list-group-item" (click)="addExpandClass('pages')">
               <i class="fa fa-plus"></i>&nbsp;
@@ -350,14 +349,14 @@
                                     </div>
                                     <div class="col" *ngIf="type == 'Lawyer'">
                                         <!-- display rating -->
-                                        <ng-template #t let-fill="fill">
+                                        <!-- <ng-template #t let-fill="fill">
                                             <span class="star" [class.full]="fill === 100">
                                                 <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
                                             </span>
                                         </ng-template>
 
                                         <ngb-rating [(rate)]="averageRate" [starTemplate]="t" [readonly]="true" max="5">
-                                        </ngb-rating>
+                                        </ngb-rating> -->
                                     </div>
                                 </div>
 
@@ -734,14 +733,16 @@
             </div>
             <div class="col-md-4" style="padding-left: 50px;">
                 <div class="card card-user"
-                    style="padding:15px;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);background-color: white;">
+                    style="padding:15px;margin-bottom: 0.75rem;box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);background-color: white;">
                     <div class="content">
                         <div class="author">
-                            <a [routerLink]="['/profile']">
-                                <p style="font-size: 20px;color: black;"><img class="avatar border-gray"
+                            <a style="text-decoration:none" [routerLink]="['/profile']">
+                                <div class="text-center vd_info-parent"> <img class="avatar border-gray" alt="profile image" src="{{this.imageUrl}}" style="width: 275px;height: 300px;"> </div>
+                                <!-- <p style="font-size: 20px;color: black;"><img class="avatar border-gray"
                                         src="{{this.imageUrl}}" alt="..."
-                                        style="padding:5px;padding-right:30px;width: 180px;height: 120px;"><b>{{username}}</b>
-                                </p>
+                                        style="padding:5px;padding-right:30px;width: 275px;height: 300px;">
+                                </p> -->
+                                <h2 class="center">{{username}}</h2>
                             </a>
                         </div>
                         <!-- <p class="description text-center"> "Lamborghini Mercy <br>
@@ -751,19 +752,19 @@
                         <div class="text-block">
                             <ul class="menue-vertical" style="list-style-type:none">
                                 <li>
-                                    <a href="javascript:void(0)" (click)="onProfile()">Profile</a>
+                                    <a style="text-decoration:none" href="javascript:void(0)" (click)="onProfile()">Profile</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="javascript:void(0)" (click)="onNotification()">Notifications</a>
+                                </li> -->
+                                <li>
+                                    <a style="text-decoration:none" href="javascript:void(0)" (click)="onPass()">Change Password</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="onPass()">Change Password</a>
+                                    <a style="text-decoration:none" href="javascript:void(0)" (click)="onEdit()">Edit Details</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)" (click)="onEdit()">Edit Details</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" (click)="onDelete()">Delete Account</a>
+                                    <a style="text-decoration:none" href="javascript:void(0)" (click)="onDelete()">Delete Account</a>
                                 </li>
                             </ul>
                         </div>

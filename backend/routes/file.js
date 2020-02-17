@@ -101,13 +101,33 @@ _router.post('/downloadSh',function(req,res,next){
     filepath = path.join(__dirname,`../public/images/${req.body.nic}/received_items`) +'/'+ req.body.filename;
     filepath = filepath.replace(/\\/g, "/");
     console.log(filepath);
+    // filepath = path.join(__dirname,`../uploads/files/${req.body.nic}/myFiles`) +'/'+ req.body.filename;
+    input = path.resolve(filepath);
+    nodecipher.decrypt({
+        input: input+'.enc',
+        output: filepath,
+        password: key
+        
+    }, function (err, opts) {
+        if (err) throw err;
+        console.log('Image successfully decrypted!');
+        res.sendFile(filepath , function(err){
+            if(err) console.log(err);
+            else {
+                fs.unlink(filepath,function(err){
+                    if(err) return console.log(err);
+                    console.log('file deleted successfully');
+            });
+            }
+        });
+    });
     res.sendFile(filepath , function(err){
         if(err) console.log(err);
     });
 });
 
 _router.delete('/deleteSh/:token1/:token2',function(req,res,next){
-
+    
             fileShare.findOneAndRemove({to:req.params.token1,fileName:req.params.token2}, function(err){
                 if(err) console.log(err);
                 else console.log("Document Deleted");
