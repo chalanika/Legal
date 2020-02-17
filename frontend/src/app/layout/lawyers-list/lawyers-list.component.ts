@@ -78,6 +78,7 @@ export class LawyersListComponent implements OnInit {
       );
     } else {
       this.getLawyers(category);
+    
     }
   }
   //display categorised lawyers

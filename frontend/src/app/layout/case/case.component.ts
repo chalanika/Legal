@@ -19,6 +19,7 @@ export class CaseComponent implements OnInit {
   imageUrl;
   currentUser ;
   lawyer;
+  files;
   constructor(private route:ActivatedRoute, private _caseService:CaseService,private _userService:UserService) { }
 
   ngOnInit() {
@@ -32,13 +33,17 @@ export class CaseComponent implements OnInit {
         console.log(err);
       }
     );
-
   }
   
   getCase(caseId){
     this._caseService.getCase(caseId).subscribe(
       res=>{
         console.log(res);
+        this._userService.relatedFiles(Object.values(res)[3],Object.values(res)[5])
+        .subscribe(
+          data=>{console.log(data);this.files = data['All Files']},
+          error=>{console.log(error);}
+        )
         this.caseNew=res;
         if(this.currentUser.type =='Lawyer'){
           this.getClientDetail(this.caseNew.client_id);
@@ -56,8 +61,6 @@ export class CaseComponent implements OnInit {
     this._userService.getClient(id).subscribe(
       res=>{
         this.client = res;
-        this.displayClientPic();
-        console.log(this.client);
       },err=>{
         console.log(err);
       }

@@ -25,6 +25,16 @@
     <br><br><br><br><br>
     <p>Description : <b>{{caseNew?.description}}</b></p>
     <p>Opened Date : <b>{{caseNew?.openedDate}}</b></p>
+    <div>
+      <p>Related Files</p>
+      <table class="table table-hover">
+        <tbody>
+          <tr *ngFor="let file of files">
+              <td>{{file.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
 
 

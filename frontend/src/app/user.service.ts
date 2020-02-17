@@ -154,6 +154,9 @@ export class UserService {
     return this._http.get('http://127.0.0.1:3000/users/client/'+id);
   }
 
-  
+  relatedFiles(id1,id2){
+    console.log(id1,id2);
+    return this._http.get('http://127.0.0.1:3000/users/getFiles/'+id1+'/'+id2);
+  }  
 
 }
