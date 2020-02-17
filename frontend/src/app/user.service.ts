@@ -44,6 +44,24 @@ export class UserService {
     });
   }
 
+  getConnect(objId:any){
+    console.log(objId);
+    return this._http.get('http://127.0.0.1:3000/users/getConnect/'+objId,{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+    });
+  }
+
+  getConnect2(objId:any){
+    console.log(objId);
+    return this._http.get('http://127.0.0.1:3000/users/getConnect2/'+objId,{
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+    });
+  }
+
   rev(theNic){
     return this._http.get('http://127.0.0.1:3000/users/files/'+theNic);
   }
@@ -89,6 +107,14 @@ export class UserService {
     });
   }
 
+  deleteUser(info){
+    return this._http.delete('http://127.0.0.1:3000/users/deleteUser/'+info , {
+      observe:'body',
+      withCredentials:true,
+      headers:new HttpHeaders().append('Content-Type' , 'application/json')
+    });
+  }
+
   // sendToken(){
   //   return this._http.patch('http://127.0.0.1:3000/users/resetPassword/:token',{
   //     observe:'body',
@@ -127,5 +153,10 @@ export class UserService {
   getClient(id){
     return this._http.get('http://127.0.0.1:3000/users/client/'+id);
   }
+
+  relatedFiles(id1,id2){
+    console.log(id1,id2);
+    return this._http.get('http://127.0.0.1:3000/users/getFiles/'+id1+'/'+id2);
+  }  
 
 }

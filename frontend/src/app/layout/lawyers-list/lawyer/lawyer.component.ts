@@ -33,6 +33,7 @@ export class LawyerComponent implements OnInit {
   currentUserType;
   rates;
   averageRate;
+  alert=0;
   rateModel = new Rate();
   
   constructor(private router:Router,private _userService:UserService) { }
@@ -69,7 +70,7 @@ export class LawyerComponent implements OnInit {
     );
   }
 
-  //get rate values
+//get rate values
 getRates(){
   let sum = 0;
   this._userService.getRate(this.lawyer._id).subscribe(
@@ -83,5 +84,22 @@ getRates(){
       error=>console.log(error)
   )
 }
+
+delete(info){
+  this._userService.deleteUser(info)
+        .subscribe(
+            data => {console.log(data);this.alert=1;this.asyncFunc();window.location.reload(); },
+            error => {
+                console.error(error);
+                return;
+            }
+        );
+}
+
+asyncFunc = (...args) => 
+            new Promise(r => setTimeout(r , 2500))
+            .then(() => {
+                this.alert = 0;
+            });
 
 }

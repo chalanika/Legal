@@ -33,6 +33,7 @@
                         <div *ngIf="nic.touched && nic.invalid" class="alert alert-danger">
                                 <div *ngIf="nic.errors.required">NIC is required</div>
                                 <div *ngIf="nic.errors.minlength">NIC should have atleast {{nic.errors.minlength.requiredLength}} digits</div>
+                                <div *ngIf="nic.errors.pattern">Wrong Nic</div>
                         </div>
                         <div *ngIf="this.nicPoint === 1 && nic.touched" class="alert alert-danger">This NIC "{{ this.registerForm.controls.nic.value }}" is already in use</div>
                     </div>
@@ -53,6 +54,7 @@
                         <div *ngIf="number.invalid" class="alert alert-danger">
                                 <div *ngIf="number.errors.minlength">Not a Valid number!</div>
                                 <div *ngIf="number.errors.maxLength">Not a Valid number!</div>
+                                <!-- <div *ngIf="number.errors.pattern">Not a Valid number!</div> -->
                         </div>
                     </div>
                     <div *ngIf="info=='Lawyer'">
@@ -90,7 +92,7 @@
                 </div>
                 <div class="form-group">
                     <img style="width: 150px; height: 150px;" [src]="this.imageUrl" />
-                   <p><br><input formControlName="image" type="file" (change)="imageUpload($event)" style="display: none;" #fileInput></p>
+                   <p><br><input formControlName="image" accept="image/*" type="file" (change)="imageUpload($event)" style="display: none;" #fileInput></p>
                     <button class="btn btn-outline-primary my-4 btn-block box_border pick_btn" type="button"
                                         (click)="fileInput.click()">Choose Profile Picture</button>
                 </div>

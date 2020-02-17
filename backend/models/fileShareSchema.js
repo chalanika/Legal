@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
     from: String,
+    fromName: String,
     to: String,
     file: String,
     fileName: String,

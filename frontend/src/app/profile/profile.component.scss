@@ -272,3 +272,24 @@ $topnav-background-color: #222;
     overflow: hidden;
     color: red;
   }
+
+  .star {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    color: #d3d3d3;
+  }
+  .full {
+    color: red;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: red;
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+  }

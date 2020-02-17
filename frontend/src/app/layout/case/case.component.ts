@@ -17,21 +17,40 @@ export class CaseComponent implements OnInit {
   caseNew;
   client;
   imageUrl;
+  currentUser ;
+  lawyer;
+  files;
   constructor(private route:ActivatedRoute, private _caseService:CaseService,private _userService:UserService) { }
 
   ngOnInit() {
     this.caseId = this.route.snapshot.params.caseId;
     console.log(this.caseId);
-    this.getCase(this.caseId);
-
+    this._userService.user().subscribe(
+      res=>{
+        this.currentUser = res;
+        this.getCase(this.caseId);
+      }, err => {
+        console.log(err);
+      }
+    );
   }
   
   getCase(caseId){
     this._caseService.getCase(caseId).subscribe(
       res=>{
         console.log(res);
+        this._userService.relatedFiles(Object.values(res)[3],Object.values(res)[5])
+        .subscribe(
+          data=>{console.log(data);this.files = data['All Files']},
+          error=>{console.log(error);}
+        )
         this.caseNew=res;
-        this.getClientDetail(this.caseNew.client_id);
+        if(this.currentUser.type =='Lawyer'){
+          this.getClientDetail(this.caseNew.client_id);
+        }else{
+          this.getLawyerDetail(this.caseNew.lawyer_id);
+        }
+        
       },err=>{
         console.log(err);
       }
@@ -42,8 +61,18 @@ export class CaseComponent implements OnInit {
     this._userService.getClient(id).subscribe(
       res=>{
         this.client = res;
-        this.displayClientPic();
-        console.log(this.client);
+      },err=>{
+        console.log(err);
+      }
+    )
+  }
+
+  getLawyerDetail(id){
+    this._userService.getLawyer(id).subscribe(
+      res=>{
+        this.lawyer= res;
+        this.displayLawyerPic();
+        console.log(this.lawyer);
       },err=>{
         console.log(err);
       }
@@ -53,6 +82,14 @@ export class CaseComponent implements OnInit {
   displayClientPic(){
     if(this.client.image){
       var path = this.client.image.replace(/\\/g, '/');
+      path = path.replace(/public/g, '');
+      this.imageUrl = 'http://localhost:3000/' + path; 
+    }
+  }
+
+  displayLawyerPic(){
+    if(this.lawyer.image){
+      var path = this.lawyer.image.replace(/\\/g, '/');
       path = path.replace(/public/g, '');
       this.imageUrl = 'http://localhost:3000/' + path; 
     }

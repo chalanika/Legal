@@ -24,6 +24,7 @@ export class FileComponent implements OnInit {
 
     tasks = [{'id': '1', 'name':'Upload file to your store'}, {'id':'2', 'name': 'Share files with lawyer'} , 
                                                                         {'id':'3', 'name': 'Received Files'}];
+    searchText;
     choise;
     types;
     images;
@@ -42,7 +43,10 @@ export class FileComponent implements OnInit {
     revf = 0;
     fileName;
     showMsg: boolean = false;
-    receivedFiles:any = [];
+    receivedFiles;
+    objId;
+    client;
+    clientNic;
 
     shareForm: FormGroup = new FormGroup({
         image: new FormControl(null),
@@ -80,6 +84,10 @@ export class FileComponent implements OnInit {
         .subscribe(
             data=>{
                 this.addName(data);
+                if(this.type == "Lawyer")
+                this.runThis();
+                if(this.type == "Client")
+                this.runThis2();
                 // this.uploader.onBeforeUploadItem = (item: any) => {
                 //     this.uploader.options.additionalParameter = {
                 //       nic: this.nic,
@@ -104,8 +112,8 @@ export class FileComponent implements OnInit {
                     //     console.log(value);
                     //   }); 
                     // {'id': 'Admin', 'name':'Admin'}, {'id':'Lawyer', 'name': 'Lawyer'}, {'id':'Client', 'name': 'Client'}
-                    this.types = data['All Lawyers'];
-                    console.log(this.types);
+                    // this.types = data['All Lawyers'];
+                    // console.log(this.types);
                 },
                 error=>console.log('error')
             )
@@ -116,6 +124,34 @@ export class FileComponent implements OnInit {
     this.nic = data.nic;
     this.type = data.type;
     this.currentUserType = data.type;
+    this.objId = data._id;
+}
+
+runThis(){
+    this._user.getConnect(this.objId)
+            .subscribe(
+                data=>{
+                    console.log(data)
+                    this.types = data['All Connect'];
+                    const result = Array.from(this.types.reduce((m, t) => m.set(t.name, t), new Map()).values());
+                    this.types = result;
+                    console.log(this.types);
+                },
+                error=>console.log('error')
+            )
+}
+
+runThis2(){
+    this._user.getConnect2(this.objId)
+            .subscribe(
+                data=>{
+                    console.log(data)
+                    this.types = data['All Connect'];
+                    const result = Array.from(this.types.reduce((m, t) => m.set(t.name, t), new Map()).values());
+                    this.types = result;
+                },
+                error => console.log('error')
+            )
 }
 
   download(index){
@@ -128,6 +164,21 @@ export class FileComponent implements OnInit {
     );
 }
 
+downloadFile(shFile){
+      this._fileService.downloadShFile(this.nic,shFile)
+      .subscribe(
+          data => saveAs(data, shFile),
+          error => console.log(error)
+      )
+}
+
+deleteFile(shFile){
+    this._fileService.deleteShFile(this.nic,shFile)
+      .subscribe(
+          data => {console.log(data)},
+          error => console.log(error)
+      )
+}
 
   ngOnInit() {
         this.isActive = false;
@@ -138,9 +189,9 @@ export class FileComponent implements OnInit {
 
   share(){
     let data = new FormData();
-    
-    data.append('lawyer', this.shareForm.controls.lawyer.value);
+    data.append('lawyer', this.clientNic);
     data.append('nic', this.nic);
+    data.append('fromName',this.username);
     data.append('task' , 'share');
     data.append('image', this.imageFile, this.imageFile['name']);
 
@@ -173,7 +224,7 @@ revF(){
     this.sharef = 0;
 
     this._user.rev(this.nic).subscribe(
-        data => {console.log(data);this.receivedFiles = data},// window.location.reload();
+        data => {this.receivedFiles = data['Received Files'],console.log(this.receivedFiles);},// window.location.reload();
         error => {console.log(error);}
     )
 
@@ -205,6 +256,16 @@ asyncFunc = (...args) =>
 
   callType(value){
     this.choise = value;
+    console.log(value);
+    this._user.getClient(value).subscribe(
+        data=>{
+            this.client = data;
+            console.log(this.client);
+            console.log(this.client.nic);
+            this.clientNic = this.client.nic;
+        },
+        err=>{console.log(err);}
+    )
     return;
 }
 
@@ -259,5 +320,15 @@ onLoggedout() {
         )
         localStorage.removeItem('isLoggedin');
 }
+
+// search(){
+//     if(this.receivedFiles.name!=""){
+
+//     }else if(this.receivedFiles.name==""){
+//         this.receivedFiles = this.receivedFiles.filter(res=>{
+//             return this.receivedFiles.name.toLocalLowerCase().match(this.receivedFiles.name.toLocalLowerCase());
+//         });
+//     }
+// }
 
 }

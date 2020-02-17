@@ -1,0 +1,19 @@
+<header class="bg-secondary text-center py-5 mb-4">
+  <div class="container">
+    <h1 class="text-center text-dark m-5" class="font-weight-light text-white"><b>Area of Law: {{category}} Law</b></h1>
+  </div>
+</header>
+<br>
+
+<!-- <div style="background-image: 'assets/images/Logogrey.png';"> -->
+
+<!-- </div> -->
+<div class=" m-5" *ngIf="lawyers?.length > 0">
+  <div style="text-align: center;" *ngFor="let lawyer of lawyers">
+    <button type="button" class="btn btn-link" (click)="getMessage();">{{lawyer.username}}</button>
+  </div>
+  <div *ngIf="sucess == 1" class="m-1" >
+    <div *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert?.type" (close)="close(alert)">{{ alert?.message }}</ngb-alert>
+      </div>
+</div>

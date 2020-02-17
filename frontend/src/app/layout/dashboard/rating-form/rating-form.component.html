@@ -1,7 +1,7 @@
 <div *ngIf="this.currentUser?.type == 'Client'">
   <ng-template #content let-modal>
     <div class="modal-header bg-info text-white " >
-      <h4 class="modal-title m-0" id="modal-basic-title">Rate the lawyer</h4>
+      <h4 class="modal-title m-0" id="modal-basic-title">Rate the lawyer ({{caseModel.lawyerName}})</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
