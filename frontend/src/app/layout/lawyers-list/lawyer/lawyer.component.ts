@@ -25,7 +25,7 @@ import { Rate } from 'src/app/core/models/Rate';
   `]
 })
 export class LawyerComponent implements OnInit {
-  
+
   @Input() lawyer; //get value from parent to child
   public isCollapsed = true;
   imageUrl;
@@ -33,73 +33,77 @@ export class LawyerComponent implements OnInit {
   currentUserType;
   rates;
   averageRate;
-  alert=0;
+  alert = 0;
   rateModel = new Rate();
-  
-  constructor(private router:Router,private _userService:UserService) { }
+
+  constructor(private router: Router, private _userService: UserService) { }
 
   ngOnInit() {
     console.log(this.lawyer);
     this.getCurrentUser();
     this.displayLawyerPic();
     this.getRates();
-       
   }
 
-  displayLawyerPic(){
-    if(this.lawyer.image){
+  displayLawyerPic() {
+    if (this.lawyer.image) {
       var path = this.lawyer.image.replace(/\\/g, '/');
       path = path.replace(/public/g, '');
-      this.imageUrl = 'http://localhost:3000/' + path; 
+      this.imageUrl = 'http://localhost:3000/' + path;
     }
   }
 
-  appointment(){
+  appointment() {
     this.router.navigate([`/book/${this.lawyer._id}`]);
   }
 
-  getCurrentUser(){
+  getCurrentUser() {
     this._userService.user().subscribe(
-      res=>{
-        this.currentUser = res;  
+      res => {
+        this.currentUser = res;
         this.currentUserType = this.currentUser.type;
- 
+
       }, err => {
         console.log(err);
       }
     );
   }
 
-//get rate values
-getRates(){
-  let sum = 0;
-  this._userService.getRate(this.lawyer._id).subscribe(
-      res=>{
-          this.rates = res;
-          for (let i in this.rates){
-              sum += this.rates[i].rate;
-          }
-          this.averageRate=sum/this.rates.length;
-      },
-      error=>console.log(error)
-  )
-}
+  //get rate values
+  getRates() {
+    let sum = 0;
+    this.rates = this.lawyer.rates;
+    for (let i in this.rates) {
+      sum += this.rates[i].rate;
+    }
+    this.averageRate = sum / this.rates.length;
+    // this._userService.getRate(this.lawyer._id).subscribe(
+    //     res=>{
+    //         this.rates = res;
+    //         for (let i in this.rates){
+    //             sum += this.rates[i].rate;
+    //         }
+    //         this.averageRate=sum/this.rates.length;
+    //     },
+    //     error=>console.log(error)
+    // )
+  }
 
-delete(info){
-  this._userService.deleteUser(info)
-        .subscribe(
-            data => {console.log(data);this.alert=1;this.asyncFunc();window.location.reload(); },
-            error => {
-                console.error(error);
-                return;
-            }
-        );
-}
+  delete(info) {
+    this._userService.deleteUser(info)
+      .subscribe(
+        data => { console.log(data); this.alert = 1; this.asyncFunc(); window.location.reload(); },
+        error => {
+          console.error(error);
+          return;
+        }
+      );
+  }
 
-asyncFunc = (...args) => 
-            new Promise(r => setTimeout(r , 2500))
-            .then(() => {
-                this.alert = 0;
-            });
+  asyncFunc = (...args) =>
+    new Promise(r => setTimeout(r, 2500))
+      .then(() => {
+        this.alert = 0;
+      });
 
 }

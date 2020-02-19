@@ -65,7 +65,7 @@
   </div>
 
   <div class="alert alert-primary" role="alert" *ngIf='ongoingCases?.length == 0 && closedCases?.length == 0 '>
-    There is not a Case yet.
+    You have no Cases yet
   </div>
 </div>
 
@@ -80,9 +80,9 @@
             <a [routerLink]="['/case', ongoingCase._id]" routerLinkActive="routerLinkActive" class="text-white">
               {{ongoingCase.caseName}}</a>
           </div>
-          <div class="col">
+          <!-- <div class="col">
             <button class="btn btn-dark btn-sm m-2 pull-right" (click)="editCase(ongoingCase)">Close</button>
-          </div>
+          </div> -->
         </div>
         <div class="row m-2">
           <div class="col-4">
@@ -110,9 +110,9 @@
             <a [routerLink]="['/case', closedCase._id]" routerLinkActive="routerLinkActive" class="text-white">
               {{closedCase.caseName}}</a>
           </div>
-          <!-- <div class="col">
+          <div class="col">
             <button class="btn btn-dark btn-sm m-2 pull-right" disabled>Closed</button>
-          </div> -->
+          </div>
         </div>
         <div class="row m-2">
           <div class="col-3">
@@ -134,6 +134,6 @@
   </div>
 
   <div class="alert alert-primary" role="alert" *ngIf='ongoingCases?.length == 0 && closedCases?.length == 0 '>
-    There is not a Case yet.
+    You have no cases yet
   </div>
 </div>

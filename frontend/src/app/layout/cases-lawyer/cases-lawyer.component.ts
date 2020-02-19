@@ -69,6 +69,7 @@ export class CasesLawyerComponent implements OnInit {
   }
   //edit is_closed to true
   editCase(newCase) {
+    console.log(newCase);
     newCase.is_closed = true;
     newCase.closedDate = new Date;
     this._caseService.editCase(newCase._id, newCase).subscribe(

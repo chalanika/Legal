@@ -55,10 +55,11 @@ export class LawyersListComponent implements OnInit {
     );
     this.alerts = Array.from(ALERTS);
     this.getCurrentUser();
-
-
   }
 
+  close(alert: Alert) {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
+  }
   //event handler for the radio button's change event
   radioChangeaHandler(event: any) {
     this.selectedCategory = event.target.value;
@@ -105,7 +106,8 @@ export class LawyersListComponent implements OnInit {
             console.log(this.successBooking);
           }
         }
-
+      },err=>{
+        console.log(err);
       }
     );
   }
@@ -118,11 +120,6 @@ export class LawyersListComponent implements OnInit {
       }, err => {
         console.log(err);
       });
-  }
-
-
-  close(alert: Alert) {
-    this.alerts.splice(this.alerts.indexOf(alert), 1);
   }
 
   getCurrentUser() {

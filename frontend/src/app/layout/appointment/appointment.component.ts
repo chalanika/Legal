@@ -48,7 +48,6 @@ export class AppointmentComponent implements OnInit {
     this._appointmentService.getClientsConfirmedAppointments(id).subscribe(
       res=>{
         this.confirmedAppointments = res;
-
       },err=>{
         console.log(err);
       }

@@ -24,10 +24,10 @@ router.post('/', async (req, res) => {
     res.json({ message: error });
   }
 });
-//get an appointment with isAlert == false and special client
+//get an appointment with isAlert == false for a  special client
 router.get('/:id', async (req, res) => {
   try {
-    console.log('ertyuiokpl;');
+    console.log('isAlert=false');
     const received = await Appointment.find({ clientId: req.params.id, isAlert: false });
     res.json(received);
   } catch (error) {

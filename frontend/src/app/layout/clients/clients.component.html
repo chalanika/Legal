@@ -40,7 +40,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-primary btn-lg btn-block"
-                    (click)="modal.close('Save click'); openCase(pendingClient); ">Submit</button>
+                    (click)="modal.close('Save click'); openCase(pendingClient);caseForm.reset(); ">Submit</button>
                 </div>
               </form>
             </ng-template>
@@ -50,7 +50,6 @@
     </div>
   </div><br>
   <!-- display current clients -->
-
   <div *ngIf='clients?.length>0'>
     <h2 class="text-muted"><b>Clients</b></h2><br>
     <div *ngFor='let client of clients'>
@@ -67,5 +66,5 @@
   </div>
 </div>
 <div class="alert alert-primary" role="alert" *ngIf='pendingClients?.length == 0 && clients?.length == 0'>
-  There is no Clients yet.
+  You have no clients yet
 </div>

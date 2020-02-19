@@ -46,8 +46,7 @@ export class ClientsComponent implements OnInit {
     this._userService.user().subscribe(
       res=>{
         this.currentUser = res; 
-        this.getPendingClients(this.currentUser._id); 
-          
+        this.getPendingClients(this.currentUser._id);     
       }, err => {
         console.log(err);
       }
@@ -71,8 +70,7 @@ export class ClientsComponent implements OnInit {
     this._appointmentService.deleteAppointment(appointment._id).subscribe(
       res=>{
         console.log(res);
-        this.getPendingClients(this.currentUser._id);
-       
+        this.getPendingClients(this.currentUser._id);  
       },err=>{
         console.log(err);
       }
@@ -104,7 +102,6 @@ export class ClientsComponent implements OnInit {
    this._caseService.getClients(id).subscribe(
      res=>{
        this.clients = res;
-       console.log("ppppppppppppppppppppp");
        console.log(this.clients);
      },err=>{
        console.log(err);
